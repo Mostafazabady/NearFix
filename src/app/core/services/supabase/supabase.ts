@@ -25,51 +25,53 @@ export class Supabase {
 
   get client() { return this.supabase; }
 
-  private initSession() {
-    this.supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session?.user) {
-        this.fetchProfile(session.user.id);
-      } else {
-        this.isInitialLoadDone.set(true);
-        this.unreadOrdersCount.set(0);
-        this.unreadJobsCount.set(0);
-      }
-    });
-
-    this.supabase.auth.onAuthStateChange((_event, session) => {
-      if (session?.user) {
-        this.unreadOrdersCount.set(0); 
-        this.unreadJobsCount.set(0);
-        this.fetchProfile(session.user.id);
-      } else {
-        this.currentUser.set(null);
-        this.currentRole.set(null);
-        this.unreadOrdersCount.set(0);
-        this.unreadJobsCount.set(0);
-      }
-    });
+private async initSession() {
+  // ✅ خلي initSession نفسها async
+  const { data: { session } } = await this.supabase.auth.getSession();
+  
+  if (session?.user) {
+    await this.fetchProfile(session.user.id);
+  } else {
+    this.isInitialLoadDone.set(true);
   }
 
-  // ✅ تحديث دالة جلب البروفايل لتكون أكثر أماناً وتدعم الـ Z-index Fix
-  async fetchProfile(userId: string) {
-    try {
-      const { data, error } = await this.supabase
-        .from('profiles')
-        .select('*')
-        .eq('id', userId)
-        .single();
-
-      if (data && !error) {
-        this.currentUser.set(data);
-        this.currentRole.set(data.role);
-        this.setupRealtime(userId, data.role);
-      }
-    } catch (err) {
-      console.error('Error fetching profile:', err);
-    } finally {
+  // Auth state changes
+  this.supabase.auth.onAuthStateChange((_event, session) => {
+    if (session?.user) {
+      this.unreadOrdersCount.set(0);
+      this.unreadJobsCount.set(0);
+      this.fetchProfile(session.user.id);
+    } else {
+      this.currentUser.set(null);
+      this.currentRole.set(null);
+      this.unreadOrdersCount.set(0);
+      this.unreadJobsCount.set(0);
       this.isInitialLoadDone.set(true);
     }
+  });
+}
+
+  // ✅ تحديث دالة جلب البروفايل لتكون أكثر أماناً وتدعم الـ Z-index Fix
+ async fetchProfile(userId: string) {
+  try {
+    const { data, error } = await this.supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', userId)
+      .single();
+
+    if (data && !error) {
+      this.currentUser.set(data);
+      this.currentRole.set(data.role);
+      this.setupRealtime(userId, data.role);
+    }
+  } catch (err) {
+    console.error('Error fetching profile:', err);
+  } finally {
+    // ✅ بس هنا بعد ما fetchProfile يخلص
+    this.isInitialLoadDone.set(true);
   }
+}
 
   // ✅ دالة فحص الجلسة يدوياً (لحل مشكلة اختفاء النافبار)
   async checkUserSession() {

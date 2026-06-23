@@ -7,6 +7,7 @@ export const authGuard: CanActivateFn = async () => {
   const supabase = inject(Supabase);
   const router   = inject(Router);
 
+  // ✅ استنى لحد ما يخلص تحميل
   await waitForLoad(supabase);
 
   const user = supabase.currentUser();
