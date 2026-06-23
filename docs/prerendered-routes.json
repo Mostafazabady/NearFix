@@ -1,0 +1,19 @@
+{
+  "routes": {
+    "/NearFix": {},
+    "/NearFix/Auth": {},
+    "/NearFix/Auth/Login": {},
+    "/NearFix/Auth/PendingApproval": {},
+    "/NearFix/Auth/Register": {},
+    "/NearFix/Auth/RoleSelection": {},
+    "/NearFix/Auth/artisan-signup": {},
+    "/NearFix/ClientOrder": {},
+    "/NearFix/WhoUs": {},
+    "/NearFix/artisan-available-jobs": {},
+    "/NearFix/client-profile": {},
+    "/NearFix/home": {},
+    "/NearFix/join-us": {},
+    "/NearFix/our-services": {},
+    "/NearFix/update-artisan-profile": {}
+  }
+}

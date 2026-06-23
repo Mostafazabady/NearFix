@@ -1,0 +1,380 @@
+// =================== Variables ===================
+$brand: #2563eb;
+$brand-soft: #eff6ff;
+$orange: #f97316;
+$text-dark: #111827;
+$text-muted: #9ca3af;
+$border: rgba(255, 255, 255, 0.08);
+$bg-footer: #0f172a;
+$bg-footer-2: #1e293b;
+$white: #ffffff;
+$radius-md: 12px;
+$radius-sm: 8px;
+
+// =================== Footer ===================
+.site-footer {
+  background: $bg-footer;
+  color: $white;
+  padding-top: 64px;
+  font-family: 'Cairo', sans-serif;
+  position: relative;
+
+  // خط علوي ملون
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, $brand 0%, $orange 100%);
+  }
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+// =================== Grid ===================
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1.2fr 1.3fr;
+  gap: 48px;
+  padding-bottom: 48px;
+}
+
+// =================== Logo ===================
+.footer-logo {
+  display: inline-block;
+  font-size: 22px;
+  font-weight: 800;
+  color: $white;
+  text-decoration: none;
+  margin-bottom: 14px;
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, $white 0%, rgba($white, 0.7) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+// =================== Description ===================
+.footer-desc {
+  font-size: 13px;
+  line-height: 1.8;
+  color: rgba($white, 0.5);
+  margin: 0 0 20px;
+
+  strong {
+    color: $orange;
+    font-weight: 700;
+  }
+}
+
+// =================== Social ===================
+.social-links {
+  display: flex;
+  gap: 8px;
+}
+
+.social-icon {
+  width: 36px;
+  height: 36px;
+  background: rgba($white, 0.06);
+  border: 1px solid $border;
+  border-radius: $radius-sm;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba($white, 0.5);
+  text-decoration: none;
+  transition: all 0.25s;
+
+  &:hover {
+    background: $brand;
+    border-color: $brand;
+    color: $white;
+    transform: translateY(-2px);
+  }
+}
+
+// =================== Headings ===================
+.footer-heading {
+  font-size: 14px;
+  font-weight: 700;
+  color: $white;
+  margin: 0 0 20px;
+  padding-bottom: 12px;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 28px;
+    height: 2px;
+    background: $brand;
+    border-radius: 2px;
+  }
+}
+
+// =================== Links List ===================
+.footer-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  li a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: rgba($white, 0.5);
+    text-decoration: none;
+    transition: all 0.2s;
+    padding: 2px 0;
+
+    svg {
+      opacity: 0.4;
+      flex-shrink: 0;
+      transition: opacity 0.2s;
+    }
+
+    &:hover {
+      color: $white;
+      padding-right: 4px;
+
+      svg { opacity: 1; }
+    }
+  }
+}
+
+// =================== Contact List ===================
+.contact-list {
+  li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13px;
+    color: rgba($white, 0.5);
+
+    .contact-icon {
+      flex-shrink: 0;
+      color: $brand;
+      margin-top: 2px;
+    }
+
+    a {
+      color: rgba($white, 0.5);
+      text-decoration: none;
+      font-size: 13px;
+      transition: color 0.2s;
+      word-break: break-all;
+
+      &:hover { color: $white; }
+    }
+
+    span {
+      font-size: 13px;
+      line-height: 1.5;
+    }
+  }
+}
+
+// =================== Artisan CTA ===================
+.artisan-col {
+  .footer-desc {
+    margin-bottom: 16px;
+  }
+}
+
+.artisan-perks {
+  list-style: none;
+  margin: 0 0 20px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: rgba($white, 0.55);
+
+    svg {
+      color: #22c55e;
+      flex-shrink: 0;
+    }
+
+    span { line-height: 1.4; }
+  }
+}
+
+.artisan-join-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: $brand;
+  color: $white;
+  text-decoration: none;
+  padding: 11px 20px;
+  border-radius: $radius-sm;
+  font-size: 13px;
+  font-weight: 700;
+  transition: all 0.25s;
+  width: 100%;
+  justify-content: center;
+  box-sizing: border-box;
+
+  &:hover {
+    background: darken(#2563eb, 8%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba($brand, 0.3);
+  }
+}
+
+// =================== Divider ===================
+.footer-divider {
+  border: none;
+  border-top: 1px solid $border;
+  margin: 0;
+}
+
+// =================== Bottom ===================
+.footer-bottom {
+  padding: 20px 0;
+  text-align: center;
+
+  p {
+    font-size: 13px;
+    color: rgba($white, 0.35);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    flex-wrap: wrap;
+
+    span {
+      color: rgba($white, 0.6);
+      font-weight: 600;
+    }
+  }
+}
+
+// =================== RESPONSIVE ===================
+
+// -------- Tablet --------
+@media (max-width: 900px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 36px 40px;
+  }
+
+  .site-footer {
+    padding-top: 48px;
+  }
+}
+
+// -------- Mobile --------
+@media (max-width: 600px) {
+  .site-footer {
+    padding-top: 36px;
+  }
+
+  .footer-container {
+    padding: 0 16px;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding-bottom: 32px;
+  }
+
+  .footer-logo {
+    font-size: 20px;
+  }
+
+  // في الموبايل الـ brand col يكون أفقي
+  .brand-col {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    gap: 0 16px;
+    align-items: start;
+
+    .footer-logo {
+      grid-column: 1;
+      grid-row: 1;
+      margin-bottom: 8px;
+    }
+
+    .footer-desc {
+      grid-column: 1;
+      grid-row: 2;
+      margin-bottom: 0;
+    }
+
+    .social-links {
+      grid-column: 2;
+      grid-row: 1 / 3;
+      flex-direction: column;
+      align-self: center;
+    }
+  }
+
+  .footer-heading {
+    font-size: 13px;
+    margin-bottom: 14px;
+  }
+
+  // الروابط في الموبايل في صفين
+  .links-col .footer-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 16px;
+  }
+
+  .artisan-join-btn {
+    padding: 12px;
+  }
+
+  .footer-bottom p {
+    font-size: 12px;
+  }
+}
+
+// -------- Very Small --------
+@media (max-width: 380px) {
+  .footer-grid {
+    gap: 24px;
+  }
+
+  .brand-col {
+    grid-template-columns: 1fr;
+
+    .social-links {
+      grid-column: 1;
+      grid-row: 3;
+      flex-direction: row;
+      margin-top: 12px;
+    }
+  }
+
+  .links-col .footer-list {
+    grid-template-columns: 1fr;
+  }
+
+  .artisan-perks li {
+    font-size: 12px;
+  }
+}

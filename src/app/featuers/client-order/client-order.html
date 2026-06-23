@@ -1,0 +1,194 @@
+<div class="orders-universe" dir="rtl">
+
+  <div class="cosmos-bg">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="grid-overlay"></div>
+  </div>
+
+  <header class="universe-header">
+    <div class="header-inner">
+      <div class="header-eyebrow">لوحة التحكم</div>
+      <h1 class="header-title">
+        <span class="title-word">طلباتي</span>
+        <span class="title-accent">الجارية</span>
+      </h1>
+      <p class="header-sub">تابع حالة خدماتك لحظةً بلحظة</p>
+    </div>
+    <div class="header-badge" *ngIf="!isLoading()">
+      <span class="pulse-dot"></span>
+      <span>{{ orders().length }} طلب نشط</span>
+    </div>
+  </header>
+
+  <div *ngIf="isLoading()" class="loader-cosmos">
+    <div class="loader-ring">
+      <div class="ring r1"></div>
+      <div class="ring r2"></div>
+      <div class="ring r3"></div>
+    </div>
+    <p class="loader-text">جاري استجلاب طلباتك...</p>
+  </div>
+
+  <div class="cards-stage" *ngIf="!isLoading()">
+    <div
+      *ngFor="let order of orders(); let i = index"
+      class="order-card"
+      [attr.data-status]="order.status"
+      [style.--delay]="(i * 0.12) + 's'">
+
+      <div class="status-rail">
+        <div class="rail-fill"></div>
+      </div>
+
+      <div class="card-glow"></div>
+
+      <div class="card-top">
+        <div class="artisan-block">
+          <div class="avatar-frame">
+            <img
+              [src]="order.artisan_details?.profile_pic_url || 'https://ui-avatars.com/api/?name=' + (order.artisan_details?.full_name || 'A') + '&background=1a1a2e&color=c9a84c&bold=true'"
+              alt="Artisan"
+              class="artisan-img">
+            <div class="avatar-ring"></div>
+          </div>
+          <div class="artisan-meta">
+            <h3 class="artisan-name">{{ order.artisan_details?.full_name || 'حرفي محترف' }}</h3>
+            <div class="meta-pills">
+              <span class="pill-profession">
+                <i class="fas fa-hammer"></i>
+                {{ order.profession_name }}
+              </span>
+              <span class="pill-date">
+                <i class="far fa-clock"></i>
+                {{ order.created_at | date:'dd/MM/yyyy' }}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="status-chip" [attr.data-status]="order.status">
+          <span class="chip-dot"></span>
+          <span *ngIf="order.status === 'pending'">انتظار</span>
+          <span *ngIf="order.status === 'accepted' || order.status === 'in_progress'">جارٍ</span>
+          <span *ngIf="order.status === 'completed'" style="color: #10b981;">بانتظار تقييمك</span>
+        </div>
+      </div>
+
+      <div class="timeline-track">
+        <div class="tl-step" [class.done]="true" [class.active]="order.status === 'pending'">
+          <div class="tl-node">
+            <i class="fas fa-paper-plane"></i>
+          </div>
+          <div class="tl-label">أُرسل</div>
+        </div>
+        <div class="tl-line" [class.filled]="order.status !== 'pending'"></div>
+        <div class="tl-step"
+          [class.done]="order.status === 'accepted' || order.status === 'in_progress' || order.status === 'completed'"
+          [class.active]="order.status === 'accepted' || order.status === 'in_progress'">
+          <div class="tl-node">
+            <i class="fas fa-tools"></i>
+          </div>
+          <div class="tl-label">قُبل</div>
+        </div>
+        <div class="tl-line" [class.filled]="order.status === 'completed'"></div>
+        <div class="tl-step" 
+          [class.done]="order.status === 'completed'" 
+          [class.active]="order.status === 'completed'">
+          <div class="tl-node">
+            <i class="fas fa-flag-checkered"></i>
+          </div>
+          <div class="tl-label">أُنجز</div>
+        </div>
+      </div>
+
+ <div class="message-zone" dir="rtl">
+
+        <div class="msg-card msg-pending" *ngIf="order.status === 'pending'">
+          <div class="msg-icon-wrap">
+            <i class="fas fa-satellite-dish"></i>
+          </div>
+          <div class="msg-text">
+            <strong>نحن بصدد تأكيد طلبك الآن ...</strong>
+            <p>
+              تم إرسال تفاصيل الخدمة إلى المتخصص <span class="highlight-name">{{ order.artisan_details?.full_name || 'المطلوب' }}</span> وجاري تأكيد جاهزيته للتحرك فوراً. انتظرنا ثوانٍ معدودة، فالفريق يعمل على بدء خدمتك بأسرع وقت!
+            </p>
+          </div>
+        </div>
+
+        <div class="msg-card msg-accepted" *ngIf="order.status === 'accepted' || order.status === 'in_progress'">
+          <div class="msg-icon-wrap">
+            <i class="fas fa-bolt"></i>
+          </div>
+          <div class="msg-text">
+            <strong>المتخصص في طريقه إليك الآن! 🚀</strong>
+            <p>
+              أهلاً بك، لقد وافق المحترف <span class="highlight-name">{{ order.artisan_details?.full_name }}</span> على طلبك رسمياً وهو الآن يستعد أو في الطريق متوجهاً إليك. لضمان راحتك وسرعة الوصول، تم تزويده بموقعك الجغرافي الدقيق وبيانات الاتصال الخاصة بك بأمان كامل، وسيقوم بالتواصل معك هاتفياً عند اقترابه من الموقع لتنسيق الدخول او يمكنك انت الاتصال به لمعرفة مكانه و وقت وصوله اليك من خلال رقم الهاتف او زر الواتساب الموجود في الاسفل . اطمئن، طلبك في أيدٍ أمينة ونتابع خط سيره!
+            </p>
+          </div>
+        </div>
+
+        <div class="msg-card msg-completed" *ngIf="order.status === 'completed'">
+          <div class="msg-icon-wrap" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">
+            <i class="fas fa-check-circle"></i>
+          </div>
+          <div class="msg-text" style="width: 100%;">
+            <strong style="color: #10b981;">تهانينا، تم إنجاز العمل بنجاح! 🎉</strong>
+            <p>
+              أكّد المتخصص <span class="highlight-name">{{ order.artisan_details?.full_name }}</span> إنهاء كافة أعمال الصيانة المطلوبة وتسليم الخدمة لك. يسعدنا جداً الاطمئنان على رضاك تام؛ يرجى تقييم تجربتك وترك رأيك الصادق لتأكيد إغلاق الطلب ونقله إلى أرشيفك الشخصي:
+            </p>
+            
+            <div class="rating-stars-zone" style="margin: 12px 0; display: flex; gap: 8px; font-size: 24px; cursor: pointer;">
+              <i *ngFor="let star of getStars(5)" 
+                 [class]="star <= (inlineRatingData[order.id] || 0) ? 'fas fa-star' : 'far fa-star'"
+                 [style.color]="star <= (inlineRatingData[order.id] || 0) ? '#f59e0b' : '#d1d5db'"
+                 (click)="setInlineRating(order.id, star)">
+              </i>
+            </div>
+
+            <div class="review-box-wrap" style="margin-top: 10px; display: flex; flex-direction: column; gap: 8px;">
+              <textarea #reviewTextarea 
+                        placeholder="اكتب تعليقك عن جودة الخدمة هنا (اختياري)..." 
+                        style="width: 100%; min-height: 60px; padding: 10px; border-radius: 8px; border: 1px solid #3a3a5e; background: #1a1a2e; color: #fff; font-family: inherit; font-size: 13px; resize: vertical; box-sizing: border-box;"></textarea>
+              <button (click)="submitInlineReview(order.id, reviewTextarea.value)" 
+                      style="background: #c9a84c; color: #1a1a2e; border: none; padding: 10px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; align-self: flex-start; font-size: 13px; transition: all 0.2s;">
+                <i class="fas fa-paper-plane"></i> إرسال التقييم وإغلاق الطلب
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="card-footer" *ngIf="order.status === 'accepted' || order.status === 'in_progress'">
+        <div class="action-row">
+          <a [href]="'tel:' + order.artisan_details?.phone" class="action-btn btn-call">
+            <i class="fas fa-phone-alt"></i>
+            <span>اتصال</span>
+          </a>
+
+          <button
+            *ngIf="order.artisan_details?.phone"
+            (click)="openWhatsApp(order.artisan_details?.phone)"
+            class="action-btn btn-whatsapp">
+            <i class="fab fa-whatsapp"></i>
+            <span>واتساب</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div *ngIf="!isLoading() && orders().length === 0" class="void-state">
+    <div class="void-icon">
+      <div class="void-ring"></div>
+      <i class="fas fa-inbox"></i>
+    </div>
+    <h2>لا طلبات نشطة حالياً</h2>
+    <p>عند تقديم طلب جديد سيظهر هنا فوراً</p>
+  </div>
+  
+
+</div>

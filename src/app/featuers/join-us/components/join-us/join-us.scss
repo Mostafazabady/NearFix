@@ -1,0 +1,967 @@
+// الألوان المستخدمة في الديزاين
+$text-main: #111827; // أسود داكن للعناوين
+$text-muted: #6b7280; // رمادي للفقرات
+$primary-blue: #0f62fe; // أزرق الزرار
+$primary-blue-hover: #0353e9;
+$badge-bg: #e0f2fe; // خلفية البادج
+$badge-text: #0369a1; // نص البادج
+$bg-color: #fafafa; // لون خلفية السكشن خفيف جداً
+$cta-orange: #ff8733;
+// الألوان
+$text-main: #111827;
+$text-muted: #6b7280;
+$white: #ffffff;
+
+// ألوان الثيمات
+$blue-main: #0284c7;
+$blue-light: #e0f2fe;
+$orange-main: #d97706;
+$orange-light: #fef3c7;
+$primary: #0056b3;
+$primary-hover: #004494;
+$bg-light: #f4f7fe;
+$text-dark: #1a202c;
+$text-muted: #718096;
+$error-red: #e53e3e;
+// متغيرات الألوان
+$blue-clr: #0056b3;
+$orange-clr: #b45309;
+$bg-soft: #f9fafb;
+$text-main: #111827;
+$text-muted: #6b7280;
+
+
+
+
+
+
+
+
+.join-hero-section {
+  background-color: $white;
+  padding: 80px 20px;
+  font-family: 'Tajawal', sans-serif;
+  overflow: hidden;
+  position: relative;
+
+  // تأثير إضاءة خفيف في الخلفية (اختياري عشان يدي عمق)
+  &::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba($primary-blue, 0.05) 0%, rgba(255,255,255,0) 70%);
+    z-index: 0;
+  }
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+}
+
+// === الجزء الأيمن (النصوص) ===
+.text-content {
+  flex: 1;
+  max-width: 550px;
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: $badge-bg;
+    color: $badge-text;
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 24px;
+
+    .badge-icon {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  .main-title {
+    font-size: 46px;
+    font-weight: 900;
+    color: $text-main;
+    line-height: 1.2;
+    margin: 0 0 20px 0;
+    letter-spacing: -0.5px;
+  }
+
+  .description {
+    font-size: 18px;
+    color: $text-muted;
+    line-height: 1.7;
+    margin: 0 0 32px 0;
+  }
+
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background-color: $cta-orange;
+    color: #ffffff;
+    border: none;
+    padding: 16px 32px;
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Tajawal', sans-serif;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba($primary-blue, 0.3);
+
+    .arrow-icon {
+      width: 20px;
+      height: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    &:hover {
+      background-color: $primary-blue-hover;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba($primary-blue, 0.4);
+
+      .arrow-icon {
+        transform: translateX(-5px); // السهم بيتحرك للشمال مع الهوفر
+      }
+    }
+  }
+}
+
+// === الجزء الأيسر (الصورة) ===
+.image-content {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+
+  .image-frame {
+    background-color: #ffffff;
+    padding: 12px; // المساحة البيضاء حوالين الصورة
+    border-radius: 24px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08); // الشادو اللي مدي بروز للكارت
+    max-width: 500px;
+    width: 100%;
+    transform: rotate(-10deg); // ميل خفيف جداً بيدي شكل ديناميكي
+    transition: transform 0.4s ease;
+
+    &:hover {
+      transform: rotate(0deg) scale(1.02);
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 16px; // حواف الصورة نفسها
+      display: block;
+      object-fit: cover;
+    }
+  }
+
+
+
+
+
+ .image-frame-2 {
+    background-color: #ffffff;
+    padding: 12px; // المساحة البيضاء حوالين الصورة
+    border-radius: 24px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08); // الشادو اللي مدي بروز للكارت
+    max-width: 500px;
+    width: 100%;
+    transform: rotate(10deg); // ميل خفيف جداً بيدي شكل ديناميكي
+    transition: transform 0.4s ease;
+
+    &:hover {
+      transform: rotate(0deg) scale(1.02);
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 16px; // حواف الصورة نفسها
+      display: block;
+      object-fit: cover;
+    }
+  
+  } 
+
+
+
+
+}
+
+// === التجاوب (Mobile Responsive) ===
+@media (max-width: 992px) {
+  .hero-wrapper {
+    flex-direction: column;
+    text-align: center;
+    gap: 40px;
+  }
+
+  .text-content {
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .main-title {
+      font-size: 36px;
+    }
+  }
+
+  .image-content {
+    justify-content: center;
+    
+    .image-frame {
+      transform: none;
+      
+      &:hover {
+        transform: scale(1.02);
+      }
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .text-content .main-title {
+    font-size: 28px;
+  }
+  
+  .text-content .description {
+    font-size: 16px;
+  }
+}
+
+
+
+
+
+
+
+
+.why-join-section {
+  padding: 100px 20px;
+  background-color: #fafafa; // خلفية رمادي فاتح جداً عشان الكروت البيضاء تنطق
+  font-family: 'Tajawal', sans-serif;
+  text-align: center;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+// === تنسيق الرأس ===
+.section-header {
+  margin-bottom: 70px;
+  
+  h2 {
+    font-size: 34px;
+    font-weight: 800;
+    color: $text-main;
+    margin: 0 0 16px 0;
+  }
+  
+  p {
+    font-size: 18px;
+    color: $text-muted;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+}
+
+// === شبكة الكروت ===
+.benefits-grid {
+  display: grid;
+  // 4 كروت في الشاشات الكبيرة
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+// === تصميم الكارت الأساسي ===
+.benefit-card {
+  position: relative;
+  background: $white;
+  padding: 40px 20px;
+  border-radius: 8px;
+  // بوردر يمين وشمال خفيف جداً عشان يحدد الكارت
+  border-left: 1px solid #f3f4f6;
+  border-right: 1px solid #f3f4f6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02); // شادو هادي جداً في العادي
+
+  // تأثير اللمعة (Shine) المخفي
+  .shine-effect {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 50%, rgba(255,255,255,0) 100%);
+    transform: skewX(-25deg);
+    z-index: 2;
+    transition: none;
+  }
+
+  // --- الأنيميشن عند الهوفر ---
+  &:hover {
+    transform: translateY(-12px); // الكارت بيطير لفوق
+    
+    // اللمعة بتعدي على الكارت
+    .shine-effect {
+      animation: shine 0.8s ease-in-out;
+    }
+
+    // تفاعل الأيقونات
+    .icon-wrapper {
+      transform: scale(1.15); // الأيقونة بتكبر
+      
+      &.money-icon svg { animation: bounce 0.5s ease; }
+      &.clock-icon svg { animation: tickTock 1s infinite alternate; }
+      &.tech-icon svg { animation: spinPulse 2s linear infinite; }
+      &.shield-icon svg { animation: pulseShield 1s infinite alternate; }
+    }
+  }
+
+  // --- تنسيق المحتوى الداخلي ---
+  .icon-wrapper {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    transition: transform 0.4s ease;
+    z-index: 3; // فوق اللمعة
+
+    svg {
+      width: 28px;
+      height: 28px;
+    }
+  }
+
+  h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: $text-main;
+    margin: 0 0 12px 0;
+    z-index: 3;
+  }
+
+  p {
+    font-size: 14px;
+    color: $text-muted;
+    line-height: 1.7;
+    margin: 0;
+    z-index: 3;
+  }
+}
+
+// === الثيم الأزرق ===
+.theme-blue {
+  border-top: 3px solid $blue-main;
+  border-bottom: 3px solid $blue-main;
+
+  .icon-wrapper {
+    background-color: $blue-light;
+    color: $blue-main;
+  }
+
+  &:hover {
+    // شادو بياخد لون الثيم بيظهر في الهوفر
+    box-shadow: 0 20px 40px rgba($blue-main, 0.15);
+  }
+}
+
+// === الثيم البرتقالي/البرونزي ===
+.theme-orange {
+  border-top: 3px solid $orange-main;
+  border-bottom: 3px solid $orange-main;
+
+  .icon-wrapper {
+    background-color: $orange-light;
+    color: $orange-main;
+  }
+
+  &:hover {
+    // شادو بياخد لون الثيم بيظهر في الهوفر
+    box-shadow: 0 20px 40px rgba($orange-main, 0.15);
+  }
+}
+
+// === Animations (السحر الحقيقي) ===
+
+// 1. حركة اللمعة
+@keyframes shine {
+  0% { left: -100%; }
+  100% { left: 200%; }
+}
+
+// 2. حركة أيقونة الفلوس (نطة خفيفة)
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+// 3. حركة الساعة (بتعمل تيك توك)
+@keyframes tickTock {
+  0% { transform: rotate(-10deg); }
+  100% { transform: rotate(10deg); }
+}
+
+// 4. حركة الدعم الفني (نبض ودوران خفيف)
+@keyframes spinPulse {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.05); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+// 5. حركة الدرع (نبضان لحماية والثقة)
+@keyframes pulseShield {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.1); }
+}
+
+// === تجاوب الشاشات (Responsive) ===
+@media (max-width: 1024px) {
+  .benefits-grid {
+    grid-template-columns: repeat(2, 1fr); // كارتين في الصف للتابلت
+  }
+}
+
+@media (max-width: 600px) {
+  .benefits-grid {
+    grid-template-columns: 1fr; // كارت واحد للموبايل
+  }
+  .section-header h2 {
+    font-size: 26px;
+  }
+}
+
+
+
+
+
+
+
+.registration-section {
+  background-color: $bg-light;
+  padding: 80px 20px;
+  font-family: 'Tajawal', sans-serif;
+}
+
+.container.grid-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 50px;
+  max-width: 1100px;
+  margin: 0 auto;
+  align-items: center;
+}
+
+// === تنسيق الجانب النصي ===
+.info-content {
+  .title { font-size: 38px; font-weight: 800; color: $text-dark; margin-bottom: 20px; }
+  .subtitle { font-size: 18px; color: $text-muted; line-height: 1.6; margin-bottom: 30px; }
+  .features-list {
+    list-style: none; padding: 0;
+    li {
+      margin-bottom: 15px; font-weight: 600; color: $text-dark;
+      .check { color: $primary; margin-left: 10px; font-weight: bold; }
+    }
+  }
+}
+
+// === تصميم الكارت والفورم ===
+.form-card {
+  background: #fff;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  animation: fadeInRight 0.8s ease-out;
+}
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+.form-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+
+  label {
+    font-size: 14px; font-weight: 700; color: $text-dark; margin-bottom: 8px;
+    i { font-size: 12px; margin-left: 5px; color: $text-muted; }
+  }
+
+  input, select, textarea {
+    padding: 12px 16px;
+    border: 2px solid #edf2f7;
+    border-radius: 10px;
+    font-family: inherit;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: #f8fafc;
+
+    &:focus {
+      outline: none;
+      border-color: $primary;
+      background: #fff;
+      box-shadow: 0 0 0 4px rgba($primary, 0.1);
+      transform: translateY(-2px);
+    }
+
+    &.error { border-color: $error-red; background-color: #fff5f5; }
+  }
+}
+
+// === اختيار الخبرة (Toggle) ===
+.experience-toggle {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background: #f1f5f9;
+  padding: 5px;
+  border-radius: 12px;
+
+  button {
+    border: none; padding: 10px; border-radius: 8px; cursor: pointer;
+    background: transparent; color: $text-muted; font-weight: 600;
+    transition: all 0.3s ease;
+
+    &.active {
+      background: #fff; color: $primary;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      border: 1px solid rgba($primary, 0.2);
+    }
+  }
+}
+
+// === رسايل الخطأ ===
+.error-msg {
+  color: $error-red; font-size: 12px; margin-top: 5px; font-weight: 600;
+  animation: slideIn 0.3s ease-out;
+}
+
+// === زر الإرسال ===
+.submit-btn {
+  width: 100%; padding: 16px; background: $primary; color: #fff; border: none;
+  border-radius: 12px; font-size: 18px; font-weight: 800; cursor: pointer;
+  transition: all 0.3s ease; margin-top: 10px;
+
+  &:hover:not(:disabled) {
+    background: $primary-hover; transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba($primary, 0.3);
+  }
+
+  &:active { transform: translateY(-1px); }
+
+  &:disabled { background: #cbd5e0; cursor: not-allowed; }
+}
+
+// Animations
+@keyframes slideIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeInRight { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+
+// Responsive
+@media (max-width: 850px) {
+  .container.grid-layout { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.how-it-works {
+  padding: 100px 0;
+  background-color: #fff;
+  font-family: 'Tajawal', sans-serif;
+  overflow: hidden; // عشان الأنيميشنز ما تطلعش برا
+}
+
+.header-area {
+  text-align: center;
+  margin-bottom: 80px;
+  .section-title { font-size: 32px; font-weight: 800; color: $text-main; }
+  .section-desc { color: $text-muted; margin-top: 10px; font-size: 18px; }
+}
+
+.steps-wrapper {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  padding: 0 40px;
+
+  // الخط الواصل بين الخطوات
+  .connection-line {
+    position: absolute;
+    top: 140px; // محاذي لمنتصف الكروت تقريباً
+    left: 10%;
+    right: 10%;
+    height: 2px;
+    background: repeating-linear-gradient(to left, #e5e7eb, #e5e7eb 10px, transparent 10px, transparent 20px);
+    z-index: 0;
+    
+    // أنيميشن سريان الطاقة في الخط
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(to left, transparent, $blue-clr, transparent);
+      background-size: 200% 100%;
+      animation: lineFlow 3s linear infinite;
+    }
+  }
+}
+
+.step-card {
+  position: relative;
+  width: 30%;
+  background: #fff;
+  border: 1px solid #f3f4f6;
+  border-radius: 16px;
+  padding: 40px 30px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 1;
+
+  &:hover {
+    transform: translateY(-15px) scale(1.02);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.08);
+    border-color: rgba($blue-clr, 0.2);
+
+    .icon-box {
+      transform: scale(1.1) rotate(5deg);
+    }
+  }
+
+  // الأيقونة العلوية
+  .icon-box {
+    width: 70px;
+    height: 70px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: -75px auto 30px; // طالعة برا الكارت شوية
+    transition: all 0.4s ease;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    
+    svg { width: 32px; height: 32px; color: #fff; }
+
+    &.blue-theme { background: linear-gradient(135deg, $blue-clr, #3b82f6); }
+    &.orange-theme { background: linear-gradient(135deg, $orange-clr, #f59e0b); }
+    &.blue-dark-theme { background: linear-gradient(135deg, #1e3a8a, $blue-clr); }
+  }
+
+  .card-content {
+    position: relative;
+    
+    // الرقم الخلفي (الإبداع البصري)
+    .step-number {
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 80px;
+      font-weight: 900;
+      color: rgba($blue-clr, 0.05); // لون باهت جداً
+      z-index: -1;
+      animation: floatNum 4s ease-in-out infinite;
+    }
+
+    h3 { font-size: 22px; font-weight: 700; color: $text-main; margin-bottom: 15px; }
+    p { font-size: 15px; color: $text-muted; line-height: 1.7; }
+  }
+}
+
+// === Animations ===
+
+@keyframes lineFlow {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes floatNum {
+  0%, 100% { transform: translate(-50%, 0); }
+  50% { transform: translate(-50%, -15px); }
+}
+
+// التجاوب مع الموبايل
+@media (max-width: 991px) {
+  .steps-wrapper {
+    flex-direction: column;
+    gap: 100px;
+    align-items: center;
+    .connection-line { display: none; } // الخط مش هينفع في الموبايل بالطول
+  }
+  .step-card { width: 80%; }
+}
+
+
+
+
+
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.header-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 40px;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+  }
+}
+
+.nav-buttons {
+  display: flex; gap: 10px;
+  button {
+    width: 50px; height: 50px; border-radius: 50%; border: 1px solid #0056b3;
+    background: #fff; color: #0056b3; cursor: pointer; transition: 0.3s;
+    &:hover { background: #0056b3; color: #fff; }
+  }
+}
+
+.card {
+  background: #fff; border-radius: 20px; overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  height: 100%; border: 1px solid #eee;
+
+  .img-box {
+    position: relative; height: 220px;
+    img { width: 100%; height: 100%; object-fit: cover; }
+    .tag {
+      position: absolute; bottom: 10px; left: 10px;
+      background: #0056b3; color: #fff; padding: 4px 12px;
+      border-radius: 50px; font-size: 12px;
+    }
+  }
+
+  .content {
+    padding: 20px; text-align: center;
+    h3 { margin: 10px 0; color: #333; }
+    p { color: #666; font-size: 14px; line-height: 1.6; }
+    .stars { color: #f59e0b; margin-bottom: 5px; }
+  }
+}
+
+.action-area { text-align: center; margin: 40px; }
+
+.add-btn {
+  background: #0056b3; color: #fff; border: none; padding: 15px 40px;
+  border-radius: 12px; font-weight: bold; cursor: pointer;
+  @media (max-width: 600px) { width: 100%; }
+}
+
+// Modal Styling
+.modal {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+  display: flex; align-items: center; justify-content: center; z-index: 1000;
+  backdrop-filter: blur(4px);
+  
+  .modal-body {
+    background: #fff; width: 90%; max-width: 500px; padding: 30px;
+    border-radius: 20px; position: relative;
+    
+    .upload-section {
+      text-align: center; margin-bottom: 20px;
+      .avatar-preview { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; }
+      label { display: block; color: #0056b3; font-size: 13px; cursor: pointer; margin-top: 5px; }
+    }
+
+    .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
+    
+    input, textarea {
+      width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;
+      margin-bottom: 10px; font-family: inherit;
+    }
+    
+    .save-btn {
+      width: 100%; background: #0056b3; color: #fff; border: none;
+      padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer;
+      &:disabled { background: #ccc; }
+    }
+  }
+}
+
+
+
+
+.stars {
+  color: #f59e0b; // لون برتقالي للنجوم المليانة
+  font-size: 20px;
+  margin-bottom: 5px;
+  
+  .empty {
+    color: #e5e7eb; // لون رمادي للنجوم الفاضية
+  }
+}
+
+.star-rating-selector {
+  text-align: center;
+  margin-bottom: 20px;
+  span { display: block; font-size: 14px; color: #666; margin-bottom: 5px; }
+  
+  .stars-input {
+    font-size: 30px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    
+    span {
+      color: #e5e7eb; // اللون الافتراضي
+      transition: color 0.2s ease;
+      margin: 0;
+      
+      &.active {
+        color: #f59e0b; // لون النجوم المختارة
+      }
+      
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
+  }
+}
+
+// تعديل بسيط في المودال عشان الـ Grid ميبوظش في الموبايل
+.input-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 15px;
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+
+
+
+
+
+
+$primary-blue: #0056b3;
+$bg-light-blue: #e0eaff;
+$text-dark: #1e293b;
+$text-muted: #64748b;
+
+.faq-section {
+  padding: 80px 0;
+  background-color: $bg-light;
+  font-family: 'Tajawal', sans-serif;
+
+  .container { max-width: 800px; margin: 0 auto; padding: 0 20px; }
+
+  .section-title {
+    text-align: center; margin-bottom: 50px;
+    h2 { font-size: 32px; font-weight: 800; color: $text-dark; margin-bottom: 10px; }
+    p { color: $text-muted; font-size: 16px; }
+  }
+}
+
+.faq-list {
+  display: flex; flex-direction: column; gap: 15px; margin-bottom: 60px;
+}
+
+.faq-item {
+  border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden;
+  transition: all 0.3s ease;
+  
+  &.active {
+    border-color: $primary-blue;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    .arrow-icon { transform: rotate(180deg); color: $primary-blue; }
+    .faq-header h3 { color: $primary-blue; }
+  }
+
+  .faq-header {
+    padding: 20px 25px; display: flex; justify-content: space-between;
+    align-items: center; cursor: pointer; background: #fff;
+    
+    h3 { font-size: 18px; font-weight: 700; color: $text-dark; margin: 0; transition: 0.3s; }
+    
+    .arrow-icon {
+      width: 20px; height: 20px; color: $text-muted; transition: 0.3s;
+      svg { width: 100%; height: 100%; }
+    }
+  }
+
+  .faq-body {
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    
+    .content {
+      padding: 0 25px 20px;
+      p { color: $text-muted; line-height: 1.8; font-size: 15px; margin: 0; }
+    }
+  }
+}
+
+.support-card {
+  background-color: $bg-light-blue; border-radius: 20px;
+  padding: 40px; text-align: center;
+  
+  h3 { font-size: 24px; font-weight: 800; color: $text-dark; margin-bottom: 15px; }
+  p { color: $text-muted; margin-bottom: 25px; font-size: 16px; }
+
+  .whatsapp-btn {
+    background-color: $primary-blue; color: #fff; border: none;
+    padding: 14px 30px; border-radius: 10px; font-weight: 700;
+    display: inline-flex; align-items: center; gap: 10px;
+    cursor: pointer; transition: 0.3s; font-size: 16px;
+    
+    &:hover { background-color: darken($primary-blue, 10%); transform: translateY(-2px); }
+    
+    .icon { width: 20px; height: 20px; }
+  }
+}
+
+// Responsive
+@media (max-width: 600px) {
+  .support-card { padding: 30px 20px; }
+  .faq-header h3 { font-size: 16px; }
+}

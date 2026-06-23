@@ -1,0 +1,744 @@
+// =================== Variables ===================
+$brand:       #6c63ff;
+$brand-soft:  rgba(108, 99, 255, 0.08);
+$brand-mid:   rgba(108, 99, 255, 0.15);
+$dark:        #1a1d2e;
+$text-main:   #1a1d2e;
+$text-muted:  #9095b0;
+$border:      #e8eaf0;
+$bg:          #f5f6fa;
+$white:       #ffffff;
+$danger:      #ef4444;
+$radius-lg:   16px;
+$radius-md:   12px;
+$radius-sm:   8px;
+
+// =================== Container ===================
+.editor-container {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 20px 60px;
+  font-family: 'Cairo', sans-serif;
+  background: $bg;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+// =================== Header ===================
+.header {
+  margin-bottom: 28px;
+
+  h2 {
+    font-size: 22px;
+    font-weight: 800;
+    color: $text-main;
+    margin: 0 0 6px;
+  }
+
+  p {
+    font-size: 13px;
+    color: $text-muted;
+    margin: 0;
+    line-height: 1.6;
+  }
+}
+
+// =================== Card ===================
+.card {
+  background: $white;
+  border: 1px solid $border;
+  border-radius: $radius-lg;
+  padding: 24px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+  position: relative;
+  overflow: hidden;
+
+  // الخط الملون العلوي
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, $brand, lighten($brand, 15%));
+    border-radius: $radius-lg $radius-lg 0 0;
+  }
+
+  h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: $text-main;
+    margin: 0 0 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    i {
+      color: $brand;
+      font-size: 15px;
+    }
+  }
+}
+
+// =================== Form Grid ===================
+.grid-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+// =================== Field ===================
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  label {
+    font-size: 12px;
+    font-weight: 700;
+    color: $text-main;
+  }
+
+  input,
+  select,
+  textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid $border;
+    border-radius: $radius-sm;
+    font-family: 'Cairo', sans-serif;
+    font-size: 13px;
+    color: $text-main;
+    background: $white;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
+
+    &:focus {
+      outline: none;
+      border-color: $brand;
+      box-shadow: 0 0 0 3px rgba($brand, 0.08);
+    }
+
+    &::placeholder { color: $text-muted; }
+  }
+
+  select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='%239095b0'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: left 12px center;
+    padding-left: 32px;
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 110px;
+    line-height: 1.7;
+  }
+
+  small {
+    font-size: 11px;
+  }
+}
+
+// =================== Avatar Section ===================
+.avatar-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  .avatar-img-wrap {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+
+    img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid $border;
+      display: block;
+    }
+
+    label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: $dark;
+      color: $white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      cursor: pointer;
+      border: 2px solid $white;
+      transition: background 0.2s;
+
+      &:hover { background: $brand; }
+    }
+  }
+
+  .avatar-info {
+    p {
+      font-size: 13px;
+      font-weight: 700;
+      color: $text-main;
+      margin: 0 0 4px;
+    }
+
+    small {
+      color: $text-muted;
+      font-size: 12px;
+    }
+  }
+}
+
+// =================== Skills ===================
+.skills-input-wrapper {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+
+  input {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1.5px solid $border;
+    border-radius: $radius-sm;
+    font-family: 'Cairo', sans-serif;
+    font-size: 13px;
+    color: $text-main;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+
+    &:focus {
+      outline: none;
+      border-color: $brand;
+      box-shadow: 0 0 0 3px rgba($brand, 0.08);
+    }
+
+    &::placeholder { color: $text-muted; }
+  }
+
+  .btn-add-skill {
+    padding: 10px 16px;
+    border: none;
+    border-radius: $radius-sm;
+    background: $dark;
+    color: $white;
+    cursor: pointer;
+    font-family: 'Cairo', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+    transition: background 0.2s;
+    flex-shrink: 0;
+
+    &:hover { background: $brand; }
+  }
+}
+
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 30px;
+  background: $brand-soft;
+  color: $brand;
+  font-size: 12px;
+  font-weight: 700;
+  border: 1px solid rgba($brand, 0.25);
+
+  i {
+    cursor: pointer;
+    font-size: 10px;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+
+    &:hover { opacity: 1; }
+  }
+}
+
+// =================== Schedule ===================
+.schedule-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.schedule-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .row-num {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: $brand-soft;
+    color: $brand;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  input {
+    padding: 10px 12px;
+    border: 1.5px solid $border;
+    border-radius: $radius-sm;
+    font-family: 'Cairo', sans-serif;
+    font-size: 13px;
+    color: $text-main;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+
+    &:focus {
+      outline: none;
+      border-color: $brand;
+      box-shadow: 0 0 0 3px rgba($brand, 0.08);
+    }
+
+    &::placeholder { color: $text-muted; }
+
+    &:first-of-type { flex: 1; }
+    &:last-of-type  { flex: 1.4; }
+  }
+
+  .btn-delete-row {
+    width: 34px;
+    height: 34px;
+    border-radius: $radius-sm;
+    border: 1px solid #fecaca;
+    background: #fff5f5;
+    color: $danger;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s;
+
+    &:hover:not(:disabled) {
+      background: #fee2e2;
+      border-color: $danger;
+    }
+
+    &:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    i { font-size: 12px; }
+  }
+}
+
+.btn-add {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border: 1.5px solid rgba($brand, 0.3);
+  border-radius: $radius-sm;
+  background: $brand-soft;
+  color: $brand;
+  font-family: 'Cairo', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+
+  &:hover {
+    background: $brand;
+    color: $white;
+    border-color: $brand;
+  }
+}
+
+.schedule-hint {
+  font-size: 12px;
+  color: $text-muted;
+  margin-bottom: 14px;
+  background: $brand-soft;
+  padding: 8px 12px;
+  border-radius: $radius-sm;
+  border: 1px solid rgba($brand, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  line-height: 1.5;
+
+  i { color: $brand; flex-shrink: 0; }
+}
+
+// =================== Portfolio ===================
+.portfolio-section {
+  .portfolio-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+
+    h3 { margin: 0; }
+
+    .badge-count {
+      font-size: 12px;
+      background: $brand-soft;
+      color: $brand;
+      padding: 2px 10px;
+      border-radius: 20px;
+      margin-right: 6px;
+      font-weight: 700;
+    }
+
+    .btn-upload {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 16px;
+      border-radius: $radius-sm;
+      background: $dark;
+      color: $white;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Cairo', sans-serif;
+      transition: background 0.2s;
+      border: none;
+      white-space: nowrap;
+
+      &:hover { background: $brand; }
+      &.uploading { opacity: 0.6; pointer-events: none; }
+    }
+  }
+}
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 10px;
+}
+
+.portfolio-item {
+  position: relative;
+  border-radius: $radius-md;
+  overflow: hidden;
+  aspect-ratio: 1;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .btn-delete {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: rgba(239, 68, 68, 0.9);
+    color: $white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    transition: background 0.2s;
+
+    &:hover { background: $danger; }
+  }
+}
+
+.portfolio-empty {
+  border: 1.5px dashed #d1d5db;
+  border-radius: $radius-md;
+  padding: 40px 20px;
+  text-align: center;
+  color: $text-muted;
+
+  i {
+    font-size: 32px;
+    margin-bottom: 12px;
+    display: block;
+    opacity: 0.5;
+  }
+
+  p {
+    margin: 0 0 12px;
+    font-size: 13px;
+  }
+
+  label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    border-radius: $radius-sm;
+    cursor: pointer;
+    border: 1.5px solid rgba($brand, 0.3);
+    color: $brand;
+    background: $brand-soft;
+    font-size: 12px;
+    font-weight: 700;
+    font-family: 'Cairo', sans-serif;
+    transition: all 0.2s;
+
+    &:hover {
+      background: $brand;
+      color: $white;
+      border-color: $brand;
+    }
+  }
+}
+
+// =================== Actions ===================
+.actions {
+  margin-top: 8px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-save {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 32px;
+  background: $dark;
+  color: $white;
+  border: none;
+  border-radius: $radius-md;
+  font-family: 'Cairo', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s;
+
+  &:hover:not(:disabled) {
+    background: $brand;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba($brand, 0.3);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+// =================== Schedule & Card Helpers ===================
+.schedule-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+
+  h3 { margin: 0; }
+}
+
+// =================== RESPONSIVE ===================
+
+// -------- Tablet --------
+@media (max-width: 768px) {
+  .editor-container {
+    padding: 24px 16px 50px;
+  }
+
+  .header h2 { font-size: 19px; }
+
+  .grid-form {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .card {
+    padding: 20px;
+    border-radius: $radius-md;
+  }
+
+  .portfolio-grid {
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 8px;
+  }
+
+  .actions {
+    justify-content: stretch;
+
+    .btn-save {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+}
+
+// -------- Mobile --------
+@media (max-width: 480px) {
+  .editor-container {
+    padding: 16px 12px 44px;
+  }
+
+  .header {
+    margin-bottom: 20px;
+
+    h2 { font-size: 17px; }
+    p  { font-size: 12px; }
+  }
+
+  .card {
+    padding: 16px;
+    margin-bottom: 12px;
+    border-radius: $radius-sm;
+
+    h3 {
+      font-size: 14px;
+      margin-bottom: 14px;
+    }
+  }
+
+  // Avatar
+  .avatar-wrapper {
+    gap: 12px;
+
+    .avatar-img-wrap {
+      width: 66px;
+      height: 66px;
+
+      img {
+        width: 66px;
+        height: 66px;
+      }
+    }
+
+    .avatar-info p    { font-size: 12px; }
+    .avatar-info small{ font-size: 11px; }
+  }
+
+  // Fields
+  .field {
+    label    { font-size: 11px; }
+
+    input,
+    select,
+    textarea {
+      font-size: 13px;
+      padding: 9px 12px;
+    }
+  }
+
+  // Skills
+  .skills-input-wrapper {
+    flex-direction: column;
+
+    input { width: 100%; }
+
+    .btn-add-skill {
+      width: 100%;
+      text-align: center;
+      padding: 11px;
+    }
+  }
+
+  // Schedule
+  .schedule-row {
+    flex-wrap: wrap;
+    gap: 8px;
+
+    .row-num { display: none; }  // اخفيها في الموبايل علشان مساحة
+
+    input {
+      flex: 1 1 calc(50% - 4px);
+      min-width: 0;
+
+      &:first-of-type,
+      &:last-of-type { flex: 1 1 calc(50% - 4px); }
+    }
+
+    .btn-delete-row {
+      margin-right: auto;
+    }
+  }
+
+  .schedule-hint {
+    font-size: 11px;
+    padding: 7px 10px;
+  }
+
+  // Portfolio
+  .portfolio-section .portfolio-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+
+    .btn-upload {
+      width: 100%;
+      justify-content: center;
+      padding: 11px;
+    }
+  }
+
+  .portfolio-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+  }
+
+  .portfolio-empty {
+    padding: 28px 16px;
+
+    i  { font-size: 28px; }
+    p  { font-size: 12px; }
+
+    label { font-size: 11px; }
+  }
+
+  .btn-add {
+    padding: 7px 12px;
+    font-size: 11px;
+  }
+
+  .btn-save {
+    padding: 13px;
+    font-size: 14px;
+  }
+}
+
+// -------- Very Small --------
+@media (max-width: 360px) {
+  .editor-container {
+    padding: 12px 10px 40px;
+  }
+
+  .card { padding: 14px; }
+
+  .portfolio-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .schedule-row {
+    input {
+      flex: 1 1 100%;
+    }
+  }
+
+  .btn-save {
+    font-size: 13px;
+    padding: 12px;
+  }
+}

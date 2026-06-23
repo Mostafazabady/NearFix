@@ -1,0 +1,116 @@
+<div class="jobs-container" dir="rtl">
+  <div class="background-decor"></div>
+  
+  <header class="page-header">
+    <div class="title-wrapper">
+      <h1><i class="fas fa-briefcase"></i> سجل الأعمال</h1>
+      <p>لديك <span class="job-count-badge">{{ jobs().length }}</span> مهمة حالياً</p>
+    </div>
+  </header>
+
+  <div *ngIf="isLoading()" class="modern-loader">
+    <div class="spinner-inner"></div>
+    <p>جاري تحديث قائمة أعمالك...</p>
+  </div>
+
+  <div class="jobs-grid" *ngIf="!isLoading()">
+    <div *ngFor="let job of jobs(); let i = index" class="premium-job-card" [style.animation-delay]="i * 0.1 + 's'">
+      
+      <div class="card-header">
+        <div class="client-profile">
+          <div class="avatar-wrapper">
+            <img [src]="job.client_details?.avatar_url || 'https://ui-avatars.com/api/?name=' + job.client_details?.full_name" alt="Client">
+            <span class="status-indicator" [class]="job.status"></span>
+          </div>
+          <div class="client-meta">
+            <h3>{{ job.client_details?.full_name }}</h3>
+            <span class="job-time"><i class="far fa-clock"></i> {{ job.created_at | date:'shortTime' }} • {{ job.created_at | date:'dd MMM' }}</span>
+          </div>
+        </div>
+        <div class="service-tag">
+          <i class="fas fa-tools"></i>
+          {{ job.profession_name }}
+        </div>
+      </div>
+
+      <div class="card-content">
+        <div class="details-box" *ngIf="job.description || job.problem_details">
+          <label><i class="fas fa-align-right"></i> تفاصيل العمل المطلوبة:</label>
+          <div class="scrollable-desc">
+            <p>{{ job.problem_details || job.description || 'لا توجد تفاصيل إضافية' }}</p>
+            <img 
+              *ngIf="job.problem_image_url"
+              [src]="job.problem_image_url"
+              alt="صورة المشكلة"
+              style="width:40%; max-height:200px; object-fit:cover; border-radius:10px; margin-top:10px; cursor:pointer;"
+              (click)="openImageFullscreen(job.problem_image_url)">
+          </div>
+        </div>
+
+        <div class="status-message pending" *ngIf="job.status === 'pending'">
+          <i class="fas fa-info-circle"></i> طلب جديد.. بانتظار قرارك.
+        </div>
+        
+        <div class="status-message accepted" *ngIf="job.status === 'accepted'">
+          <i class="fas fa-route"></i> أنت الآن في مرحلة التنفيذ. تواصل مع العميل لتأكيد الموعد.
+        </div>
+      </div>
+
+      <div class="card-footer">
+        <div class="actions-group" *ngIf="job.status === 'pending'">
+          <button class="btn btn-accept" (click)="handleJob(job.id, 'accepted')">
+            <i class="fas fa-check"></i> قبول العمل
+          </button>
+          <button class="btn btn-reject" (click)="handleJob(job.id, 'rejected')">
+            <i class="fas fa-times"></i> رفض
+          </button>
+        </div>
+
+        <div class="actions-group-accepted" *ngIf="job.status === 'accepted'">
+          <button class="btn-map-full" *ngIf="job.client_lat" (click)="openGoogleMaps(job.client_lat, job.client_lng)">
+            <i class="fas fa-map-marked-alt"></i> الانتقال لموقع العميل (GPS)
+          </button>
+
+          <div class="communication-row">
+            <a [href]="'tel:' + job.client_details?.phone" class="comm-btn call-btn">
+              <i class="fas fa-phone-alt"></i> اتصال
+            </a>
+
+            <button class="comm-btn whatsapp-btn" (click)="openWhatsApp(job.client_details?.phone)">
+              <i class="fab fa-whatsapp"></i> واتساب
+            </button>
+          </div>
+
+          <button class="btn-finish" (click)="completeJob(job.id)">
+            <i class="fas fa-check-circle"></i> إنهاء العمل
+          </button>
+        </div>
+
+        <div class="review-layout" *ngIf="job.status === 'completed'">
+          <div *ngIf="!job.rating" class="waiting-review">
+             <i class="fas fa-clock"></i> في انتظار تقييم العميل...
+          </div>
+          
+          <div *ngIf="job.rating">
+            <div class="stars-container">
+              <label>تقييم العميل:</label>
+              <div class="stars-row">
+                <i class="fas fa-star filled" *ngFor="let s of getStars(job.rating)"></i>
+              </div>
+            </div>
+            <div class="review-text-container" *ngIf="job.review">
+              <blockquote>"{{ job.review }}"</blockquote>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div *ngIf="!isLoading() && jobs().length === 0" class="empty-dashboard">
+    <div class="empty-icon">📂</div>
+    <h2>لا توجد أعمال حالياً</h2>
+    <p>بمجرد وصول طلبات جديدة من العملاء، ستظهر هنا فوراً.</p>
+  </div>
+</div>

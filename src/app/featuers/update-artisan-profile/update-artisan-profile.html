@@ -1,0 +1,258 @@
+<div class="editor-container" dir="rtl">
+
+  <!-- Loading -->
+  <div *ngIf="isLoading()" style="text-align:center;padding:80px;">
+    <i class="fas fa-spinner fa-spin fa-2x"></i>
+    <p style="margin-top:12px;color:#5a5f7a;">جاري تحميل بياناتك...</p>
+  </div>
+
+  <ng-container *ngIf="!isLoading()">
+
+    <div class="header">
+      <h2>تعديل ملفك الشخصي</h2>
+      <p>هذه البيانات ستظهر للعملاء في صفحة بروفايلك مباشرةً بعد الحفظ.</p>
+    </div>
+
+    <form [formGroup]="profileForm" (ngSubmit)="saveProfile()">
+
+      <!-- ══ الصورة الشخصية ══ -->
+<!-- ══ الصورة الشخصية ══ -->
+<div class="card">
+  <h3><i class="fas fa-user-circle"></i> الصورة الشخصية</h3>
+  <div style="display:flex;align-items:center;gap:16px;">
+    <div style="position:relative;width:80px;height:80px;flex-shrink:0;">
+      <img [src]="getCurrentAvatar()"
+           style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid #e8eaf0;">
+      <label style="position:absolute;bottom:0;left:0;width:26px;height:26px;
+                    border-radius:50%;background:#1a1d2e;color:white;
+                    display:flex;align-items:center;justify-content:center;
+                    font-size:11px;cursor:pointer;border:2px solid white;"
+             [title]="isUploadingAvatar() ? 'جاري الرفع...' : 'تغيير الصورة'">
+        <i class="fas"
+           [class.fa-camera]="!isUploadingAvatar()"
+           [class.fa-spinner]="isUploadingAvatar()"
+           [class.fa-spin]="isUploadingAvatar()"></i>
+        <input type="file" accept="image/*" (change)="onAvatarUpload($event)" hidden>
+      </label>
+    </div>
+    <div>
+      <p style="font-size:13px;font-weight:700;color:#1a1d2e;margin-bottom:4px;">
+        {{ supabase.currentUser()?.full_name }}
+      </p>
+      <small style="color:#9095b0;">اضغط على الكاميرا لتغيير صورتك الشخصية</small>
+    </div>
+  </div>
+</div>
+
+      <!-- ══ البيانات الأساسية ══ -->
+      <div class="card">
+        <h3><i class="fas fa-id-card"></i> المعلومات الأساسية</h3>
+        <div class="grid-form">
+          <div class="field">
+            <label>الاسم الكامل <span style="color:#ef4444;">*</span></label>
+            <input type="text" formControlName="full_name" placeholder="مثال: أحمد محمد">
+            <small style="color:#ef4444;"
+                   *ngIf="profileForm.get('full_name')?.invalid && profileForm.get('full_name')?.touched">
+              هذا الحقل مطلوب
+            </small>
+          </div>
+
+          <div class="field">
+            <label>الحرفة / التخصص <span style="color:#ef4444;">*</span></label>
+            <select formControlName="profession" class="custom-input">
+            <option value="" disabled>اختر تخصصك</option>
+            <option *ngFor="let p of professions" [value]="p">{{p}}</option>
+          </select>
+            <small style="color:#ef4444;"
+                   *ngIf="profileForm.get('profession')?.invalid && profileForm.get('profession')?.touched">
+              هذا الحقل مطلوب
+            </small>
+          </div>
+
+          <div class="field">
+            <label>رقم الواتساب <span style="color:#ef4444;">*</span></label>
+            <input type="text" formControlName="phone" placeholder="01xxxxxxxxx">
+          </div>
+
+          <div class="field">
+            <label>سرعة الاستجابة</label>
+            <select formControlName="response_time">
+              <option value="15-30 دقيقة">15-30 دقيقة</option>
+              <option value="30-60 دقيقة">30-60 دقيقة</option>
+              <option value="1-2 ساعة">1-2 ساعة</option>
+              <option value="2-4 ساعات">2-4 ساعات</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ النبذة ══ -->
+      <div class="card">
+        <h3><i class="fas fa-info-circle"></i> نبذة تعريفية</h3>
+        <div class="field">
+          <textarea formControlName="bio" rows="4"
+            placeholder="تحدث عن خبرتك ومجالك لتعريف العملاء بك أكثر..."></textarea>
+        </div>
+      </div>
+
+      <!-- ══ المهارات ══ -->
+      <div class="card">
+        <h3><i class="fas fa-tools"></i> المهارات</h3>
+        <p style="font-size:12px;color:#9095b0;margin-bottom:12px;">
+          اكتب المهارة ثم اضغط Enter للإضافة
+        </p>
+
+        <div class="skills-input-wrapper" style="display:flex;gap:8px;margin-bottom:12px;">
+          <input type="text"
+                 formControlName="skillInput"
+                 (keydown.enter)="addSkill($event)"
+                 placeholder="مثال: تركيب سيراميك"
+                 style="flex:1;">
+          <button type="button"
+                  (click)="addSkill($event)"
+                  style="padding:8px 16px;border:none;border-radius:8px;
+                         background:#1a1d2e;color:white;cursor:pointer;
+                         font-family:'Cairo',sans-serif;font-weight:700;">
+            إضافة
+          </button>
+        </div>
+
+        <div class="tags-container">
+          <span *ngFor="let skill of skills()" class="tag"
+                style="display:inline-flex;align-items:center;gap:6px;
+                       padding:6px 12px;margin:4px;border-radius:30px;
+                       background:rgba(108,99,255,.1);color:#6c63ff;
+                       font-size:13px;font-weight:700;border:1px solid rgba(108,99,255,.25);">
+            {{ skill }}
+            <i class="fas fa-times"
+               (click)="removeSkill(skill)"
+               style="cursor:pointer;font-size:10px;opacity:.7;"
+               title="حذف"></i>
+          </span>
+          <p *ngIf="skills().length === 0"
+             style="font-size:13px;color:#9095b0;margin:8px 0;">
+            لم تتم إضافة أي مهارات بعد
+          </p>
+        </div>
+      </div>
+
+      <!-- ══ مواعيد العمل ══ -->
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+          <h3 style="margin:0;"><i class="fas fa-clock"></i> مواعيد العمل</h3>
+          <button type="button" class="btn-add" (click)="addScheduleRow()">
+            <i class="fas fa-plus"></i> إضافة يوم
+          </button>
+        </div>
+
+        <p style="font-size:12px;color:#9095b0;margin-bottom:14px;
+                  background:rgba(108,99,255,.05);padding:8px 12px;border-radius:8px;
+                  border:1px solid rgba(108,99,255,.15);">
+          <i class="fas fa-info-circle" style="color:#6c63ff;"></i>
+          اكتب "إجازة رسمية" في خانة المواعيد لتظهر بالأحمر في البروفايل
+        </p>
+
+        <div formArrayName="schedule" class="schedule-list">
+          <div *ngFor="let ctrl of scheduleArray.controls; let i = index"
+               [formGroupName]="i"
+               style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+
+            <span style="width:24px;height:24px;border-radius:50%;background:rgba(108,99,255,.1);
+                         color:#6c63ff;display:flex;align-items:center;justify-content:center;
+                         font-size:12px;font-weight:700;flex-shrink:0;">
+              {{ i + 1 }}
+            </span>
+
+            <input type="text" formControlName="day"
+                   placeholder="اليوم (مثلاً: الأحد – الخميس)"
+                   style="flex:1;">
+
+            <input type="text" formControlName="hours"
+                   placeholder="المواعيد (مثلاً: 09:00 ص – 05:00 م)"
+                   style="flex:1.4;">
+
+            <button type="button"
+                    (click)="removeScheduleRow(i)"
+                    [disabled]="scheduleArray.length === 1"
+                    style="width:34px;height:34px;border-radius:8px;border:1px solid #fecaca;
+                           background:#fff5f5;color:#ef4444;cursor:pointer;
+                           display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <i class="fas fa-trash" style="font-size:12px;"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ معرض الأعمال ══ -->
+      <div class="card portfolio-section">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+          <h3 style="margin:0;">
+            <i class="fas fa-images"></i>
+            معرض الأعمال
+            <span style="font-size:12px;background:rgba(108,99,255,.1);color:#6c63ff;
+                         padding:2px 10px;border-radius:20px;margin-right:6px;font-weight:700;">
+              {{ portfolioImages().length }} صورة
+            </span>
+          </h3>
+
+          <label style="display:inline-flex;align-items:center;gap:7px;
+                        padding:8px 16px;border-radius:8px;background:#1a1d2e;
+                        color:white;font-size:12px;font-weight:700;cursor:pointer;
+                        font-family:'Cairo',sans-serif;"
+                 [style.opacity]="isUploading() ? '0.6' : '1'">
+            <i class="fas"
+               [class.fa-cloud-upload-alt]="!isUploading()"
+               [class.fa-spinner]="isUploading()"
+               [class.fa-spin]="isUploading()"></i>
+            {{ isUploading() ? 'جاري الرفع...' : 'رفع صور' }}
+            <input type="file" multiple accept="image/*"
+                   (change)="onPortfolioUpload($event)" hidden
+                   [disabled]="isUploading()">
+          </label>
+        </div>
+
+        <!-- الصور الحالية -->
+        <div class="portfolio-grid" *ngIf="portfolioImages().length > 0">
+          <div *ngFor="let img of portfolioImages(); let i = index" class="portfolio-item">
+            <img [src]="img" alt="work">
+            <button type="button" class="btn-delete" (click)="removeImage(i)"
+                    title="حذف الصورة">×</button>
+          </div>
+        </div>
+
+        <!-- Empty state -->
+        <div *ngIf="portfolioImages().length === 0"
+             style="border:1.5px dashed #d1d5db;border-radius:12px;
+                    padding:40px;text-align:center;color:#9095b0;">
+          <i class="fas fa-cloud-upload-alt" style="font-size:32px;margin-bottom:12px;display:block;"></i>
+          <p style="margin-bottom:8px;">لم تقم برفع أي صور بعد</p>
+          <label style="display:inline-flex;align-items:center;gap:6px;
+                        padding:8px 18px;border-radius:8px;cursor:pointer;
+                        border:1.5px solid rgba(108,99,255,.3);color:#6c63ff;
+                        background:rgba(108,99,255,.05);font-size:12px;font-weight:700;
+                        font-family:'Cairo',sans-serif;">
+            <i class="fas fa-plus"></i> أضف أول صورة
+            <input type="file" multiple accept="image/*"
+                   (change)="onPortfolioUpload($event)" hidden>
+          </label>
+        </div>
+      </div>
+
+      <!-- ══ زر الحفظ ══ -->
+      <div class="actions">
+        <button type="submit" class="btn-save"
+                [disabled]="profileForm.invalid || isSaving()">
+          <ng-container *ngIf="!isSaving()">
+            <i class="fas fa-check-circle"></i>
+            حفظ التعديلات
+          </ng-container>
+          <ng-container *ngIf="isSaving()">
+            <i class="fas fa-spinner fa-spin"></i>
+            جاري الحفظ...
+          </ng-container>
+        </button>
+      </div>
+
+    </form>
+  </ng-container>
+</div>

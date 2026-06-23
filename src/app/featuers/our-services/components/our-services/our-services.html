@@ -1,0 +1,171 @@
+
+
+
+
+
+
+
+
+
+
+
+<section class="services-hero" dir="rtl">
+  <div class="hero-content">
+    
+    <!-- الـ Badge العلوي -->
+    <span class="badge">خدمات شاملة وبجودة عالية</span>
+
+    <!-- العنوان الرئيسي -->
+    <h1 class="main-title">14 خدمة احترافية في متناول يدك</h1>
+
+    <!-- النص الفرعي -->
+    <p class="subtitle">
+      لقد قمنا بتوسيع قائمة خدماتنا لنلبي كافة احتياجاتك المنزلية والتقنية. اختر من بين 14 حرفة متخصصة، ليصلك الفني في أقل من 20 دقيقة.
+    </p>
+
+    <!-- المميزات والأيقونات -->
+    <div class="features-list">
+      
+      <!-- حرفيون معتمدون -->
+      <div class="feature-item">
+        <svg class="icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm-1.81 14.53L6.12 12.5a.76.76 0 011.07-1.07l2.97 2.96 6.64-7.3a.76.76 0 011.13 1.02l-7.2 7.9c-.14.16-.34.25-.55.25a.73.73 0 01-.52-.22h-.48z" />
+          <!-- ملاحظة: استخدمت أيقونة Badge قريبة جداً ومناسبة للـ SVG المدمج -->
+        </svg>
+        <span>حرفيون معتمدون</span>
+      </div>
+
+      <!-- خدمة سريعة -->
+      <div class="feature-item">
+        <svg class="icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path d="M13 2.05v9.45h6.5c.67 0 .97.85.45 1.28L6.45 22.05c-.65.55-1.65-.05-1.4-1.2l2.6-9.35H2.5c-.67 0-.97-.85-.45-1.28L11.55.95c.55-.5 1.45.1 1.45.9z" />
+        </svg>
+        <span>خدمة سريعة</span>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+
+
+
+<section class="services-section" dir="rtl">
+  <div class="container">
+    
+    <div class="section-header">
+      <div class="title-area">
+        <h2>جميع الحرف والخدمات</h2>
+        <p>تصفح مجموعة خدماتنا الواسعة والمتميزة</p>
+      </div>
+      
+      <div class="search-area">
+        <div class="search-box">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input 
+            type="text" 
+            placeholder="ابحث عن حرفة..." 
+            [formControl]="searchControl">
+        </div>
+      </div>
+    </div>
+
+    <!-- حالة التحميل -->
+    <div *ngIf="isLoading" class="loading-state" style="text-align: center; padding: 2rem;">
+      <p>جاري تحميل الخدمات...</p>
+    </div>
+
+    <!-- شبكة الخدمات (الكروت) -->
+    <div class="services-grid" *ngIf="!isLoading">
+      
+      <div class="service-card" style="cursor: pointer;"
+           *ngFor="let service of filteredServices | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }"
+           (click)="onServiceSelected(service)">
+        
+        <div class="icon-wrapper">
+          <svg class="service-icon" viewBox="0 0 24 24" fill="currentColor">
+            <!-- استخدام المتغير الجديد من قاعدة البيانات -->
+            <path [attr.d]="service.icon_svg" />
+          </svg>
+        </div>
+        <!-- استخدام المتغير الجديد من قاعدة البيانات -->
+        <h3 class="service-name">{{ service.name_ar }}</h3>
+      </div>
+
+    </div>
+
+    <!-- أزرار التحكم في الـ Pagination -->
+    <div class="pagination-container" *ngIf="!isLoading && filteredServices.length > itemsPerPage">
+      <pagination-controls 
+        (pageChange)="currentPage = $event" 
+        previousLabel="السابق" 
+        nextLabel="التالي"
+        [maxSize]="5"
+        [autoHide]="true">
+      </pagination-controls>
+    </div>
+
+    <!-- رسالة في حالة عدم وجود نتائج للبحث -->
+    <div class="no-results" *ngIf="!isLoading && filteredServices.length === 0">
+      <p>عفواً، لا توجد خدمات مطابقة لبحثك.</p>
+    </div>
+
+  </div>
+</section>
+
+<section class="why-choose-us" dir="rtl">
+  <div class="container">
+    
+    <!-- رأس السكشن -->
+    <div class="section-header">
+      <h2>لماذا تختار حِرفي؟</h2>
+      <p>نحن نضمن لك تجربة خدمة استثنائية تجمع بين التكنولوجيا المتقدمة والمهارة اليدوية الفائقة.</p>
+    </div>
+
+    <!-- شبكة الكروت -->
+    <div class="features-grid">
+      
+      <!-- الكارت الأول: الأمان والخصوصية -->
+      <div class="feature-card theme-blue">
+        <div class="icon-wrapper">
+          <!-- أيقونة القفل -->
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+          </svg>
+        </div>
+        <h3>الأمان والخصوصية</h3>
+        <p>نحن نولي أهمية قصوى لحماية بيانات عملائنا. يتم التحقق من هوية وسجل جميع الحرفيين لدينا لضمان دخول آمن وموثوق لمنزلك.</p>
+      </div>
+
+      <!-- الكارت الثاني: سرعة الاستجابة -->
+      <div class="feature-card theme-slate">
+        <div class="icon-wrapper">
+          <!-- أيقونة الساعة -->
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+          </svg>
+        </div>
+        <h3>سرعة الاستجابة</h3>
+        <p>وقتك ثمين لدينا. بفضل نظامنا الذكي لتوزيع المهام، نضمن وصول أقرب حرفي متخصص إلى موقعك في أقل من 20 دقيقة من طلب الخدمة.</p>
+      </div>
+
+      <!-- الكارت الثالث: الدقة والاحترافية -->
+      <div class="feature-card theme-bronze">
+        <div class="icon-wrapper">
+          <!-- أيقونة التميز/الوسام -->
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+          </svg>
+        </div>
+        <h3>الدقة والاحترافية</h3>
+        <p>نحن لا نختار إلا الأفضل. يمر الحرفيون باختبارات مهارية دقيقة لضمان جودة العمل، مع ضمان شامل على كافة الخدمات المقدمة.</p>
+      </div>
+
+    </div>
+  </div>
+</section>

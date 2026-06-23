@@ -1,0 +1,393 @@
+<div class="profile-page" dir="rtl">
+
+  <div *ngIf="!supabase.currentUser()" class="initial-loader">
+    <div class="custom-spinner"></div>
+    <p>جاري تحميل بياناتك...</p>
+  </div>
+
+  <div class="glass-container" *ngIf="supabase.currentUser() as user">
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="profile-sidebar">
+      <span class="role-badge">{{ user.role === 'client' ? 'عميل' : 'حرفي' }}</span>
+
+      <div class="avatar-section">
+        <div class="image-holder">
+          <img [src]="user.avatar_url || '/images/avatarImage.webp'" alt="Profile">
+          <label class="camera-btn">
+            <i class="fas fa-camera"></i>
+            <input type="file" (change)="onFileSelected($event)" hidden accept="image/*">
+          </label>
+        </div>
+        <h3 class="full-name">{{ user.full_name }}</h3>
+        <p class="user-email">{{ user.email }}</p>
+      </div>
+
+      <nav class="side-nav">
+       <button [class.active]="activeTab === 'summary'" 
+        (click)="switchTab('summary')">
+  <i class="fas fa-chart-line"></i>
+  <span class="nav-text">نظرة عامة</span>
+  <span class="nav-text-short">عامة</span>
+</button>
+
+<button [class.active]="activeTab === 'settings'" 
+        (click)="switchTab('settings')">
+  <i class="fas fa-user-cog"></i>
+  <span class="nav-text">الإعدادات والأمان</span>
+  <span class="nav-text-short">إعدادات</span>
+</button>
+
+<button [class.active]="activeTab === 'completed'" 
+        (click)="switchTab('completed')">
+  <i class="fas fa-clipboard-check"></i>
+  <span class="nav-text">الخدمات المطلوبة (كعميل)</span>
+  <span class="nav-text-short">طلباتي</span>
+  <span class="count-badge" *ngIf="completedOrdersCount() > 0">
+    {{ completedOrdersCount() }}
+  </span>
+</button>
+
+<button *ngIf="user.role === 'artisan'"
+        [class.active]="activeTab === 'artisan-completed'" 
+        (click)="switchTab('artisan-completed')">
+  <i class="fas fa-briefcase"></i>
+  <span class="nav-text">الأعمال المنفذة (كحرفي)</span>
+  <span class="nav-text-short">أعمالي</span>
+  <span class="count-badge green-badge" *ngIf="artisanCompletedJobsCount() > 0">
+    {{ artisanCompletedJobsCount() }}
+  </span>
+</button>
+
+<div class="nav-divider"></div>
+
+<button class="logout-btn" (click)="handleLogout()">
+  <i class="fas fa-sign-out-alt"></i>
+  <span class="nav-text">تسجيل الخروج</span>
+  <span class="nav-text-short">خروج</span>
+</button>
+
+<button class="delete-btn" (click)="handleDeleteAccount()">
+  <i class="fas fa-user-slash"></i>
+  <span class="nav-text">حذف الحساب</span>
+  <span class="nav-text-short">حذف</span>
+</button>
+      </nav>
+    </aside>
+
+    <main class="profile-content">
+
+      <section [hidden]="activeTab !== 'summary'" class="fade-in">
+        <div class="welcome-header">
+          <h2>أهلاً بك، {{ user.full_name }} 👋</h2>
+          <p>إليك ملخص نشاطك على المنصة</p>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="icon-circle blue"><i class="fas fa-box"></i></div>
+            <div class="stat-info">
+              <span class="value">{{ totalOrders() }}</span>
+              <span class="label">إجمالي الطلبات كعميل</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="icon-circle green"><i class="fas fa-check-circle"></i></div>
+            <div class="stat-info">
+              <span class="value">{{ completedOrdersCount() }}</span>
+              <span class="label">خدمات مكتملة كعميل</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="icon-circle orange"><i class="fas fa-calendar-alt"></i></div>
+            <div class="stat-info">
+              <span class="value">{{ user.created_at | date:'MMM y' }}</span>
+              <span class="label">عضو منذ</span>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="user.role === 'artisan'" class="welcome-header" style="margin-top: 35px; border-top: 1px dashed #e2e8f0; padding-top: 20px;">
+          <h3 style="font-size: 18px; color: #10b981; display: flex; align-items: center; gap: 8px;">
+            <i class="fas fa-tools"></i> مؤشرات أدائك كـ (حرفي ومقدم خدمة)
+          </h3>
+        </div>
+
+        <div *ngIf="user.role === 'artisan'" class="stats-grid" style="margin-top: 15px;">
+          <div class="stat-card" style="border-right: 4px solid #3b82f6;">
+            <div class="icon-circle blue" style="background: rgba(59, 130, 246, 0.1); color: #3b82f6;"><i class="fas fa-tasks"></i></div>
+            <div class="stat-info">
+              <span class="value">{{ artisanTotalJobs() }}</span>
+              <span class="label">إجمالي الأعمال الواردة</span>
+            </div>
+          </div>
+
+          <div class="stat-card" style="border-right: 4px solid #10b981;">
+            <div class="icon-circle green" style="background: rgba(16, 185, 129, 0.1); color: #10b981;"><i class="fas fa-check-double"></i></div>
+            <div class="stat-info">
+              <span class="value">{{ artisanCompletedJobsCount() }}</span>
+              <span class="label">أعمال قمت بإنجازها</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-section">
+          <h3 class="activity-title">
+            <i class="fas fa-history"></i>
+            النشاط الأخير كعميل
+          </h3>
+
+          <div *ngIf="lastOrder(); else noActivity" class="last-order-card">
+            <div class="last-order-icon-wrap">
+              <i class="fas fa-tools"></i>
+            </div>
+            <div class="last-order-body">
+              <div class="last-order-top">
+                <p class="order-profession">{{ lastOrder().profession_name }}</p>
+                <span class="order-status-badge" [ngClass]="getStatusClass(lastOrder().status)">
+                  {{ getStatusLabel(lastOrder().status) }}
+                </span>
+              </div>
+              <p class="order-date">
+                <i class="far fa-clock"></i>
+                {{ lastOrder().created_at | date:'dd MMM yyyy - hh:mm a' }}
+              </p>
+            </div>
+          </div>
+
+          <ng-template #noActivity>
+            <div class="empty-state">
+              <i class="fas fa-history"></i>
+              <p>لا توجد نشاطات حديثة لعرضها</p>
+            </div>
+          </ng-template>
+        </div>
+
+        <div class="welcome-header" *ngIf="user.role === 'artisan'" style="margin-top: 30px;">
+          <h4 style="font-size: 15px; color: #4f46e5;"><i class="fas fa-user"></i> رسوم بيانية لطلباتك (كعميل):</h4>
+        </div>
+
+        <div class="charts-section" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; margin-top: 15px;">
+          <div class="stat-card" style="padding: 20px; display: block;">
+            <h3 style="font-size: 16px; color: #5a5f7a; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
+              <i class="fas fa-chart-pie"></i> تحليل وتوزيع الخدمات المطلوبة
+            </h3>
+            <div style="height: 260px; display: flex; justify-content: center; align-items: center;">
+              <canvas #categoryChart></canvas>
+            </div>
+          </div>
+
+          <div class="stat-card" style="padding: 20px; display: block;">
+            <h3 style="font-size: 16px; color: #5a5f7a; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
+              <i class="fas fa-chart-bar"></i> معدل طلب الخدمات شهرياً
+            </h3>
+            <div style="height: 260px;">
+              <canvas #timelineChart></canvas>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="user.role === 'artisan'">
+          <div class="welcome-header" style="margin-top: 40px;">
+            <h4 style="font-size: 15px; color: #10b981;"><i class="fas fa-tools"></i> رسوم بيانية لأعمالك المنفذة (كحرفي):</h4>
+          </div>
+
+          <div class="charts-section" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; margin-top: 15px;">
+            <div class="stat-card" style="padding: 20px; display: block; border-top: 3px solid #10b981;">
+              <h3 style="font-size: 16px; color: #5a5f7a; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
+                <i class="fas fa-pie-chart"></i> تحليل وتنوع الأعمال المنجزة
+              </h3>
+              <div style="height: 260px; display: flex; justify-content: center; align-items: center;">
+                <canvas #artisanCategoryChart></canvas>
+              </div>
+            </div>
+
+            <div class="stat-card" style="padding: 20px; display: block; border-top: 3px solid #10b981;">
+              <h3 style="font-size: 16px; color: #5a5f7a; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
+                <i class="fas fa-bar-chart"></i> إنتاجية وإنجاز الأعمال شهرياً
+              </h3>
+              <div style="height: 260px;">
+                <canvas #artisanTimelineChart></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </section>
+
+      <section *ngIf="activeTab === 'settings'" class="fade-in">
+        <div class="section-title">
+          <h2>إعدادات الحساب والأمان</h2>
+          <p>تحكم في بياناتك الشخصية وطرق الوصول</p>
+        </div>
+
+        <div class="settings-card">
+          <h3>البيانات الشخصية</h3>
+          <form [formGroup]="profileForm" (ngSubmit)="updateBasicInfo()">
+            <div class="form-grid">
+              <div class="input-box">
+                <label>الاسم بالكامل</label>
+                <input type="text" formControlName="full_name">
+              </div>
+              <div class="input-box">
+                <label>رقم الهاتف</label>
+                <input type="text" formControlName="phone">
+              </div>
+            </div>
+            <button type="submit" class="save-btn" [disabled]="loading()">حفظ التغييرات</button>
+          </form>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="settings-card">
+          <h3>البريد الإلكتروني</h3>
+          <div class="email-update-group">
+            <input type="email" #newEmail [value]="user.email">
+            <button type="button" class="inside-btn" (click)="updateEmail(newEmail.value)" [disabled]="loading()">
+              تحديث
+            </button>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="settings-card">
+          <h3>كلمة المرور</h3>
+          <form [formGroup]="passwordForm" (ngSubmit)="updatePassword()">
+            <div class="form-grid">
+              <div class="input-box">
+                <label>كلمة المرور الجديدة</label>
+                <input type="password" formControlName="password" placeholder="••••••••">
+              </div>
+              <div class="input-box">
+                <label>تأكيد كلمة المرور</label>
+                <input type="password" formControlName="confirmPassword" placeholder="••••••••">
+              </div>
+            </div>
+            <button type="submit" class="save-btn secondary">تغيير كلمة المرور</button>
+          </form>
+        </div>
+      </section>
+
+      <section *ngIf="activeTab === 'completed'" class="fade-in">
+        <div class="section-title">
+          <h2>الخدمات المطلوبة كعميل</h2>
+          <p>سجل كامل بجميع الخدمات التي طلبتها واكتملت</p>
+        </div>
+
+        <div *ngIf="loadingCompleted()" class="loader-container">
+          <div class="custom-spinner"></div>
+          <p>جاري تحميل الخدمات...</p>
+        </div>
+
+        <div *ngIf="!loadingCompleted()" class="completed-list">
+          <div *ngFor="let order of completedOrders()" class="completed-card">
+            <div class="completed-card-header">
+              <div class="artisan-info">
+                <img
+                  [src]="order.artisan_details?.avatar_url || 'https://ui-avatars.com/api/?name=' + (order.artisan_details?.full_name || 'A')"
+                  alt="artisan">
+                <div>
+                  <h4>{{ order.artisan_details?.full_name || 'حرفي' }}</h4>
+                  <span class="profession-tag">
+                    <i class="fas fa-tools"></i> {{ order.profession_name }}
+                  </span>
+                </div>
+              </div>
+              <span class="completed-date">
+                <i class="far fa-calendar-check"></i>
+                {{ order.created_at | date:'dd MMM yyyy' }}
+              </span>
+            </div>
+
+            <p class="order-description" *ngIf="order.description">
+              <i class="fas fa-quote-right"></i> {{ order.description }}
+            </p>
+
+            <div class="rating-section" *ngIf="order.rating; else noRating">
+              <div class="stars">
+                <i class="fas fa-star text-warning" *ngFor="let s of getStars(order.rating)"></i>
+                <i class="far fa-star" *ngFor="let s of getStars(5 - order.rating)"></i>
+                <span class="rating-num">({{ order.rating }}/5)</span>
+              </div>
+              <p class="review-text" *ngIf="order.review">"{{ order.review }}"</p>
+            </div>
+
+            <ng-template #noRating>
+              <p class="no-rating-text">
+                <i class="fas fa-info-circle"></i> لم يتم التقييم بعد
+              </p>
+            </ng-template>
+          </div>
+
+          <div *ngIf="!loadingCompleted() && completedOrders().length === 0" class="empty-state">
+            <i class="fas fa-clipboard-check"></i>
+            <p>لا توجد خدمات مكتملة حتى الآن</p>
+          </div>
+        </div>
+      </section>
+
+      <section *ngIf="activeTab === 'artisan-completed'" class="fade-in">
+        <div class="section-title">
+          <h2>الأعمال والطلبات المنفذة كحرفي</h2>
+          <p>سجل كامل بالطلبات التي قمت بإنجازها وإغلاقها لعملائك</p>
+        </div>
+
+        <div *ngIf="loadingArtisanCompleted()" class="loader-container">
+          <div class="custom-spinner"></div>
+          <p>جاري تحميل سجل أعمالك الحرفية...</p>
+        </div>
+
+        <div *ngIf="!loadingArtisanCompleted()" class="completed-list">
+          <div *ngFor="let job of artisanCompletedJobs()" class="completed-card" style="border-right: 4px solid #10b981;">
+            <div class="completed-card-header">
+              <div class="artisan-info">
+                <img
+                  [src]="job.client_details?.avatar_url || 'https://ui-avatars.com/api/?name=' + (job.client_details?.full_name || 'C')"
+                  alt="client">
+                <div>
+                  <h4>{{ job.client_details?.full_name || 'عميل المنصة' }}</h4>
+                  <span class="profession-tag" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">
+                    <i class="fas fa-hammer"></i> عمل مكتمل بنجاح
+                  </span>
+                </div>
+              </div>
+              <span class="completed-date">
+                <i class="far fa-calendar-check"></i>
+                {{ job.created_at | date:'dd MMM yyyy' }}
+              </span>
+            </div>
+
+            <p class="order-description" *ngIf="job.description">
+              <i class="fas fa-quote-right"></i> {{ job.description }}
+            </p>
+
+            <div class="rating-section" *ngIf="job.rating; else noArtisanRating">
+              <div class="stars">
+                <i class="fas fa-star text-warning" *ngFor="let s of getStars(job.rating)"></i>
+                <i class="far fa-star" *ngFor="let s of getStars(5 - job.rating)"></i>
+                <span class="rating-num">(تقييم العميل لك: {{ job.rating }}/5)</span>
+              </div>
+              <p class="review-text" *ngIf="job.review">رأي العميل: "{{ job.review }}"</p>
+            </div>
+
+            <ng-template #noArtisanRating>
+              <p class="no-rating-text">
+                <i class="fas fa-info-circle"></i> لم يقم العميل بإضافة تقييم حتى الآن
+              </p>
+            </ng-template>
+          </div>
+
+          <div *ngIf="!loadingArtisanCompleted() && artisanCompletedJobs().length === 0" class="empty-state">
+            <i class="fas fa-briefcase"></i>
+            <p>لا توجد أعمال منتهية بسجلك المهني حتى الآن</p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>

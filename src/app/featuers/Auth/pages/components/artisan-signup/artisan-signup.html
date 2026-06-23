@@ -1,0 +1,119 @@
+<div class="signup-wrapper">
+  <header class="page-header animate__animated animate__fadeInDown">
+    <h1>كن جزءاً من <span>النخبة</span></h1>
+    <p>سجل كحرفي محترف في منصة نييرفيكس وابدأ في تقديم خدماتك لآلاف العملاء.</p>
+  </header>
+
+  <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="main-form container">
+    <section class="form-card animate__animated animate__fadeInUp" formGroupName="personalInfo">
+      <div class="card-header">
+        <i class="fas fa-user-tie"></i>
+        <h2>المعلومات الشخصية والحساب</h2>
+      </div>
+      
+      <div class="row g-4">
+        <!-- حقول الحساب الأساسية اللي ضفناها -->
+        <div class="col-md-6 inputs-marginDown">
+          <label class="form-label-custom">الاسم الكامل</label>
+          <input type="text" formControlName="fullName" placeholder="أدخل اسمك الرباعي" class="custom-input">
+        </div>
+        <div class="col-md-6 inputs-marginDown">
+          <label class="form-label-custom">البريد الإلكتروني</label>
+          <input type="email" formControlName="email" placeholder="mail@example.com" class="custom-input" dir="ltr" style="text-align: right;">
+        </div>
+        <div class="col-md-6 inputs-marginDown">
+          <label class="form-label-custom">كلمة المرور</label>
+          <input type="password" formControlName="password" placeholder="••••••••" class="custom-input">
+        </div>
+
+        <!-- حقولك القديمة -->
+        <div class="col-md-6 inputs-marginDown">
+          <label class="form-label-custom">رقم الهاتف</label>
+          <div class="input-with-icon">
+            <i class="fas fa-phone"></i>
+            <input type="text" formControlName="phone" placeholder="01XXXXXXXXX" class="custom-input" dir="ltr">
+          </div>
+        </div>
+        <div class="col-md-6 inputs-marginDown">
+          <label class="form-label-custom">المهنة الأساسية</label>
+          <select formControlName="profession" class="custom-input">
+            <option value="" disabled>اختر تخصصك</option>
+            <option *ngFor="let p of professions" [value]="p">{{p}}</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- باقي الأقسام زي ما هي بتاعتك -->
+    <section class="form-card animate__animated animate__fadeInUp" style="animation-delay: 0.1s;">
+      <div class="card-header"><i class="fas fa-file-upload"></i> <h2>الوثائق الرسمية</h2></div>
+      <div class="upload-grid">
+        <label class="upload-item" [class.uploaded]="selectedFiles['profilePic']">
+          <input type="file" (change)="onFileChange($event, 'profilePic')" hidden accept="image/*">
+          <i class="fas fa-camera"></i> <span>الصورة الشخصية</span>
+        </label>
+        <label class="upload-item" [class.uploaded]="selectedFiles['idFront']">
+          <input type="file" (change)="onFileChange($event, 'idFront')" hidden accept="image/*">
+          <i class="fas fa-id-card"></i> <span>البطاقة (وجه)</span>
+        </label>
+        <label class="upload-item" [class.uploaded]="selectedFiles['idBack']">
+          <input type="file" (change)="onFileChange($event, 'idBack')" hidden accept="image/*">
+          <i class="fas fa-id-card"></i> <span>البطاقة (ظهر)</span>
+        </label>
+        <label class="upload-item wide mt-4" [class.uploaded]="selectedFiles['criminalRecord']">
+          <input type="file" (change)="onFileChange($event, 'criminalRecord')" hidden accept=".pdf,image/*">
+          <div class="upload-content">
+            <i class="fas fa-file-contract"></i>
+            <div class="text-right"><strong>شهادة السجل العدلي (الفيش)</strong><br><small>اختياري</small></div>
+          </div>
+        </label>
+      </div>
+    </section>
+
+    <section class="form-card animate__animated animate__fadeInUp" style="animation-delay: 0.2s;" formGroupName="experience">
+      <div class="card-header"><i class="fas fa-map-marked-alt"></i> <h2>تفاصيل العمل</h2></div>
+      <div class="mb-4 inputs-marginDown">
+        <label class="form-label-custom">نطاق العمل الجغرافي</label>
+        <div class="map-picker-trigger" (click)="openMapModal()" [class.valid]="signupForm.get('experience.lat')?.value">
+          <div class="info"><i class="fas fa-location-arrow"></i> <span>{{ signupForm.get('experience.locationDetails')?.value || 'حدد موقعك على الخريطة' }}</span></div>
+          <button type="button" class="map-btn">الخريطة</button>
+        </div>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-12 inputs-marginDown">
+          <label class="form-label-custom">مستوى المهارة</label>
+          <div class="radio-group-wrapper">
+            <div class="radio-group">
+              <label><input type="radio" formControlName="level" value="مبتدئ"> <span>مبتدئ</span></label>
+              <label><input type="radio" formControlName="level" value="متوسط"> <span>متوسط</span></label>
+              <label><input type="radio" formControlName="level" value="خبير"> <span>خبير</span></label>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <label class="form-label-custom">نبذة عن خبراتك السابقة</label>
+          <textarea formControlName="bio" class="custom-input" rows="4"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <div class="submit-container">
+      <button type="submit" class="final-submit-btn" [disabled]="isLoading()">
+        <span *ngIf="!isLoading()">تقديم الطلب الآن <i class="fas fa-paper-plane ms-2"></i></span>
+        <span *ngIf="isLoading()" class="spinner-border spinner-border-sm me-2"></span>
+        <span *ngIf="isLoading()">جاري إرسال بياناتك...</span>
+      </button>
+    </div>
+  </form>
+
+  <div class="map-modal-overlay" *ngIf="isMapOpen" (click)="closeMap()">
+    <div class="map-modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>تحديد موقع الحرفي</h3>
+        <button class="close-btn" (click)="closeMap()">&times;</button>
+      </div>
+      <div id="map-container" style="width: 100%;"></div>
+      <div class="modal-footer"><button class="confirm-btn" (click)="closeMap()">تأكيد العنوان</button></div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,916 @@
+// =================== Variables ===================
+$brand: #2563eb;
+$brand-soft: #eff6ff;
+$orange: #f97316;
+$orange-soft: #fff7ed;
+$success: #16a34a;
+$text-dark: #111827;
+$text-body: #374151;
+$text-muted: #9ca3af;
+$border: #e5e7eb;
+$bg: #f9fafb;
+$white: #ffffff;
+$radius-lg: 20px;
+$radius-md: 14px;
+$radius-sm: 10px;
+
+// =================== Page ===================
+.page-wrapper {
+  min-height: 100vh;
+  background: $bg;
+  font-family: 'Cairo', sans-serif;
+  position: relative;
+}
+
+.blob-bg { display: none; } // مش محتاجينه
+
+// =================== Container ===================
+.service-container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+
+// =================== Loading ===================
+.loading-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+}
+
+.glass-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+
+  .orbit {
+    width: 48px;
+    height: 48px;
+    border: 3px solid $border;
+    border-top-color: $brand;
+    border-radius: 50%;
+    animation: spin 0.9s linear infinite;
+  }
+
+  p {
+    font-size: 15px;
+    color: $text-muted;
+    margin: 0;
+  }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+// =================== Main Grid ===================
+.main-content {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+// =================== Service Info Card ===================
+.service-info-card {
+  position: sticky;
+  top: 28px;
+}
+
+.glass-card {
+  background: $white;
+  border: 1px solid $border;
+  border-radius: $radius-lg;
+  overflow: hidden;
+
+  // الهيدر الملون في الأعلى
+  &::before {
+    content: '';
+    display: block;
+    height: 6px;
+    background: linear-gradient(90deg, $brand 0%, $orange 100%);
+  }
+
+  .card-inner {
+    padding: 28px 24px;
+    text-align: center;
+  }
+
+  .floating-icon {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 20px;
+    background: $orange-soft;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $orange;
+
+    svg {
+      width: 36px;
+      height: 36px;
+    }
+  }
+
+  h1 {
+    font-size: 20px;
+    font-weight: 800;
+    color: $text-dark;
+    margin: 0 0 6px;
+  }
+
+  .tagline {
+    font-size: 12px;
+    color: $brand;
+    font-weight: 600;
+    margin: 0 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    &::before,
+    &::after {
+      content: '';
+      display: inline-block;
+      width: 24px;
+      height: 1px;
+      background: $border;
+    }
+  }
+
+  .description {
+    font-size: 13px;
+    line-height: 1.8;
+    color: $text-muted;
+    margin: 0 0 24px;
+    text-align: right;
+  }
+
+  .stats-mini {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-top: 1px solid $border;
+    margin: 0 -24px -28px;
+
+    .stat {
+      padding: 16px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      transition: background 0.2s;
+
+      &:first-child {
+        border-left: 1px solid $border;
+      }
+
+      &:hover {
+        background: $bg;
+      }
+
+      .stat-span {
+        font-size: 18px;
+        font-weight: 800;
+        color: $text-dark;
+      }
+
+      label {
+        font-size: 11px;
+        color: $text-muted;
+        cursor: default;
+      }
+    }
+  }
+}
+
+// =================== Order Flow ===================
+.order-flow-area {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+// =================== Flow Card ===================
+.flow-card {
+  background: $white;
+  border: 1px solid $border;
+  border-radius: $radius-lg;
+  padding: 28px;
+  position: relative;
+
+  // الخط الجانبي الأيمن
+  &::before {
+    content: '';
+    position: absolute;
+    top: 28px;
+    right: 0;
+    width: 3px;
+    height: 40px;
+    background: $brand;
+    border-radius: 0 3px 3px 0;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  &:focus-within::before,
+  &:hover::before {
+    opacity: 1;
+  }
+}
+
+// =================== Step Header ===================
+.step-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+
+  .step-num {
+    font-size: 11px;
+    font-weight: 800;
+    color: $brand;
+    background: $brand-soft;
+    padding: 5px 12px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+    flex-shrink: 0;
+  }
+
+  h2 {
+    font-size: 16px;
+    font-weight: 700;
+    color: $text-dark;
+    margin: 0;
+  }
+}
+
+// =================== Location ===================
+.location-box {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border: 1.5px solid $border;
+  border-radius: $radius-md;
+  background: $white;
+  overflow: hidden;
+  transition: border-color 0.25s, box-shadow 0.25s;
+
+  &:focus-within {
+    border-color: $brand;
+    box-shadow: 0 0 0 3px rgba($brand, 0.08);
+  }
+
+  &.has-location {
+    border-color: $success;
+
+    &:focus-within {
+      box-shadow: 0 0 0 3px rgba($success, 0.08);
+    }
+  }
+
+  input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 13px 16px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 14px;
+    color: $text-body;
+    min-width: 0;
+
+    &:focus { outline: none; }
+
+    &::placeholder { color: $text-muted; }
+  }
+
+  // الفاصل
+  &::after {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 24px;
+    background: $border;
+    flex-shrink: 0;
+  }
+
+  .gps-btn {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 13px 16px;
+    background: transparent;
+    border: none;
+    color: $brand;
+    font-family: 'Cairo', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s, color 0.2s;
+    flex-shrink: 0;
+
+    &:hover {
+      background: $brand-soft;
+    }
+
+    svg { flex-shrink: 0; }
+  }
+}
+
+// =================== Search Button ===================
+.search-btn-container {
+  animation: fadeSlide 0.35s ease;
+}
+
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.search-pros-btn {
+  width: 100%;
+  padding: 13px 20px;
+  background: $brand;
+  color: $white;
+  border: none;
+  border-radius: $radius-md;
+  font-family: 'Cairo', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.2s, transform 0.2s;
+
+  &:hover {
+    background: darken(#2563eb, 6%);
+    transform: translateY(-1px);
+  }
+
+  i { font-size: 13px; }
+}
+
+// =================== Pros Grid ===================
+.pros-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: all 0.3s;
+
+  &.searching {
+    opacity: 0.4;
+    pointer-events: none;
+    filter: blur(2px);
+  }
+}
+
+.mini-loader {
+  width: 32px;
+  height: 32px;
+  border: 3px solid $border;
+  border-top-color: $brand;
+  border-radius: 50%;
+  margin: 16px auto;
+  animation: spin 0.8s linear infinite;
+}
+
+// =================== Pro Card ===================
+.pro-mini-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border: 1.5px solid $border;
+  border-radius: $radius-md;
+  background: $white;
+  transition: all 0.2s;
+  cursor: pointer;
+
+  &:hover {
+    border-color: rgba($brand, 0.3);
+    background: #fafbff;
+  }
+
+  &.selected {
+    border-color: $brand;
+    background: $brand-soft;
+
+    .select-pro-btn {
+      background: $brand;
+      color: $white;
+      border-color: $brand;
+    }
+  }
+
+  .pro-avatar {
+    position: relative;
+    flex-shrink: 0;
+
+    img {
+      width: 52px;
+      height: 52px;
+      border-radius: $radius-sm;
+      object-fit: cover;
+      display: block;
+    }
+
+    .status-dot {
+      position: absolute;
+      bottom: -2px;
+      right: -2px;
+      width: 11px;
+      height: 11px;
+      background: $success;
+      border: 2px solid $white;
+      border-radius: 50%;
+    }
+  }
+
+  .pro-details {
+    flex: 1;
+    min-width: 0;
+
+    h4 {
+      font-size: 14px;
+      font-weight: 700;
+      color: $text-dark;
+      margin: 0 0 3px;
+      cursor: pointer;
+      transition: color 0.2s;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      &:hover { color: $brand; }
+    }
+
+    .rating {
+      font-size: 12px;
+      font-weight: 600;
+      color: #d97706;
+      margin-bottom: 2px;
+    }
+
+    p {
+      font-size: 12px;
+      color: $text-muted;
+      margin: 0;
+    }
+  }
+
+  .select-pro-btn {
+    flex-shrink: 0;
+    padding: 8px 16px;
+    border: 1.5px solid $border;
+    border-radius: $radius-sm;
+    background: $white;
+    font-family: 'Cairo', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: $text-body;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+
+    &:hover {
+      border-color: $brand;
+      color: $brand;
+    }
+  }
+}
+
+// =================== Description Step ===================
+.description-step {
+  animation: fadeSlide 0.4s ease;
+}
+
+.description-container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.textarea-wrapper {
+  position: relative;
+  border: 1.5px solid $border;
+  border-radius: $radius-md;
+  overflow: hidden;
+  background: $white;
+  transition: border-color 0.25s, box-shadow 0.25s;
+
+  &:focus-within {
+    border-color: $brand;
+    box-shadow: 0 0 0 3px rgba($brand, 0.08);
+
+    .input-icon { color: $brand; }
+
+    .input-glow { transform: scaleX(1); }
+  }
+
+  .input-icon {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    color: $text-muted;
+    font-size: 14px;
+    pointer-events: none;
+    transition: color 0.3s;
+    z-index: 2;
+  }
+
+  .premium-textarea {
+    width: 100%;
+    padding: 15px 42px 15px 15px;
+    border: none;
+    background: transparent;
+    font-family: 'Cairo', sans-serif;
+    font-size: 14px;
+    color: $text-body;
+    line-height: 1.7;
+    resize: none;
+    box-sizing: border-box;
+    display: block;
+
+    &:focus { outline: none; }
+
+    &::placeholder {
+      color: $text-muted;
+      font-weight: 400;
+    }
+  }
+
+  .input-glow {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, $brand, lighten($brand, 20%));
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s ease;
+  }
+}
+
+.hint-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: $radius-md;
+
+  .hint-icon {
+    width: 30px;
+    height: 30px;
+    background: #f59e0b;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    i {
+      color: $white;
+      font-size: 13px;
+    }
+  }
+
+  .hint-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    strong {
+      font-size: 13px;
+      font-weight: 700;
+      color: #92400e;
+    }
+
+    .advice {
+      font-size: 13px;
+      color: #78350f;
+      line-height: 1.6;
+    }
+  }
+}
+
+// =================== Final Action ===================
+.final-action {
+  margin-top: 4px;
+}
+
+.main-submit-btn {
+  width: 100%;
+  height: 56px;
+  background: $text-dark;
+  color: $white;
+  border: none;
+  border-radius: $radius-md;
+  font-family: 'Cairo', sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  transition: all 0.25s;
+  letter-spacing: 0.3px;
+
+  &:hover {
+    background: lighten(#111827, 8%);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba($text-dark, 0.2);
+
+    svg { transform: translateX(-4px); }
+  }
+
+  svg { transition: transform 0.25s; }
+}
+
+// =================== RESPONSIVE ===================
+
+// -------- Tablet --------
+@media (max-width: 900px) {
+  .service-container {
+    padding: 24px 16px 60px;
+  }
+
+  .main-content {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .service-info-card {
+    position: static;
+  }
+
+  .glass-card {
+    // أفقي في التابلت
+    .card-inner {
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      grid-template-rows: auto auto;
+      gap: 0 20px;
+      padding: 24px;
+      text-align: right;
+    }
+
+    .floating-icon {
+      margin: 0;
+      grid-row: 1 / 3;
+      align-self: center;
+    }
+
+    h1 {
+      font-size: 18px;
+      align-self: end;
+      margin-bottom: 4px;
+    }
+
+    .tagline {
+      justify-content: flex-start;
+      align-self: start;
+      margin-bottom: 0;
+
+      &::before { display: none; }
+    }
+
+    .description {
+      grid-column: 1 / -1;
+      margin-top: 14px;
+      margin-bottom: 0;
+    }
+
+    .stats-mini {
+      margin: 0;
+      grid-column: 1 / -1;
+      margin-top: 16px;
+      border-top: 1px solid $border;
+    }
+  }
+}
+
+// -------- Mobile --------
+@media (max-width: 600px) {
+  .service-container {
+    padding: 16px 12px 50px;
+  }
+
+  .main-content {
+    gap: 14px;
+  }
+
+  // Info Card
+  .glass-card {
+    .card-inner {
+      grid-template-columns: 60px 1fr;
+      gap: 0 14px;
+      padding: 18px;
+    }
+
+    .floating-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 14px;
+
+      svg {
+        width: 30px;
+        height: 30px;
+      }
+    }
+
+    h1 { font-size: 16px; }
+
+    .tagline { font-size: 11px; }
+
+    .description {
+      font-size: 12px;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      display: -webkit-box;
+      overflow: hidden;
+    }
+
+    .stats-mini {
+      .stat {
+        padding: 12px 8px;
+
+        .stat-span { font-size: 16px; }
+        label { font-size: 10px; }
+      }
+    }
+  }
+
+  // Flow Cards
+  .flow-card {
+    padding: 18px;
+    border-radius: $radius-md;
+
+    &::before { display: none; }
+  }
+
+  .step-header {
+    gap: 10px;
+    margin-bottom: 16px;
+
+    .step-num {
+      font-size: 10px;
+      padding: 4px 10px;
+    }
+
+    h2 { font-size: 15px; }
+  }
+
+  // Input
+  .input-wrapper {
+    flex-direction: column;
+    align-items: stretch;
+
+    // إلغاء الفاصل الرأسي
+    &::after { display: none; }
+
+    input {
+      padding: 12px 14px;
+      font-size: 14px;
+      border-bottom: 1px solid $border;
+      border-radius: 0;
+    }
+
+    .gps-btn {
+      padding: 12px 14px;
+      justify-content: center;
+      font-size: 14px;
+      border-radius: 0;
+    }
+  }
+
+  .search-pros-btn {
+    font-size: 14px;
+    padding: 13px;
+    border-radius: $radius-sm;
+  }
+
+  // Pro Cards
+  .pro-mini-card {
+    padding: 12px;
+    gap: 10px;
+    border-radius: $radius-sm;
+
+    .pro-avatar img {
+      width: 46px;
+      height: 46px;
+      border-radius: 10px;
+    }
+
+    .pro-details {
+      h4 { font-size: 13px; }
+      .rating { font-size: 11px; }
+      p { font-size: 11px; }
+    }
+
+    .select-pro-btn {
+      padding: 8px 12px;
+      font-size: 12px;
+    }
+  }
+
+  // Textarea
+  .textarea-wrapper {
+    border-radius: $radius-sm;
+
+    .premium-textarea {
+      font-size: 13px;
+      padding: 13px 40px 13px 13px;
+    }
+
+    .input-icon {
+      top: 13px;
+      right: 13px;
+      font-size: 13px;
+    }
+  }
+
+  .hint-banner {
+    padding: 12px;
+    border-radius: $radius-sm;
+    gap: 10px;
+
+    .hint-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 7px;
+
+      i { font-size: 12px; }
+    }
+
+    .hint-text {
+      strong { font-size: 12px; }
+      .advice { font-size: 12px; }
+    }
+  }
+
+  .main-submit-btn {
+    height: 52px;
+    font-size: 14px;
+    border-radius: $radius-sm;
+  }
+}
+
+// -------- Very Small --------
+@media (max-width: 380px) {
+  .service-container {
+    padding: 12px 10px 44px;
+  }
+
+  .glass-card {
+    .card-inner {
+      grid-template-columns: 54px 1fr;
+      padding: 14px;
+    }
+
+    .floating-icon {
+      width: 54px;
+      height: 54px;
+
+      svg { width: 26px; height: 26px; }
+    }
+
+    h1 { font-size: 15px; }
+  }
+
+  .flow-card { padding: 14px; }
+
+  .step-header h2 { font-size: 14px; }
+
+  .pro-mini-card {
+    .pro-avatar img {
+      width: 42px;
+      height: 42px;
+    }
+
+    .select-pro-btn {
+      padding: 7px 10px;
+      font-size: 11px;
+    }
+  }
+
+  .main-submit-btn {
+    height: 48px;
+    font-size: 13px;
+  }
+}

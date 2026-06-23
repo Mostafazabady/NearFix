@@ -1,0 +1,91 @@
+// =================== Variables ===================
+$brand:      #d97706;
+$brand-soft: #eff6ff;
+$text-dark:  #111827;
+$text-muted: #6b7280;
+$bg:         #f9fafb;
+
+// =================== Wrapper ===================
+.not-found-wrapper {
+  min-height: 100vh;
+  background: $bg;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cairo', sans-serif;
+  padding: 24px;
+  text-align: center;
+  gap: 16px;
+}
+
+// =================== Error Code ===================
+.error-code {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+
+  span {
+    font-size: clamp(80px, 20vw, 160px);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -4px;
+  }
+
+  // الـ 4 بلون الـ brand
+  .four {
+    color: $brand;
+  }
+
+  // الـ 0 بلون فاتح
+  .zero {
+    color: #e5e7eb;
+    -webkit-text-stroke: 3px #d1d5db;
+  }
+}
+
+// =================== Text ===================
+.title {
+  font-size: clamp(20px, 4vw, 28px);
+  font-weight: 800;
+  color: $text-dark;
+  margin: 0;
+}
+
+.subtitle {
+  font-size: 15px;
+  color: $text-muted;
+  margin: 0;
+  max-width: 380px;
+  line-height: 1.7;
+}
+
+// =================== Button ===================
+.btn-home {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background: $brand;
+  color: #fff;
+  border-radius: 12px;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 700;
+  margin-top: 8px;
+  transition: all 0.25s;
+
+  &:hover {
+    background: darken(#2563eb, 8%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba($brand, 0.3);
+  }
+}
+
+// =================== Responsive ===================
+@media (max-width: 480px) {
+  .error-code span  { letter-spacing: -2px; }
+  .subtitle         { font-size: 13px; }
+  .btn-home         { font-size: 14px; padding: 11px 22px; }
+}

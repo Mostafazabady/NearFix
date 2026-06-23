@@ -1,0 +1,172 @@
+<div class="page-wrapper" dir="rtl">
+  <div class="blob-bg"></div>
+
+  <div class="service-container">
+
+    <div *ngIf="isLoading()" class="loading-state">
+      <div class="glass-loader">
+        <div class="orbit"></div>
+        <p>جاري تجهيز طلبك...</p>
+      </div>
+    </div>
+
+    <div *ngIf="!isLoading() && professionData() as service" class="main-content">
+
+      <!-- ===== Info Card ===== -->
+      <aside class="service-info-card">
+        <div class="glass-card">
+
+          <!-- هنا الإضافة الوحيدة - wrapper للمحتوى الداخلي -->
+          <div class="card-inner">
+            <div class="floating-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path [attr.d]="service.icon_svg"></path>
+              </svg>
+            </div>
+            <h1>{{ service.name_ar }}</h1>
+            <p class="tagline">خدمة احترافية، ضمان، وأمان</p>
+            <p class="description">{{ service.description }}</p>
+
+            <div class="stats-mini">
+              <div class="stat">
+                <span class="stat-span">+500</span>
+                <label>فني معتمد</label>
+              </div>
+              <div class="stat">
+                <span class="stat-span">4.8/5</span>
+                <label>تقييم</label>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </aside>
+
+      <!-- ===== Order Flow ===== -->
+      <main class="order-flow-area">
+
+        <!-- 01 الموقع -->
+        <section class="flow-card location-step">
+          <div class="step-header">
+            <span class="step-num">01</span>
+            <h2>أين تريد الخدمة؟</h2>
+          </div>
+
+          <div class="location-box">
+            <div class="input-wrapper" [class.has-location]="userLocation()">
+              <input
+                type="text"
+                [value]="addressText()"
+                (input)="addressText.set($any($event.target).value)"
+                placeholder="ابحث عن عنوانك أو حدد موقعك">
+
+              <button class="gps-btn" (click)="detectLocation()">
+                <svg viewBox="0 0 24 24" width="16" fill="none"
+                     stroke="currentColor" stroke-width="2.5">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                  <circle cx="12" cy="10" r="3"/>
+                </svg>
+                <span>تحديد موقعي</span>
+              </button>
+            </div>
+
+            <div class="search-btn-container"
+                 *ngIf="addressText() && !isSearching()">
+              <button class="search-pros-btn" (click)="searchNearby()">
+                <span>بحث عن فنيي {{ service.name_ar }}</span>
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- 02 الفنيون -->
+        <section class="flow-card pros-step"
+                 *ngIf="nearbyPros().length > 0 || isSearching()">
+          <div class="step-header">
+            <span class="step-num">02</span>
+            <h2>{{ isSearching() ? 'جاري البحث...' : 'فنيون متاحون الآن' }}</h2>
+          </div>
+
+          <div class="pros-grid" [class.searching]="isSearching()">
+            <div *ngIf="isSearching()" class="mini-loader"></div>
+
+            <div class="pro-mini-card"
+                 *ngFor="let pro of nearbyPros()"
+                 [class.selected]="selectedArtisanId() === pro.id">
+
+              <div class="pro-avatar"
+                   [routerLink]="['/artisan-profile', pro.id]">
+                <img
+                  [src]="pro.profile_pic_url ||
+                        'https://ui-avatars.com/api/?name=' + pro.full_name"
+                  [alt]="pro.full_name">
+                <span class="status-dot"></span>
+              </div>
+
+              <div class="pro-details">
+                <h4 [routerLink]="['/artisan-profile', pro.id]">
+                  {{ pro.full_name }}
+                </h4>
+                <div class="rating">⭐ 4.9</div>
+                <p>يبعد {{ formatDistance(pro.dist_meters) }} عنك</p>
+              </div>
+
+              <button class="select-pro-btn" (click)="selectArtisan(pro.id)">
+                {{ selectedArtisanId() === pro.id ? 'تم الاختيار ✓' : 'اختيار' }}
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- 03 وصف المشكلة -->
+        <section class="flow-card description-step"
+                 *ngIf="selectedArtisanId()">
+          <div class="step-header">
+            <span class="step-num">03</span>
+            <h2>ما هي المشكلة؟</h2>
+          </div>
+
+          <div class="description-container">
+            <div class="textarea-wrapper">
+              <i class="fas fa-pen-nib input-icon"></i>
+              <textarea
+                rows="5"
+                class="premium-textarea"
+                placeholder="مثال: عندي عطل في لوحة الكهرباء الرئيسية وبتحصل قفلة لما بشغل التكييف..."
+                [value]="problemDescription()"
+                (input)="problemDescription.set($any($event.target).value)">
+              </textarea>
+              <div class="input-glow"></div>
+            </div>
+
+            <div class="hint-banner">
+              <div class="hint-icon">
+                <i class="fas fa-lightbulb"></i>
+              </div>
+              <div class="hint-text">
+                <strong>نصيحة ذكية</strong>
+                <span class="advice">
+                  كلما كانت التفاصيل أوضح، استطاع الفني تقدير
+                  التكلفة والوقت بدقة أكبر قبل المجيء.
+                </span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- زر التأكيد -->
+        <section class="final-action">
+          <button class="main-submit-btn" (click)="confirmFinalOrder()">
+            <span>تأكيد الطلب النهائي</span>
+            <svg viewBox="0 0 24 24" width="20" fill="none"
+                 stroke="currentColor" stroke-width="2.5">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </section>
+
+      </main>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,517 @@
+// =================== Variables ===================
+$brand:       #2563eb;
+$brand-light: #3b82f6;
+$orange:      #f97316;
+$orange-dark: #ea6b0a;
+$success:     #16a34a;
+$dark:        #f8faff;
+$dark-2:      #f1f5f9;
+$text-white:  #111827;
+$text-muted:  #6b7280;
+$border:      rgba(0, 0, 0, 0.07);
+
+// =================== Container ===================
+.selection-container {
+  min-height: 100vh;
+  background: #f0f4ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cairo', sans-serif;
+  position: relative;
+  overflow: hidden;
+  padding: 40px 20px;
+  box-sizing: border-box;
+}
+
+// =================== Background ===================
+.bg-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  animation: orbFloat 20s ease-in-out infinite;
+}
+
+.orb-1 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba($brand, 0.1), transparent 70%);
+  top: -150px;
+  right: -100px;
+  animation-delay: 0s;
+}
+
+.orb-2 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba($orange, 0.08), transparent 70%);
+  bottom: -100px;
+  left: -80px;
+  animation-delay: -7s;
+}
+
+.orb-3 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba($brand-light, 0.07), transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation-delay: -14s;
+}
+
+@keyframes orbFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(30px, -40px) scale(1.05); }
+  66%       { transform: translate(-20px, 30px) scale(0.95); }
+}
+
+.grid-lines {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba($brand, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba($brand, 0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+// =================== Content ===================
+.content-wrapper {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+// =================== Hero Text ===================
+.hero-text {
+  text-align: center;
+  animation: fadeDown 0.7s ease both;
+}
+
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba($brand, 0.08);
+  border: 1px solid rgba($brand, 0.2);
+  color: $brand;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  letter-spacing: 0.3px;
+}
+
+.badge-dot {
+  width: 7px;
+  height: 7px;
+  background: $success;
+  border-radius: 50%;
+  animation: blink 2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(0.8); }
+}
+
+.main-title {
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 800;
+  color: #111827;
+  margin: 0 0 12px;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+
+  .brand-name {
+    background: linear-gradient(135deg, $brand, $orange);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+.subtitle {
+  font-size: 15px;
+  color: $text-muted;
+  margin: 0;
+  line-height: 1.6;
+}
+
+// =================== Cards Grid ===================
+.cards-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0;
+  width: 100%;
+  align-items: center;
+  animation: fadeUp 0.7s 0.2s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+// =================== Role Card ===================
+.role-card {
+  background: #ffffff;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 24px;
+  padding: 32px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+  box-sizing: border-box;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+  }
+}
+
+// Glow Effect
+.card-glow {
+  position: absolute;
+  top: -60%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  filter: blur(40px);
+}
+
+.craftsman-card {
+  .card-glow {
+    background: radial-gradient(circle, rgba($orange, 0.15), transparent);
+  }
+
+  &:hover {
+    border-color: rgba($orange, 0.35);
+
+    .card-glow { opacity: 1; }
+
+    .role-icon {
+      background: rgba($orange, 0.08);
+      border-color: rgba($orange, 0.2);
+      color: $orange;
+    }
+
+    .card-btn {
+      background: $orange;
+      color: #fff;
+      box-shadow: 0 8px 24px rgba($orange, 0.3);
+    }
+  }
+
+  .role-icon { color: $orange; }
+
+  .role-label {
+    background: rgba($orange, 0.08);
+    color: $orange;
+    border-color: rgba($orange, 0.2);
+  }
+}
+
+.client-card {
+  .card-glow {
+    background: radial-gradient(circle, rgba($brand, 0.15), transparent);
+  }
+
+  &:hover {
+    border-color: rgba($brand, 0.35);
+
+    .card-glow { opacity: 1; }
+
+    .role-icon {
+      background: rgba($brand, 0.08);
+      border-color: rgba($brand, 0.2);
+      color: $brand;
+    }
+
+    .card-btn {
+      background: $brand;
+      color: #fff;
+      box-shadow: 0 8px 24px rgba($brand, 0.3);
+    }
+  }
+
+  .role-icon { color: $brand; }
+}
+
+// =================== Card Inner ===================
+.card-inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 20px;
+}
+
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.role-icon {
+  width: 60px;
+  height: 60px;
+  background: #f8fafc;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+}
+
+.role-label {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 20px;
+  border: 1px solid;
+  letter-spacing: 0.5px;
+  background: rgba($brand, 0.08);
+  color: $brand;
+  border-color: rgba($brand, 0.2);
+}
+
+.client-label {
+  background: rgba($brand, 0.08);
+  color: $brand;
+  border-color: rgba($brand, 0.2);
+}
+
+// Card Body
+.card-body {
+  flex: 1;
+
+  h2 {
+    font-size: 20px;
+    font-weight: 800;
+    color: #111827;
+    margin: 0 0 10px;
+  }
+
+  p {
+    font-size: 13px;
+    color: #6b7280;
+    line-height: 1.8;
+    margin: 0 0 16px;
+  }
+}
+
+// Perks List
+.perks-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #374151;
+
+    svg { color: $success; flex-shrink: 0; }
+  }
+}
+
+// Card Button
+.card-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 13px;
+  border: none;
+  border-radius: 12px;
+  font-family: 'Cairo', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  letter-spacing: 0.3px;
+
+  svg { transition: transform 0.25s; }
+  &:hover svg { transform: translateX(-4px); }
+}
+
+.craftsman-btn {
+  background: rgba($orange, 0.08);
+  color: $orange;
+  border: 1.5px solid rgba($orange, 0.2);
+}
+
+.client-btn {
+  background: rgba($brand, 0.08);
+  color: $brand;
+  border: 1.5px solid rgba($brand, 0.2);
+}
+
+// =================== OR Divider ===================
+.or-divider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 0 20px;
+
+  span {
+    font-size: 12px;
+    font-weight: 700;
+    color: #d1d5db;
+    white-space: nowrap;
+    letter-spacing: 1px;
+  }
+}
+
+.or-line {
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    #e5e7eb,
+    transparent
+  );
+}
+
+// =================== Already Member ===================
+.already-member {
+  font-size: 13px;
+  color: $text-muted;
+  margin: 0;
+  animation: fadeUp 0.7s 0.4s ease both;
+
+  a {
+    color: $brand;
+    text-decoration: none;
+    font-weight: 700;
+    margin-right: 4px;
+    transition: color 0.2s;
+
+    &:hover { color: darken(#2563eb, 10%); }
+  }
+}
+
+// =================== RESPONSIVE ===================
+
+@media (max-width: 750px) {
+  .selection-container {
+    padding: 32px 16px;
+    align-items: flex-start;
+    padding-top: 48px;
+  }
+
+  .content-wrapper { gap: 32px; }
+
+  .cards-grid { grid-template-columns: 1fr; gap: 0; }
+
+  .or-divider {
+    flex-direction: row;
+    padding: 16px 0;
+  }
+
+  .or-line {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #e5e7eb, transparent);
+  }
+
+  .role-card {
+    padding: 24px;
+    border-radius: 20px;
+    &:hover { transform: none; }
+  }
+
+  .card-inner { gap: 16px; }
+
+  .role-icon { width: 52px; height: 52px; border-radius: 14px; }
+
+  .card-body h2 { font-size: 18px; }
+}
+
+@media (max-width: 480px) {
+  .selection-container {
+    padding: 24px 14px;
+    padding-top: 36px;
+  }
+
+  .content-wrapper { gap: 24px; }
+
+  .badge { font-size: 11px; padding: 5px 12px; }
+
+  .subtitle { font-size: 13px; }
+
+  .role-card { padding: 20px; border-radius: 18px; }
+
+  .card-inner { gap: 14px; }
+
+  .role-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    svg { width: 26px; height: 26px; }
+  }
+
+  .role-label { font-size: 10px; padding: 4px 10px; }
+
+  .card-body {
+    h2 { font-size: 17px; }
+    p  { font-size: 12px; }
+  }
+
+  .perks-list li { font-size: 11px; }
+
+  .card-btn {
+    padding: 12px;
+    font-size: 13px;
+    border-radius: 10px;
+  }
+
+  .or-divider span { font-size: 11px; }
+
+  .already-member { font-size: 12px; }
+}
+
+@media (max-width: 360px) {
+  .role-card { padding: 16px; }
+  .role-icon { width: 44px; height: 44px; }
+  .card-body h2 { font-size: 16px; }
+}

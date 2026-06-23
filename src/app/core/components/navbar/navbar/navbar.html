@@ -1,0 +1,86 @@
+<nav class="navbar" aria-label="Main Navigation">
+  <div class="navbar-container">
+    <a routerLink="/home" class="brand-logo" aria-label="NearFix Home">NearFix</a>
+
+    <!-- 🔥 لا تعرض أي روابط أو أزرار غير لما نتأكد من هوية المستخدم -->
+    <ng-container *ngIf="supabase.isInitialLoadDone()">
+
+      <button class="mobile-menu-btn" [attr.aria-expanded]="isMenuOpen" aria-label="Toggle navigation menu" (click)="toggleMenu()">
+        <span class="bar"></span> <span class="bar"></span> <span class="bar"></span>
+      </button>
+
+      <ul class="nav-links" [class.is-open]="isMenuOpen">
+        <li><a routerLinkActive="active" routerLink="/home" (click)="closeMenu()" class="nav-link" aria-current="page">الرئيسية</a></li>
+        <li><a routerLinkActive="active" routerLink="/our-services" (click)="closeMenu()" class="nav-link">الخدمات</a></li>
+        <li><a routerLinkActive="active" routerLink="/WhoUs" (click)="closeMenu()" class="nav-link">من نحن</a></li>
+
+        <!-- روابط خاصة بالعميل فقط -->
+        <ng-container *ngIf="supabase.currentRole() === 'client'">
+          <li>
+            <a routerLinkActive="active" routerLink="/ClientOrder" (click)="closeMenu()" class="nav-link badge-container">
+              طلباتي
+              <div *ngIf="supabase.unreadOrdersCount() > 0" class="premium-badge-wrapper">
+                <div class="pulse-ring"></div>
+                <span class="premium-badge">
+                  {{ supabase.unreadOrdersCount() }}
+                </span>
+              </div>
+            </a>
+          </li>
+        </ng-container>
+
+        <!-- روابط خاصة بالحرفي فقط -->
+        <ng-container *ngIf="supabase.currentRole() === 'artisan'">
+          <li><a routerLinkActive="active" routerLink="/update-artisan-profile" (click)="closeMenu()" class="nav-link">لوحة التحكم</a></li>
+          <li>
+            <!-- 🔥 إضافة البادج للحرفي هنا -->
+            <a routerLinkActive="active" routerLink="/artisan-available-jobs" (click)="closeMenu()" class="nav-link badge-container">
+              أعمال متاحة
+              <div *ngIf="supabase.unreadJobsCount() > 0" class="premium-badge-wrapper">
+                <div class="pulse-ring"></div>
+                <span class="premium-badge">
+                  {{ supabase.unreadJobsCount() }}
+                </span>
+              </div>
+            </a>
+          </li>
+                    <li>
+            <a routerLinkActive="active" routerLink="/ClientOrder" (click)="closeMenu()" class="nav-link badge-container">
+              طلباتي
+              <div *ngIf="supabase.unreadOrdersCount() > 0" class="premium-badge-wrapper">
+                <div class="pulse-ring"></div>
+                <span class="premium-badge">
+                  {{ supabase.unreadOrdersCount() }}
+                </span>
+              </div>
+            </a>
+          </li>
+        </ng-container>
+
+        <li *ngIf="!supabase.currentUser()"><a routerLinkActive="active"  (click)="closeMenu()" routerLink="/join-us" class="nav-link">انضم كمحترف</a></li>
+
+        <div class="nav-action-1" *ngIf="!supabase.currentUser()">
+          <a routerLink="/Auth/Login" (click)="closeMenu()" class="btn-login">تسجيل الدخول</a>
+          <a routerLink="/Auth/RoleSelection" (click)="closeMenu()" class="btn-signUp">إنشاء حساب</a>
+        </div>
+
+        <div class="nav-actions" *ngIf="supabase.currentUser()">
+          <a routerLink="/client-profile" routerLinkActive="active" (click)="closeMenu()" class="minimal-gear">
+            <i class="fas fa-cog"></i>
+          </a>
+        </div>
+      </ul>
+
+      <div class="nav-links nav-action" [class.is-open]="isMenuOpen" *ngIf="supabase.currentRole() !== 'artisan'">
+        <div class="nav-action-2">
+          <a routerLink="/our-services" (click)="closeMenu()" class="btn-primary">اطلب الآن</a>
+        </div>
+      </div>
+    </ng-container>
+
+    <!-- لو عايز تحط Loader صغير يظهر مكان الأزرار لحد ما تحمل (اختياري) -->
+    <div *ngIf="!supabase.isInitialLoadDone()" class="navbar-placeholder">
+       <!-- سيبها فاضية أو حط سبينر خفيف جداً -->
+    </div>
+  </div>
+</nav>

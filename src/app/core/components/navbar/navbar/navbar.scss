@@ -1,0 +1,600 @@
+/* --- متغيرات الألوان والخطوط --- */
+:host {
+  --nav-bg: #ffffff;
+  --primary-blue: #0056b3; /* لون الشعار واللينك النشط */
+  --text-grey: #6c757d;    /* لون اللينكات العادية */
+  --accent-orange: #fd7e14; /* لون الزر البرتقالي */
+  --accent-orange-hover: #e86c0c;
+  --font-family-en: 'Poppins', sans-serif; /* للغة الإنجليزية */
+  --font-family-ar: 'Cairo', 'Tajawal', sans-serif; /* للغة العربية */
+  --transition-speed: 0.3s;
+}
+
+/* --- الحاوية الأساسية للـ Navbar --- */
+.navbar {
+  background-color: var(--nav-bg);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* ظل خفيف جداً لفصله عن المحتوى */
+  position: sticky;
+  top: 0;
+  z-index: 9999 !important;
+  width: 100%;
+}
+
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px; /* لضمان عدم تمدد الشريط في الشاشات العملاقة */
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 80px;
+}
+
+/* --- الشعار (Logo) --- */
+.brand-logo {
+  font-family: var(--font-family-en);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--primary-blue);
+  text-decoration: none;
+  letter-spacing: -0.5px;
+}
+
+/* --- روابط التنقل (Links) --- */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-link {
+  font-family: var(--font-family-ar);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-grey);
+  text-decoration: none;
+  transition: color var(--transition-speed) ease;
+  position: relative;
+  padding: 8px 0;
+}
+
+.nav-link:hover {
+  color: var(--primary-blue);
+}
+
+/* التنسيق الخاص بالرابط النشط (الرئيسية) */
+.nav-link.active {
+  color: var(--primary-blue);
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--primary-blue);
+  border-radius: 2px;
+      transition: 0.7s ease;
+}
+
+
+
+.nav-action {
+  display:flex;
+  gap: 10px;
+}
+.nav-action-1 {
+  display: flex;
+  gap: 10px;
+}
+
+/* --- زر الإجراء (CTA) --- */
+.btn-primary {
+  font-family: var(--font-family-ar);
+  background-color: var(--accent-orange);
+  color: #ffffff;
+  padding: 10px 24px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  transition: background-color var(--transition-speed) ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-orange-hover);
+}
+
+.btn-login {
+    font-family: var(--font-family-ar);
+  background-color: var(--primary-blue);
+  color: #ffffff;
+  padding: 5px 16px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 13px;
+  transition: background-color var(--transition-speed) ease;
+}
+
+.btn-login:hover {
+  background-color: var(--text-grey);
+}
+.btn-signUp {
+    font-family: var(--font-family-ar);
+  background-color: var(--primary-blue);
+  color: #ffffff;
+  padding: 5px 16px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 13px;
+  transition: background-color var(--transition-speed) ease;
+}
+
+.btn-signUp:hover {
+  background-color: var(--text-grey);
+}
+
+
+
+/* --- زر القائمة للشاشات الصغيرة (مخفي افتراضياً) --- */
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.mobile-menu-btn .bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: var(--primary-blue);
+  border-radius: 3px;
+  transition: transform var(--transition-speed);
+}
+
+/* =========================================
+   التجاوب مع الشاشات الصغيرة (Breakpoints)
+   ========================================= */
+@media (max-width: 992px) {
+  
+  .mobile-menu-btn {
+    display: flex;
+    z-index: 1001;
+  }
+
+  /* إخفاء الزر البرتقالي في الموبايل أو يمكن نقله لداخل القائمة */
+  .btn-primary {
+    display: none; 
+  }
+
+  .nav-action-1 {
+    margin: 30px;
+  }
+
+  /* تحويل القائمة إلى قائمة منسدلة تغطي الشاشة */
+  .nav-links {
+    position: fixed;
+    top: 80px; /* تحت الـ Navbar مباشرة */
+    left: 0;
+    width: 100%;
+    background-color: var(--nav-bg);
+    flex-direction: column;
+    gap: 0;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transform: translateY(-150%); /* مخفية للأعلى */
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease-in-out;
+    // padding: 20px 0;
+  }
+
+  /* إظهار القائمة عند النقر */
+  .nav-links.is-open {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .nav-links li {
+    width: 100%;
+    text-align: center;
+  }
+
+  .nav-link {
+    display: block;
+    padding: 15px 0;
+    font-size: 18px;
+  }
+
+  .nav-link.active::after {
+    display: none; /* إخفاء الخط السفلي في وضع الموبايل */
+  }
+
+  /* تحويل أيقونة الهمبرجر إلى X عند الفتح */
+  .mobile-menu-btn[aria-expanded="true"] .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  .mobile-menu-btn[aria-expanded="true"] .bar:nth-child(2) {
+    opacity: 0;
+  }
+  .mobile-menu-btn[aria-expanded="true"] .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+}
+
+
+
+
+.badge-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.premium-badge-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 5px;
+}
+
+/* الحلقة اللي بتنور حوالين البادج */
+.pulse-ring {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, #ef4444, #f43f5e);
+  border-radius: 50%;
+  animation: radar-pulse 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+  z-index: 1;
+}
+
+/* البادج نفسه (Glassmorphism) */
+.premium-badge {
+  position: relative;
+  z-index: 2;
+  background: linear-gradient(135deg, #ff0055, #ff4081);
+  color: white;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 0 6px;
+  box-shadow: 0 2px 8px rgba(255, 0, 85, 0.5), inset 0 1px 2px rgba(255,255,255,0.4);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(4px);
+  
+  /* أنيميشن الدخول أول ما الرقم يتغير */
+  animation: pop-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* تأثير الـ Hover على الـ Link عشان يخلي البادج ينط */
+.badge-container:hover .premium-badge {
+  transform: translateY(-3px) scale(1.1);
+  box-shadow: 0 5px 15px rgba(255, 0, 85, 0.6);
+  transition: all 0.3s ease;
+}
+
+/* Keyframes */
+@keyframes radar-pulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+@keyframes pop-in {
+  0% { transform: scale(0); opacity: 0; }
+  80% { transform: scale(1.2); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+
+
+
+
+
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.minimal-gear {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  color: #6366f1; // لون أزرق هادي (Indigo 500)
+  background: rgba(99, 102, 241, 0.05); // خلفية زرقاء شفافة جداً
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+  font-size: 1.3rem;
+
+  i {
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  // تأثير الـ Hover
+  &:hover {
+    background: rgba(99, 102, 241, 0.15);
+    color: #4338ca; // أزرق أغمق شوية عند الوقوف عليه
+    transform: scale(1.05);
+
+    i {
+      transform: rotate(60deg); // تدوير خفيف جداً وهادي
+    }
+  }
+
+  // حالة النشاط (لما تكون في صفحة البروفايل)
+  &.active {
+    background: #6366f1;
+    color: white;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+
+    i {
+      animation: gentle-rotate 8s infinite linear; // دوران مستمر لكن بطيء جداً جداً
+    }
+    
+    // نقطة صغيرة تحت الأيقونة لبيان النشاط
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      width: 4px;
+      height: 4px;
+      background: #6366f1;
+      border-radius: 50%;
+    }
+  }
+}
+
+// أنيميشن الدوران الهادي (زي التنفس)
+@keyframes gentle-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.fas {
+  -webkit-font-smoothing: antialiased;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// الإعدادات العامة للنافبار العريض (Desktop)
+.navbar {
+  width: 100%;
+  background-color: #ffffff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  z-index: 1000;
+
+  .navbar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .brand-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+  }
+}
+
+// الروابط والأزرار المجمعة
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+  margin-right: 40px; // اتجاه متناسق مع العربي
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 25px;
+  margin: 0;
+  padding: 0;
+
+  li a {
+    color: #555;
+    text-decoration: none;
+    font-size: 1rem;
+    padding: 8px 12px;
+    transition: all 0.3s ease;
+    position: relative;
+
+    // حركة الهوفر اللطيفة خط يفرش من النص
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background-color: #007bff;
+      transition: all 0.3s ease;
+    }
+
+    &:hover {
+      color: #007bff;
+      &::after {
+        width: 100%;
+        left: 0;
+      }
+    }
+
+    // الـ Active Link اللي كان بيختفي ظبطناه هنا 🔥
+    &.active {
+      color: #007bff !important;
+      font-weight: bold;
+      &::after {
+        width: 100%;
+        left: 0;
+      }
+    }
+  }
+}
+
+.nav-actions-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+// زرار الموبايل (مخفي في الشاشات الكبيرة)
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 1001;
+
+  .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px 0;
+    background-color: #333;
+    transition: all 0.3s ease-in-out;
+  }
+}
+
+// ==========================================
+// 🔥 السحر الخاص بالشاشات الصغيرة (Responsive)
+// ==========================================
+@media (max-width: 768px) {
+  .mobile-menu-btn {
+    display: block; // يظهر فقط في الموبايل
+
+    // تحويل زرار الهمبرجر لعلامة X عند الفتح بشكل صايع
+    &.active {
+      .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+      .bar:nth-child(2) { opacity: 0; }
+      .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+    }
+  }
+
+  .minimal-gear {
+    margin : 25px 0 ;
+  }
+
+  .navbar-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 25px;
+    
+    // إعدادات الأنيميشن وحجب المنيو وهو مقفول
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    padding: 0 25px;
+    margin: 0;
+    
+    // الحالة المقفولة (تماما منعمينها عشان متعملش جلتش)
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-15px);
+    transition: all 0.4s ease-in-out;
+
+    // الحالة المفتوحة (الأنيميشن ينزل هنا بنعومة)
+    &.is-open {
+      max-height: 500px; // مساحة كافية تفرد براحتها
+      padding: 25px;
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+  }
+
+  // ترتيب التابات تحت بعض بالملي وبفراغ مريح للعين
+  .nav-links {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+
+    li {
+      width: 100%;
+      text-align: right; // مناسب للغة العربية
+
+      a {
+        display: block;
+        padding: 12px 15px;
+        width: 100%;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+
+        &:hover, &.active {
+          background-color: rgba(0, 123, 255, 0.08);
+        }
+        &::after { display: none; } // مش محتاجين الخط السفلي في الموبايل
+      }
+    }
+  }
+
+  .nav-actions-wrapper {
+    flex-direction: column;
+    width: 100%;
+    align-items: stretch;
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+  }
+}

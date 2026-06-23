@@ -1,0 +1,606 @@
+// ==========================================
+// 🎨 المتغيرات الأساسية (مستوحاة من الصورة)
+// ==========================================
+$primary-orange: #ff7a00; // لون الزرار البرتقالي
+$primary-orange-hover: #e66d00;
+$primary-blue: #1e3a8a; // لون اللوجو والنصوص الرئيسية
+$light-blue: #f1f5f9; // خلفية خفيفة للكروت والأيقونات
+$text-dark: #1f2937;
+$text-muted: #6b7280;
+$bg-white: #ffffff;
+$bg-off-white: #f8fafc;
+
+// إعدادات الحركة والظلال
+$transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+$shadow-soft: 0 10px 30px rgba(30, 58, 138, 0.05);
+$shadow-hover: 0 20px 40px rgba(30, 58, 138, 0.12);
+
+// ==========================================
+// 🌟 1. Hero Section
+// ==========================================
+.hero-section {
+  position: relative;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: $bg-off-white;
+  padding: 100px 20px;
+
+  .bg-image {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at calc(var(--x, 50) * 1%) calc(var(--y, 50) * 1%), rgba(255, 122, 0, 0.05) 0%, transparent 50%);
+    z-index: 1;
+  }
+
+  .overlay {
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231e3a8a' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    z-index: 2;
+  }
+
+  .content-wrapper {
+    position: relative;
+    z-index: 10;
+    max-width: 800px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 30px;
+    padding: 60px 40px;
+    box-shadow: $shadow-soft;
+    transform: translateY(0);
+    transition: $transition-smooth;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: $shadow-hover;
+    }
+  }
+
+  .text-content {
+    h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
+      color: $primary-blue;
+      line-height: 1.2;
+      margin-bottom: 24px;
+
+      .highlight {
+        color: $primary-orange;
+        position: relative;
+        display: inline-block;
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: 5px;
+          left: 0;
+          width: 100%;
+          height: 8px;
+          background: rgba($primary-orange, 0.2);
+          border-radius: 4px;
+          z-index: -1;
+        }
+      }
+    }
+
+    p {
+      font-size: 1.125rem;
+      color: $text-muted;
+      line-height: 1.8;
+      margin-bottom: 40px;
+      max-width: 600px;
+      margin-inline: auto;
+
+      strong {
+        color: $primary-blue;
+        font-weight: 700;
+      }
+    }
+  }
+
+  .magnetic-btn {
+    background: $primary-orange;
+    color: $bg-white;
+    border: none;
+    padding: 16px 40px;
+    border-radius: 50px;
+    font-size: 1.125rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    transition: $transition-smooth;
+    box-shadow: 0 10px 20px rgba($primary-orange, 0.3);
+    overflow: hidden;
+    position: relative;
+
+    i {
+      transition: transform 0.3s ease;
+    }
+
+    &:hover {
+      background: $primary-orange-hover;
+      transform: scale(1.05);
+      box-shadow: 0 15px 25px rgba($primary-orange, 0.4);
+
+      i {
+        transform: translateX(-5px); // سهم بيتحرك لليسار لأننا عربي
+      }
+    }
+  }
+}
+
+// ==========================================
+// 👁️ 2. Vision Section
+// ==========================================
+.vision-section {
+  padding: 120px 0;
+  background: $bg-white;
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+
+    @media (max-width: 991px) {
+      grid-template-columns: 1fr;
+      gap: 50px;
+    }
+  }
+
+  .image-side {
+    position: relative;
+
+    .image-wrapper {
+      position: relative;
+      border-radius: 30px;
+      overflow: hidden;
+      box-shadow: $shadow-soft;
+
+      .main-img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        transition: transform 0.7s ease;
+      }
+
+      &:hover .main-img {
+        transform: scale(1.05);
+      }
+    }
+
+    .experience-badge {
+      position: absolute;
+      bottom: -30px;
+      right: -30px; // عشان يكسر حدود الصورة
+      background: $bg-white;
+      padding: 20px 30px;
+      border-radius: 20px;
+      box-shadow: $shadow-hover;
+      z-index: 10;
+      border: 1px solid $light-blue;
+      text-align: center;
+      animation: float 4s ease-in-out infinite;
+
+      .number {
+        display: block;
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: $primary-orange;
+        line-height: 1;
+        margin-bottom: 5px;
+      }
+
+      .text {
+        font-size: 1rem;
+        color: $primary-blue;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .content-side {
+    .section-tag {
+      display: inline-block;
+      padding: 8px 16px;
+      background: rgba($primary-orange, 0.1);
+      color: $primary-orange;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.875rem;
+      margin-bottom: 20px;
+    }
+
+    .glitch-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: $primary-blue;
+      margin-bottom: 24px;
+      line-height: 1.3;
+    }
+
+    .description {
+      font-size: 1.1rem;
+      color: $text-muted;
+      line-height: 1.8;
+      margin-bottom: 40px;
+    }
+
+    .features-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      .feature-item {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 20px;
+        font-size: 1.125rem;
+        color: $text-dark;
+        font-weight: 500;
+        
+        .check-icon {
+          color: $primary-orange;
+          font-size: 1.5rem;
+          background: rgba($primary-orange, 0.1);
+          width: 40px;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+}
+
+// ==========================================
+// 💎 3. Values & Experience Section
+// ==========================================
+.values-experience-section {
+  padding: 100px 0;
+  background: $bg-off-white;
+
+  .values-container {
+    max-width: 1200px;
+    margin: 0 auto 80px;
+    padding: 0 20px;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 60px;
+
+    .main-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: $primary-blue;
+      margin-bottom: 16px;
+    }
+
+    .sub-title {
+      font-size: 1.125rem;
+      color: $text-muted;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+  }
+
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+  }
+
+  .value-card {
+    background: $bg-white;
+    border-radius: 24px;
+    padding: 40px 30px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: $shadow-soft;
+    transition: $transition-smooth;
+    border: 1px solid transparent;
+
+    &:hover {
+      transform: translateY(-10px);
+      box-shadow: $shadow-hover;
+      border-color: rgba($primary-blue, 0.1);
+    }
+
+    .icon-box {
+      width: 60px;
+      height: 60px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 24px;
+      transition: $transition-smooth;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      color: $primary-blue;
+      margin-bottom: 16px;
+      font-weight: 700;
+    }
+
+    p {
+      color: $text-muted;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    // Themes based on your HTML classes
+    &.blue-theme .icon-box { background: rgba(#3b82f6, 0.1); color: #3b82f6; }
+    &.orange-theme .icon-box { background: rgba($primary-orange, 0.1); color: $primary-orange; }
+    &.gray-theme .icon-box { background: rgba($primary-blue, 0.1); color: $primary-blue; }
+
+    &:hover .icon-box {
+      transform: scale(1.1);
+    }
+  }
+
+  // شريط الإحصائيات (Stats Bar)
+  .stats-bar {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: $primary-blue;
+    border-radius: 30px;
+    padding: 50px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba($primary-blue, 0.2);
+
+    .stats-wrapper {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    .stat-item {
+      text-align: center;
+      color: $bg-white;
+
+      .number-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 10px;
+
+        h2 {
+          font-size: 3.5rem;
+          font-weight: 800;
+          margin: 0;
+        }
+
+        .plus, .percent {
+          font-size: 2.5rem;
+          color: $primary-orange;
+          font-weight: bold;
+          margin: 0 5px;
+        }
+      }
+
+      p {
+        font-size: 1.1rem;
+        opacity: 0.9;
+        margin: 0;
+      }
+    }
+
+    .stat-divider {
+      width: 2px;
+      height: 60px;
+      background: rgba(255, 255, 255, 0.2);
+
+      @media (max-width: 768px) {
+        display: none; // إخفاء الفواصل في الموبايل
+      }
+    }
+  }
+}
+
+// ==========================================
+// 🚀 4. CTA Section (Call to Action)
+// ==========================================
+.cta-section {
+  padding: 120px 20px;
+  background: $bg-white;
+  display: flex;
+  justify-content: center;
+
+  .cta-card {
+    background: linear-gradient(135deg, $light-blue 0%, #e0e7ff 100%);
+    border-radius: 40px;
+    padding: 80px 40px;
+    max-width: 1000px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: $shadow-soft;
+  }
+
+  .cta-content {
+    position: relative;
+    z-index: 2;
+
+    .reveal-heading {
+      font-size: 3rem;
+      font-weight: 800;
+      color: $primary-blue;
+      margin-bottom: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+
+      .highlight {
+        color: $primary-orange;
+      }
+    }
+
+    .cta-desc {
+      font-size: 1.25rem;
+      color: $text-muted;
+      max-width: 700px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+
+      strong {
+        color: $primary-blue;
+      }
+    }
+
+    .cta-actions {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+
+      button {
+        padding: 18px 40px;
+        border-radius: 50px;
+        font-size: 1.125rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: $transition-smooth;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        &.btn-primary {
+          background: $primary-orange;
+          color: $bg-white;
+          border: none;
+          box-shadow: 0 10px 20px rgba($primary-orange, 0.3);
+
+          &:hover {
+            background: $primary-orange-hover;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba($primary-orange, 0.4);
+          }
+        }
+
+        &.btn-secondary {
+          background: transparent;
+          color: $primary-blue;
+          border: 2px solid $primary-blue;
+
+          .arrow-svg {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.3s ease;
+          }
+
+          &:hover {
+            background: $primary-blue;
+            color: $bg-white;
+
+            .arrow-svg {
+              transform: translateX(-5px); // سهم بيتحرك لليسار
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // تأثيرات جمالية في الخلفية
+  .floating-blobs {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.5;
+
+      &.b1 {
+        width: 300px;
+        height: 300px;
+        background: rgba($primary-orange, 0.2);
+        top: -100px;
+        right: -100px;
+      }
+
+      &.b2 {
+        width: 400px;
+        height: 400px;
+        background: rgba(59, 130, 246, 0.15);
+        bottom: -150px;
+        left: -100px;
+      }
+    }
+  }
+}
+
+// ==========================================
+// 🌀 Keyframes (حركات ناعمة)
+// ==========================================
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
+}
+
+
+
+
+.space {
+  margin-left: 20px
+}
+
+
+
+.reveal-text {
+  display: flex;
+  flex-direction: row-reverse; // بيخلي الترتيب يبدأ من اليمين للشمال بشكل ثابت
+  flex-wrap: wrap;             // بيسمح للكلام ينزل سطر جديد لو المساحة صغرت
+  justify-content: center;     // توسيط الكلام
+  gap: 10px;                   // مسافة صغيرة بين الكلمات
+  
+  // عشان نضمن إنه ميقلبش على الموبايل
+  @media (max-width: 768px) {
+    flex-direction: row-reverse; 
+    .space {
+  margin-left: 0px
+}
+  }
+}
+
+
+.reveal-heading {
+  display: flex;
+  flex-direction: row; // الترتيب الطبيعي
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  direction: rtl; // تأكد إن اتجاه الصفحة rtl عشان العربي
+}

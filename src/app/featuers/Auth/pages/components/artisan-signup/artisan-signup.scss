@@ -1,0 +1,820 @@
+// =================== Variables ===================
+$brand: #2563eb;
+$brand-soft: #eff6ff;
+$brand-light: #dbeafe;
+$orange: #f97316;
+$orange-soft: #fff7ed;
+$success: #16a34a;
+$text-dark: #111827;
+$text-body: #374151;
+$text-muted: #9ca3af;
+$border: #e5e7eb;
+$bg: #f3f4f6;
+$white: #ffffff;
+$radius-lg: 20px;
+$radius-md: 14px;
+$radius-sm: 10px;
+
+// =================== Wrapper ===================
+.signup-wrapper {
+  min-height: 100vh;
+  background: $bg;
+  font-family: 'Cairo', sans-serif;
+  padding-bottom: 60px;
+  direction: rtl;
+}
+
+// =================== Header ===================
+.page-header {
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
+  padding: 60px 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+
+  // نقاط الخلفية
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.04) 1px,
+      transparent 1px
+    );
+    background-size: 28px 28px;
+  }
+
+  // الدائرة الضوئية
+  &::after {
+    content: '';
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(
+      circle,
+      rgba($brand, 0.15) 0%,
+      transparent 65%
+    );
+    pointer-events: none;
+  }
+
+  h1 {
+    font-size: 36px;
+    font-weight: 800;
+    color: $white;
+    margin: 0 0 12px;
+    position: relative;
+    z-index: 1;
+
+    span {
+      color: $orange;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        right: 0;
+        left: 0;
+        height: 3px;
+        background: $orange;
+        border-radius: 2px;
+        opacity: 0.5;
+      }
+    }
+  }
+
+  p {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.6);
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.8;
+    position: relative;
+    z-index: 1;
+  }
+}
+
+// =================== Form Container ===================
+.main-form {
+  max-width: 860px;
+  margin: -30px auto 0;
+  padding: 0 16px;
+  position: relative;
+  z-index: 2;
+}
+
+// =================== Form Card ===================
+.form-card {
+  background: $white;
+  border: 1px solid $border;
+  border-radius: $radius-lg;
+  padding: 28px;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+
+  // الخط الملون العلوي
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, $brand, $orange);
+    border-radius: $radius-lg $radius-lg 0 0;
+  }
+}
+
+// =================== Card Header ===================
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid $border;
+
+  i {
+    width: 40px;
+    height: 40px;
+    background: $brand-soft;
+    color: $brand;
+    border-radius: $radius-sm;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  h2 {
+    font-size: 16px;
+    font-weight: 700;
+    color: $text-dark;
+    margin: 0;
+  }
+}
+
+// =================== Inputs ===================
+.form-label-custom {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: $text-body;
+  margin-bottom: 7px;
+}
+
+.custom-input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid $border;
+  border-radius: $radius-sm;
+  background: $white;
+  font-family: 'Cairo', sans-serif;
+  font-size: 14px;
+  color: $text-dark;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+  appearance: none;
+
+  &:focus {
+    outline: none;
+    border-color: $brand;
+    box-shadow: 0 0 0 3px rgba($brand, 0.08);
+  }
+
+  &::placeholder {
+    color: $text-muted;
+    font-weight: 400;
+  }
+}
+
+select.custom-input {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='%239ca3af'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: left 12px center;
+  padding-left: 36px;
+}
+
+.inputs-marginDown {
+  margin-bottom: 4px;
+}
+
+// Input مع أيقونة
+.input-with-icon {
+  position: relative;
+
+  i {
+    position: absolute;
+    top: 50%;
+    right: 14px;
+    transform: translateY(-50%);
+    color: $text-muted;
+    font-size: 14px;
+    pointer-events: none;
+  }
+
+  input {
+    padding-right: 40px;
+  }
+}
+
+// =================== Upload Grid ===================
+.upload-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.upload-item {
+  border: 2px dashed $border;
+  border-radius: $radius-md;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.25s;
+  text-align: center;
+  background: $bg;
+
+  i {
+    font-size: 24px;
+    color: $text-muted;
+    transition: color 0.25s;
+  }
+
+  span {
+    font-size: 13px;
+    color: $text-muted;
+    font-weight: 600;
+    transition: color 0.25s;
+  }
+
+  &:hover {
+    border-color: $brand;
+    background: $brand-soft;
+
+    i, span { color: $brand; }
+  }
+
+  &.uploaded {
+    border-color: $success;
+    border-style: solid;
+    background: #f0fdf4;
+
+    i, span { color: $success; }
+  }
+
+  // العنصر الواسع (الفيش)
+  &.wide {
+    grid-column: 1 / -1;
+
+    .upload-content {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      width: 100%;
+
+      i {
+        font-size: 28px;
+        flex-shrink: 0;
+      }
+
+      .text-right {
+        text-align: right;
+
+        strong {
+          font-size: 14px;
+          color: $text-body;
+          display: block;
+          margin-bottom: 2px;
+        }
+
+        small {
+          font-size: 12px;
+          color: $text-muted;
+        }
+      }
+    }
+  }
+}
+
+// =================== Map Picker ===================
+.map-picker-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  border: 1.5px solid $border;
+  border-radius: $radius-sm;
+  background: $white;
+  cursor: pointer;
+  transition: all 0.25s;
+
+  &:hover {
+    border-color: $brand;
+    background: $brand-soft;
+  }
+
+  &.valid {
+    border-color: $success;
+    background: #f0fdf4;
+  }
+
+  .info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    min-width: 0;
+
+    i {
+      color: $brand;
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+
+    span {
+      font-size: 13px;
+      color: $text-body;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .map-btn {
+    background: $brand;
+    color: $white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: $radius-sm;
+    font-family: 'Cairo', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: background 0.2s;
+
+    &:hover { background: darken(#2563eb, 8%); }
+  }
+}
+
+// =================== Radio Group ===================
+.radio-group-wrapper {
+  background: $bg;
+  border: 1.5px solid $border;
+  border-radius: $radius-sm;
+  padding: 6px;
+}
+
+.radio-group {
+  display: flex;
+  gap: 6px;
+
+  label {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 14px;
+    font-weight: 600;
+    color: $text-muted;
+
+    input[type="radio"] {
+      display: none;
+    }
+
+    span {
+      transition: color 0.2s;
+    }
+
+    &:has(input:checked) {
+      background: $white;
+      color: $brand;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+
+    &:hover:not(:has(input:checked)) {
+      background: rgba(255,255,255,0.6);
+      color: $text-body;
+    }
+  }
+}
+
+textarea.custom-input {
+  resize: vertical;
+  min-height: 110px;
+  line-height: 1.7;
+}
+
+// =================== Submit ===================
+.submit-container {
+  padding: 8px 0 20px;
+}
+
+.final-submit-btn {
+  width: 100%;
+  height: 54px;
+  background: $text-dark;
+  color: $white;
+  border: none;
+  border-radius: $radius-md;
+  font-family: 'Cairo', sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.25s;
+  letter-spacing: 0.3px;
+
+  &:hover:not(:disabled) {
+    background: lighten(#111827, 10%);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(#111827, 0.2);
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  .spinner-border {
+    width: 18px;
+    height: 18px;
+    border-width: 2px;
+  }
+}
+
+// =================== Map Modal Fix ===================
+
+.map-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.map-modal-content {
+  background: #fff;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 700px;
+  max-height: 90vh;          // ✅ مش يتعدى الشاشة
+  display: flex;
+  flex-direction: column;    // ✅ الهيدر فوق والماب تحت
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid #e5e7eb;
+  flex-shrink: 0;            // ✅ الهيدر محجمش
+
+  h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #111827;
+    margin: 0;
+  }
+
+  .close-btn {
+    width: 32px;
+    height: 32px;
+    background: #f3f4f6;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    color: #6b7280;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    transition: all 0.2s;
+
+    &:hover {
+      background: #fee2e2;
+      color: #dc2626;
+    }
+  }
+}
+
+// ✅ الخريطة نفسها تاخد المساحة المتبقية
+#map-container {
+  flex: 1;                   // ✅ يملأ المساحة المتبقية
+  min-height: 250px;         // ✅ حد أدنى
+  width: 100% !important;
+  border-radius: 0 !important;
+}
+
+.modal-footer {
+  padding: 14px 20px;
+  border-top: 1px solid #e5e7eb;
+  flex-shrink: 0;            // ✅ الفوتر محجمش
+
+  .confirm-btn {
+    width: 100%;
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+
+    &:hover { background: #1d4ed8; }
+  }
+}
+
+// =================== Mobile Specific ===================
+@media (max-width: 600px) {
+  .map-modal-overlay {
+    padding: 0;              // ✅ بلا padding في الموبايل
+    align-items: flex-end;  // ✅ يطلع من الأسفل زي bottom sheet
+  }
+
+  .map-modal-content {
+    border-radius: 20px 20px 0 0;   // ✅ زوايا بس فوق
+    max-height: 92vh;
+    width: 100%;
+  }
+
+  #map-container {
+    min-height: 300px;       // ✅ حجم أكبر في الموبايل
+  }
+}
+
+@media (max-width: 380px) {
+  #map-container {
+    min-height: 250px;
+  }
+}
+
+// =================== Bootstrap Grid Override ===================
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -12px;
+  margin-left: -12px;
+}
+
+[class*="col-"] {
+  padding-right: 12px;
+  padding-left: 12px;
+  box-sizing: border-box;
+}
+
+.col-md-6 { width: 50%; }
+.col-md-12 { width: 100%; }
+
+.g-4 {
+  gap: 0;
+  row-gap: 16px;
+}
+
+.mb-4 { margin-bottom: 16px; }
+.mt-4 { margin-top: 4px; }
+
+// =================== RESPONSIVE ===================
+
+// -------- Tablet: max 768px --------
+@media (max-width: 768px) {
+  .page-header {
+    padding: 44px 20px;
+
+    h1 { font-size: 26px; }
+    p  { font-size: 14px; }
+  }
+
+  .main-form {
+    margin-top: -20px;
+    padding: 0 12px;
+  }
+
+  .form-card {
+    padding: 22px 18px;
+    border-radius: $radius-md;
+    margin-bottom: 14px;
+  }
+
+  // كل الأعمدة تصبح full width
+  .col-md-6,
+  .col-md-12 {
+    width: 100%;
+  }
+
+  .upload-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .radio-group {
+    gap: 4px;
+
+    label {
+      padding: 9px 6px;
+      font-size: 13px;
+    }
+  }
+}
+
+// -------- Mobile: max 480px --------
+@media (max-width: 480px) {
+  .page-header {
+    padding: 36px 16px;
+
+    h1 {
+      font-size: 22px;
+      line-height: 1.4;
+    }
+
+    p { font-size: 13px; }
+  }
+
+  .main-form {
+    margin-top: -16px;
+    padding: 0 10px;
+  }
+
+  .form-card {
+    padding: 18px 14px;
+    border-radius: $radius-sm;
+    margin-bottom: 12px;
+  }
+
+  .card-header {
+    gap: 10px;
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+
+    i {
+      width: 34px;
+      height: 34px;
+      font-size: 14px;
+    }
+
+    h2 { font-size: 14px; }
+  }
+
+  .custom-input {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .form-label-custom {
+    font-size: 12px;
+    margin-bottom: 5px;
+  }
+
+  // Upload - عمود واحد في الموبايل
+  .upload-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .upload-item {
+    padding: 18px 14px;
+    flex-direction: row;
+    justify-content: flex-start;
+    text-align: right;
+
+    i { font-size: 20px; }
+    span { font-size: 13px; }
+
+    &.wide {
+      .upload-content {
+        gap: 12px;
+      }
+    }
+  }
+
+  .map-picker-trigger {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+
+    .info span {
+      white-space: normal;
+      font-size: 13px;
+    }
+
+    .map-btn {
+      width: 100%;
+      text-align: center;
+      padding: 10px;
+    }
+  }
+
+  .radio-group {
+    flex-direction: row;
+
+    label {
+      padding: 10px 4px;
+      font-size: 12px;
+      gap: 5px;
+    }
+  }
+
+  textarea.custom-input {
+    min-height: 90px;
+  }
+
+  .final-submit-btn {
+    height: 50px;
+    font-size: 14px;
+    border-radius: $radius-sm;
+  }
+
+  // Modal
+  .map-modal-content {
+    border-radius: $radius-md;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .modal-header {
+    padding: 14px 16px;
+
+    h3 { font-size: 15px; }
+  }
+
+  #map-container {
+    height: 280px !important;
+    flex: 1;
+  }
+
+  .modal-footer {
+    padding: 12px 16px;
+
+    .confirm-btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+}
+
+// -------- Very Small: max 360px --------
+@media (max-width: 360px) {
+  .page-header h1 { font-size: 20px; }
+
+  .form-card { padding: 14px 12px; }
+
+  .card-header {
+    i {
+      width: 30px;
+      height: 30px;
+      font-size: 13px;
+    }
+    h2 { font-size: 13px; }
+  }
+
+  .custom-input {
+    padding: 9px 11px;
+    font-size: 13px;
+  }
+
+  .radio-group label {
+    font-size: 11px;
+    padding: 9px 2px;
+  }
+
+  .final-submit-btn {
+    height: 46px;
+    font-size: 13px;
+  }
+}

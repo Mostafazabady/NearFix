@@ -1,0 +1,325 @@
+<div class="ap-page" dir="rtl">
+
+  <!-- Loading -->
+  <div *ngIf="isLoading()" class="ap-loading">
+    <i class="fas fa-spinner fa-spin fa-2x"></i>
+    <p>جاري تحميل بيانات الحرفي...</p>
+  </div>
+
+  <!-- Not Found -->
+  <div *ngIf="!isLoading() && !profileData()" class="ap-loading">
+    <i class="fas fa-exclamation-circle fa-2x" style="color:#ef4444;"></i>
+    <p>لم يتم العثور على الحرفي</p>
+  </div>
+
+  <ng-container *ngIf="!isLoading() && profileData()">
+
+    <!-- ══════ Hero Card ══════ -->
+    <div class="hero-card">
+      <div class="hero-top">
+        <div class="avatar-wrap">
+          <img [src]="getAvatar()" alt="artisan" class="avatar-img">
+        </div>
+        <div class="hero-info">
+          <div class="name-row">
+            <h1 class="artisan-name">{{ getName() }}</h1>
+            <i class="fas fa-check-circle verified-icon"></i>
+          </div>
+          <p class="artisan-job">{{ getProfession() }}</p>
+          <div class="rating-row">
+            <ng-container *ngIf="averageRating() > 0">
+              <i *ngFor="let s of starsArr()" class="fas fa-star"
+                 [style.color]="s ? '#f59e0b' : '#d1d5db'"></i>
+              <span class="rating-val">({{ averageRating() }}) تقييم عام</span>
+            </ng-container>
+            <ng-container *ngIf="averageRating() === 0">
+              <i class="far fa-star" style="color:#d1d5db;"
+                 *ngFor="let x of [1,2,3,4,5]"></i>
+              <span class="rating-val">لا يوجد تقييم بعد</span>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="hero-actions">
+        <button class="btn-book" (click)="openBookingModal()">
+          <i class="fas fa-calendar-check"></i> احجز الآن
+        </button>
+        <button class="btn-wa" (click)="openWhatsApp()">
+          <i class="fab fa-whatsapp"></i> تواصل عبر واتساب
+        </button>
+      </div>
+    </div>
+
+    <!-- ══════ Bio & Skills Card ══════ -->
+    <div class="bio-card" *ngIf="getBio() || getSkills().length > 0">
+      <h3 class="bio-title">نبذة عن الحرفي</h3>
+      <p class="bio-text" *ngIf="getBio()">{{ getBio() }}</p>
+      <div class="skills-row" *ngIf="getSkills().length > 0">
+        <span class="skill-tag" *ngFor="let skill of getSkills()">{{ skill }}</span>
+      </div>
+    </div>
+
+    <!-- ══════ Stats Card - الجديد ══════ -->
+    <div class="stats-card">
+      <h3 class="stats-title">الإحصائيات</h3>
+
+      <!-- رضا العملاء -->
+      <div class="stat-row">
+        <div class="stat-icon-wrap pink">
+          <span class="stat-emoji">{{ satisfactionEmoji() }}</span>
+        </div>
+        <div class="stat-body">
+          <span class="stat-val">{{ satisfactionPct() }}%</span>
+          <span class="stat-lbl">رضا العملاء</span>
+        </div>
+        <!-- progress bar -->
+        <div class="stat-bar-wrap">
+          <div class="stat-bar pink-bar"
+               [style.width.%]="satisfactionPct()">
+          </div>
+        </div>
+      </div>
+
+      <!-- سرعة الاستجابة -->
+      <div class="stat-row">
+        <div class="stat-icon-wrap amber">
+          <i class="fas fa-bolt"></i>
+        </div>
+        <div class="stat-body">
+          <span class="stat-val">{{ responseTime() }}</span>
+          <span class="stat-lbl">سرعة الاستجابة</span>
+        </div>
+      </div>
+
+      <!-- المهام المكتملة -->
+      <div class="stat-row">
+        <div class="stat-icon-wrap blue">
+          <i class="fas fa-clipboard-check"></i>
+        </div>
+        <div class="stat-body">
+          <span class="stat-val">+{{ completedCount() }}</span>
+          <span class="stat-lbl">مهمة مكتملة</span>
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+<!-- ══════ Gallery Card ══════ -->
+<div class="gallery-card" *ngIf="getPortfolioImages().length > 0">
+
+  <div class="gallery-header">
+    <h3 class="gallery-title">معرض الأعمال</h3>
+    <button class="btn-view-all" (click)="viewAll()"
+            *ngIf="getPortfolioImages().length > 0">
+      مشاهدة الكل
+    </button>
+  </div>
+
+  <!-- الـ Grid - 3 صور -->
+  <div class="gallery-grid">
+    <div class="g-thumb"
+         *ngFor="let img of getPortfolioImages().slice(0, 3); let i = index"
+         (click)="openLightbox(i)">
+      <img [src]="img" alt="work" loading="lazy">
+      <div class="g-overlay">
+        <i class="fas fa-search-plus"></i>
+      </div>
+      <!-- badge لو في صور أكتر من 3 -->
+      <div class="g-more-badge"
+           *ngIf="i === 2 && getPortfolioImages().length > 3">
+        +{{ getPortfolioImages().length - 3 }}
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════ Lightbox ══════ -->
+<div class="lightbox-overlay"
+     [class.open]="showLightbox()"
+     (click)="closeLightbox()">
+
+  <!-- زر الإغلاق -->
+  <button class="lb-close" (click)="closeLightbox()">
+    <i class="fas fa-times"></i>
+  </button>
+
+  <!-- Counter -->
+  <div class="lb-counter">
+    {{ lightboxIndex() + 1 }} / {{ getPortfolioImages().length }}
+  </div>
+
+  <!-- الصورة الرئيسية -->
+  <div class="lb-img-wrap" (click)="$event.stopPropagation()">
+    <img [src]="getPortfolioImages()[lightboxIndex()]"
+         class="lb-img" alt="work">
+  </div>
+
+  <!-- أزرار التنقل -->
+  <button class="lb-arrow lb-prev"
+          (click)="lbPrev(); $event.stopPropagation()"
+          *ngIf="getPortfolioImages().length > 1">
+    <i class="fas fa-chevron-right"></i>
+  </button>
+
+  <button class="lb-arrow lb-next"
+          (click)="lbNext(); $event.stopPropagation()"
+          *ngIf="getPortfolioImages().length > 1">
+    <i class="fas fa-chevron-left"></i>
+  </button>
+
+  <!-- Thumbnails شريط أسفل -->
+  <div class="lb-thumbs" (click)="$event.stopPropagation()"
+       *ngIf="getPortfolioImages().length > 1">
+    <div class="lb-thumb"
+         *ngFor="let img of getPortfolioImages(); let i = index"
+         [class.active]="i === lightboxIndex()"
+         (click)="lightboxIndex.set(i)">
+      <img [src]="img" alt="">
+    </div>
+  </div>
+
+</div>
+
+
+
+
+<!-- ══════ Schedule Card ══════ -->
+<div class="schedule-card"
+     *ngIf="profileData()?.artisan_details?.schedule?.length > 0">
+
+  <h3 class="schedule-title">
+    <i class="far fa-clock"></i>
+    مواعيد العمل المتاحة
+  </h3>
+
+  <div class="sch-list">
+    <div class="sch-row"
+         *ngFor="let row of profileData()?.artisan_details?.schedule"
+         [class.holiday]="row.hours?.includes('إجازة')">
+
+      <span class="sch-day">{{ row.day }}</span>
+
+      <div class="sch-divider"></div>
+
+      <strong class="sch-hours">{{ row.hours }}</strong>
+
+    </div>
+  </div>
+
+</div>
+
+
+
+
+
+<!-- ══════ Reviews Card ══════ -->
+<div class="reviews-card" *ngIf="reviews().length > 0">
+
+  <div class="reviews-head">
+    <h3 class="reviews-title">آراء العملاء</h3>
+    <span class="reviews-count">{{ reviews().length }} تقييم</span>
+  </div>
+
+  <!-- ══ لو 3 أو أقل: عرض عادي ══ -->
+  <div class="reviews-list" *ngIf="reviews().length <= 3">
+    <div class="review-item" *ngFor="let r of reviews()">
+
+      <div class="ri-top">
+        <div class="ri-avatar-wrap">
+          <img *ngIf="r.client_profile?.avatar_url"
+               [src]="r.client_profile.avatar_url"
+               class="ri-avatar-img" alt="">
+          <div *ngIf="!r.client_profile?.avatar_url" class="ri-avatar-placeholder">
+            {{ r.client_profile?.full_name?.slice(0,1) || 'ع' }}
+          </div>
+        </div>
+
+        <div class="ri-meta">
+          <span class="ri-name">{{ r.client_profile?.full_name || 'عميل' }}</span>
+          <span class="ri-date">{{ r.created_at | date:'MMM yyyy' }}</span>
+        </div>
+
+        <div class="ri-stars">
+          <i *ngFor="let s of starsArrFromNum(r.rating)"
+             class="fas fa-star"
+             [style.color]="s ? '#f59e0b' : '#e5e7eb'"></i>
+        </div>
+      </div>
+
+      <p class="ri-text" *ngIf="r.review">"{{ r.review }}"</p>
+
+    </div>
+  </div>
+
+  <!-- ══ لو أكتر من 3: Slider ══ -->
+  <div class="reviews-slider-wrap" *ngIf="reviews().length > 3">
+
+    <!-- Track -->
+    <div class="reviews-track"
+         [style.transform]="'translateX(' + (sliderIndex() * 100) + '%)'">
+      <div class="review-slide" *ngFor="let r of reviews()">
+
+        <div class="ri-top">
+          <div class="ri-avatar-wrap">
+            <img *ngIf="r.client_profile?.avatar_url"
+                 [src]="r.client_profile.avatar_url"
+                 class="ri-avatar-img" alt="">
+            <div *ngIf="!r.client_profile?.avatar_url" class="ri-avatar-placeholder">
+              {{ r.client_profile?.full_name?.slice(0,1) || 'ع' }}
+            </div>
+          </div>
+
+          <div class="ri-meta">
+            <span class="ri-name">{{ r.client_profile?.full_name || 'عميل' }}</span>
+            <span class="ri-date">{{ r.created_at | date:'MMM yyyy' }}</span>
+          </div>
+
+          <div class="ri-stars">
+            <i *ngFor="let s of starsArrFromNum(r.rating)"
+               class="fas fa-star"
+               [style.color]="s ? '#f59e0b' : '#e5e7eb'"></i>
+          </div>
+        </div>
+
+        <p class="ri-text" *ngIf="r.review">"{{ r.review }}"</p>
+
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="slider-controls">
+      <button class="sl-arrow"
+              (click)="sliderPrev()"
+              [disabled]="sliderIndex() === 0">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+
+      <!-- Dots -->
+      <div class="sl-dots">
+        <span class="sl-dot"
+              *ngFor="let r of reviews(); let i = index"
+              [class.active]="i === sliderIndex()"
+              (click)="sliderIndex.set(i)">
+        </span>
+      </div>
+
+      <button class="sl-arrow"
+              (click)="sliderNext()"
+              [disabled]="sliderIndex() === reviews().length - 1">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+  </ng-container>
+</div>

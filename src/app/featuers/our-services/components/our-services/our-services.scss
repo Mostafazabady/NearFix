@@ -1,0 +1,489 @@
+// متغيرات الألوان المستوحاة من الصورة
+$bg-gradient-start: #f8fafc; 
+$bg-gradient-end: #fefeff;
+$text-main: #0f172a;
+$text-muted: #475569;
+$badge-bg: #e0e7ff;
+$badge-text: #1d4ed8;
+$icon-color: #1d4ed8;
+$bg-light: #f8fafc;
+$white: #ffffff;
+$text-main: #0f172a;
+$text-muted: #64748b;
+$primary-blue: #1d4ed8;
+$icon-bg: #eff6ff;
+$search-bg: #f1f5f9;
+$cta-orange: #ff8733;
+$text-main: #0f172a;
+$text-muted: #475569;
+$white: #ffffff;
+
+.services-hero {
+  // خلفية متدرجة خفيفة جداً تماثل إضاءة الصورة
+  background: linear-gradient(135deg, $bg-gradient-start 0%, $bg-gradient-end 100%);
+  padding: 80px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Tajawal', sans-serif;
+  text-align: center;
+}
+
+.hero-content {
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px; // مسافة موحدة بين العناصر
+}
+
+// تنسيق الـ Badge (الزر الصغير اللي فوق)
+.badge {
+  background-color: $badge-bg;
+  color: $badge-text;
+  padding: 8px 20px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+// العنوان الرئيسي
+.main-title {
+  font-size: 46px;
+  font-weight: 800; // وزن ثقيل زي الصورة بالظبط
+  color: $text-main;
+  margin: 0;
+  line-height: 1.3;
+}
+
+// النص الفرعي
+.subtitle {
+  font-size: 18px;
+  color: $text-muted;
+  line-height: 1.8; // مسافة السطور واسعة عشان القراءة تكون مريحة
+  margin: 0;
+  max-width: 680px; // تحديد العرض عشان السطر مايفرشطش للاخر
+}
+
+// قسم المميزات اللي تحت
+.features-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px; // مسافة كبيرة بين الميزتين
+  margin-top: 16px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 700; // وزن الخط للمميزات
+  color: $text-main;
+
+  .icon {
+    width: 24px;
+    height: 24px;
+    color: $cta-orange;
+  }
+}
+
+// Responsive Design للموبايل
+@media (max-width: 768px) {
+  .services-hero {
+    padding: 60px 16px;
+  }
+  
+  .main-title {
+    font-size: 32px;
+  }
+  
+  .subtitle {
+    font-size: 16px;
+  }
+  
+  .features-list {
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+.services-section {
+  background-color: $bg-light;
+  padding: 60px 20px;
+  font-family: 'Tajawal', sans-serif;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+// === الهيدر (العنوان والبحث) ===
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  gap: 20px;
+
+  .title-area {
+    h2 {
+      font-size: 32px;
+      font-weight: 800;
+      color: $text-main;
+      margin: 0 0 8px 0;
+    }
+    p {
+      color: $text-muted;
+      margin: 0;
+      font-size: 16px;
+    }
+  }
+
+  .search-area {
+    flex-grow: 1;
+    max-width: 400px;
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      background-color: $search-bg;
+      border-radius: 12px;
+      padding: 0 16px;
+      height: 50px;
+      transition: box-shadow 0.3s ease;
+
+      &:focus-within {
+        box-shadow: 0 0 0 2px rgba($primary-blue, 0.2);
+        background-color: $white;
+      }
+
+      .search-icon {
+        width: 20px;
+        height: 20px;
+        color: $text-muted;
+        margin-left: 12px;
+      }
+
+      input {
+        flex: 1;
+        border: none;
+        background: transparent;
+        font-size: 16px;
+        color: $text-main;
+        outline: none;
+        font-family: 'Tajawal', sans-serif;
+
+        &::placeholder {
+          color: #94a3b8;
+        }
+      }
+    }
+  }
+}
+
+// === شبكة الكروت ===
+.services-grid {
+  display: grid;
+  // الـ Grid ذكي: بيقسم المساحة ويحط أقصى عدد ممكن، بحد أدنى 180 بيكسل للكارت
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.service-card {
+  background-color: $white;
+  border-radius: 16px;
+  padding: 30px 20px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); // أنيميشن ناعم جداً
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+
+  // الهوفر السحري
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+
+    .icon-wrapper {
+      background-color: $cta-orange;;
+      .service-icon {
+        color: $white;
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  .icon-wrapper {
+    width: 70px;
+    height: 70px;
+    background-color: $icon-bg;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+
+    .service-icon {
+      width: 32px;
+      height: 32px;
+      color: $icon-color;
+      transition: all 0.3s ease;
+    }
+  }
+
+  .service-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: $text-main;
+    margin: 0;
+  }
+}
+
+// === تخصيص شكل الـ ngx-pagination ===
+::ng-deep .pagination-container {
+  display: flex;
+  justify-content: center;
+  
+  .ngx-pagination {
+    margin: 0;
+    padding: 0;
+    
+    li {
+      border-radius: 8px;
+      margin: 0 4px;
+      
+      a {
+        border-radius: 8px;
+        color: $text-muted;
+        transition: all 0.2s;
+        &:hover { background: #e2e8f0; }
+      }
+      
+      &.current {
+        background: $cta-orange;
+        color: $white;
+        border-radius: 8px;
+      }
+    }
+  }
+}
+
+.no-results {
+  text-align: center;
+  color: $text-muted;
+  font-size: 18px;
+  padding: 40px 0;
+}
+
+// === التجاوب (Mobile Responsive) ===
+@media (max-width: 768px) {
+  .section-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    
+    .search-area {
+      max-width: 100%;
+      width: 100%;
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+.why-choose-us {
+  padding: 80px 20px;
+  background-color: $white;
+  font-family: 'Tajawal', sans-serif;
+  text-align: center;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+// === تنسيق الرأس ===
+.section-header {
+  margin-bottom: 60px;
+  
+  h2 {
+    font-size: 36px;
+    font-weight: 800;
+    color: $text-main;
+    margin: 0 0 16px 0;
+  }
+  
+  p {
+    font-size: 18px;
+    color: $text-muted;
+    max-width: 750px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+}
+
+// === شبكة الكروت ===
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+}
+
+// === الكارت الأساسي وتأثير الـ Hover ===
+.feature-card {
+  position: relative;
+  background: $white;
+  padding: 50px 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  z-index: 1;
+  transition: transform 0.4s ease;
+
+  // الدائرة المخفية اللي هتكبر وتملى الكارت (Ripple Effect)
+  &::before {
+    content: '';
+    position: absolute;
+    top: 90px; // متسنترة مع الأيقونة بالظبط
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+                height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: -1; // عشان تفضل تحت المحتوى
+  }
+
+  // تأثير الرفع عند الهوفر وتكبير الدائرة
+  &:hover {
+    transform: translateY(-8px);
+    
+    &::before {
+      width: 1000px; // رقم كبير يضمن تغطية الكارت كله
+      height: 1000px;
+    }
+
+    // تغيير ألوان المحتوى للأبيض
+    h3, p, .icon-wrapper svg {
+      color: $white;
+    }
+    
+    .icon-wrapper {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+  }
+
+  .icon-wrapper {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 24px;
+    transition: background-color 0.4s ease;
+
+    svg {
+      width: 32px;
+      height: 32px;
+      transition: color 0.4s ease;
+    }
+  }
+
+  h3 {
+    font-size: 22px;
+    font-weight: 700;
+    color: $text-main;
+    margin: 0 0 16px 0;
+    transition: color 0.4s ease;
+  }
+
+  p {
+    font-size: 15px;
+    color: $text-muted;
+    line-height: 1.8;
+    margin: 0;
+    transition: color 0.4s ease;
+  }
+}
+
+// === الألوان المخصصة لكل كارت ===
+
+// 1. الأمان والخصوصية (الأزرق)
+.theme-blue {
+  border-top: 3px solid #0284c7;
+  border-bottom: 3px solid #0284c7;
+  &::before { background-color: #0284c7; }
+  
+  .icon-wrapper {
+    background-color: #e0f2fe;
+    svg { color: #0284c7; }
+  }
+}
+
+// 2. سرعة الاستجابة (الكحلي/الرصاصي)
+.theme-slate {
+  border-top: 3px solid #334155;
+  border-bottom: 3px solid #334155;
+  &::before { background-color: #334155; }
+  
+  .icon-wrapper {
+    background-color: #f1f5f9;
+    svg { color: #334155; }
+  }
+}
+
+// 3. الدقة والاحترافية (البني/النحاسي)
+.theme-bronze {
+  border-top: 3px solid #b45309;
+  border-bottom: 3px solid #b45309;
+  &::before { background-color: #b45309; }
+  
+  .icon-wrapper {
+    background-color: #fef3c7;
+    svg { color: #b45309; }
+  }
+}
+
+// === تجاوب الشاشات الصغيرة ===
+@media (max-width: 768px) {
+  .section-header h2 {
+    font-size: 28px;
+  }
+  .features-grid {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+}

@@ -1,0 +1,203 @@
+<section class="hero-section" (mousemove)="onMouseMove($event)" [style.--x]="x + 'px'" [style.--y]="y + 'px'">
+  <div class="bg-image"></div>
+  <div class="overlay"></div>
+
+  <div class="content-wrapper" #parallaxBox>
+    <div class="glass-card">
+      <div class="text-content">
+        <h1 class="reveal-text">
+          <span class="space">نحن نؤمن بقوة</span>
+          <span class="highlight">الحرفة وتأثيرها</span>
+        </h1>
+        <p class="fade-in-desc">
+          في <strong>نييرفيكس</strong>، نحن نعيد تعريف مفهوم المهارة اليدوية من خلال ربط أصالة التقليد بالابتكار الرقمي الحديث.
+        </p>
+        
+        <div class="button-container">
+          <button class="magnetic-btn">
+            <span class="btn-text">اكتشف قصتنا</span>
+            <i class="fas fa-arrow-left"></i>
+            <div class="blob"></div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</section>
+
+
+
+
+<section class="vision-section" (mousemove)="handleHover($event)">
+  <div class="container">
+    
+    <div class="image-side" #imageContainer>
+      <div class="image-wrapper">
+        <img src="/images/Who-us-img-2.webp" alt="Vision" class="main-img">
+        <div class="glass-overlay"></div>
+        
+        <div class="experience-badge" #magneticBadge>
+          <div class="badge-content">
+            <span class="number">100%</span>
+            <span class="text">إتقان وشغف</span>
+          </div>
+          <div class="blob-bg"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-side" dir="rtl">
+      <div class="section-tag" data-aos="fade-up">رؤيتنا ورسالتنا</div>
+      <h2 class="glitch-title" data-text="جسور تربط المهارة العريقة بمستقبل التكنولوجيا">
+        جسور تربط المهارة العريقة بمستقبل التكنولوجيا
+      </h2>
+      <p class="description">
+        نحن نسعى لتمكين كل حرفي ومبدع من خلال توفير منصة متطورة تضمن له الوصول إلى جمهور واسع، مع الحفاظ على أصالة الحرفة ودقة التنفيذ. نؤمن أن التكنولوجيا ليست بديلاً عن اليد البشرية، بل هي المحرك الذي يدفعها نحو آفاق عالمية.
+      </p>
+
+      <ul class="features-list">
+        <li class="feature-item" style="--i:1">
+          <div class="check-icon"><i class="fas fa-check-circle"></i></div>
+          <span>تمكين الحرفيين رقمياً</span>
+        </li>
+        <li class="feature-item" style="--i:2">
+          <div class="check-icon"><i class="fas fa-check-circle"></i></div>
+          <span>ضمان الجودة والاحترافية</span>
+        </li>
+        <li class="feature-item" style="--i:3">
+          <div class="check-icon"><i class="fas fa-check-circle"></i></div>
+          <span>خلق فرص عمل مستدامة</span>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+
+
+
+
+<section class="values-experience-section" dir="rtl">
+  
+  <div class="values-container">
+    <div class="section-header" data-aos="fade-down">
+      <h2 class="main-title">قيمنا الجوهرية</h2>
+      <p class="sub-title">المبادئ التي تقود كل قرار نتخذه وكل ميزة نطورها في NearFix</p>
+    </div>
+
+    <div class="values-grid">
+      <div class="value-card blue-theme" (mousemove)="handleSpotlight($event, card1)" #card1>
+        <div class="spotlight"></div>
+        <div class="card-inner">
+          <div class="icon-box">
+            <i class="fas fa-microscope"></i> </div>
+          <h3>الدقة</h3>
+          <p>نلتزم بأعلى معايير الجودة في كل تفصيلة، لضمان نتائج تفوق توقعات عملائنا في كل مهمة.</p>
+        </div>
+      </div>
+
+      <div class="value-card orange-theme" (mousemove)="handleSpotlight($event, card2)" #card2>
+        <div class="spotlight"></div>
+        <div class="card-inner">
+          <div class="icon-box">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <h3>الأمان</h3>
+          <p>بيئة آمنة تضمن حقوق الحرفي والعميل على حد سواء، من خلال أنظمة دفع وحماية بيانات متطورة.</p>
+        </div>
+      </div>
+
+      <div class="value-card gray-theme" (mousemove)="handleSpotlight($event, card3)" #card3>
+        <div class="spotlight"></div>
+        <div class="card-inner">
+          <div class="icon-box">
+            <i class="fas fa-lightbulb"></i>
+          </div>
+          <h3>الابتكار</h3>
+          <p>نبتكر حلولاً رقمية ذكية تسهل عملية البحث، الطلب، وإدارة المهام للحرفيين في العصر الحديث.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stats-wrapper">
+      <div class="stat-item">
+        <div class="number-wrapper">
+          <span class="plus">+</span>
+          <h2 [countUp]="5000">0</h2>
+        </div>
+        <p>حرفي متخصص</p>
+      </div>
+
+      <div class="stat-divider"></div>
+
+      <div class="stat-item">
+        <div class="number-wrapper">
+          <span class="plus">+</span>
+          <h2 [countUp]="50000">0</h2>
+        </div>
+        <p>مهمة مكتملة</p>
+      </div>
+
+      <div class="stat-divider"></div>
+
+      <div class="stat-item">
+        <div class="number-wrapper">
+          <h2 [countUp]="98">0</h2>
+          <span class="percent">%</span>
+        </div>
+        <p>رضا العملاء</p>
+      </div>
+    </div>
+    <div class="particles-bg"></div>
+  </div>
+</section>
+
+
+
+
+<section class="cta-section" (mousemove)="onMouseMove_2($event)" [style.--mx]="mouseX + 'px'" [style.--my]="mouseY + 'px'">
+  
+  <div class="cta-card" #ctaCard>
+    <div class="card-glow"></div>
+
+    <div class="cta-content">
+            <h2 class="reveal-heading">
+              <span class="word">هل</span>
+              <span class="word">أنت</span>
+              <span class="word highlight">مستعد</span>
+              <span class="word">لتكون</span>
+              <span class="word">جزءاً</span>
+              <span class="word">من</span>
+              <span class="word">مجتمعنا؟</span>
+            </h2>
+
+      <p class="cta-desc" data-aos="fade-up" data-aos-delay="400">
+        انضم إلى آلاف المحترفين والعملاء الذين وضعوا ثقتهم في <strong>NearFix</strong> للارتقاء بجودة الخدمات الحرفية في مصر.
+      </p>
+
+      <div class="cta-actions">
+        <button class="btn-primary magnetic" (mousemove)="magneticButton($event)">
+          <span routerLink="/Auth/artisan-signup">انضم كمحترف الآن</span>
+          <div class="btn-flare"></div>
+        </button>
+
+        <button class="btn-secondary">
+          <span routerLink="/our-services">احجز خدمتك الأولى</span>
+          <svg class="arrow-svg" viewBox="0 0 24 24">
+            <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" fill="none"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="floating-blobs">
+      <div class="blob b1"></div>
+      <div class="blob b2"></div>
+    </div>
+  </div>
+</section>

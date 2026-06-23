@@ -1,0 +1,169 @@
+<div class="selection-container" dir="rtl">
+
+  <!-- خلفية متحركة -->
+  <div class="bg-layer">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="grid-lines"></div>
+  </div>
+
+  <div class="content-wrapper">
+
+    <!-- الهيدر -->
+    <div class="hero-text">
+      <div class="badge">
+        <span class="badge-dot"></span>
+        منصة الحرفيين الأولى في مصر
+      </div>
+      <h1 class="main-title">
+        مرحباً بك في
+        <span class="brand-name">NearFix</span>
+      </h1>
+      <p class="subtitle">
+        اختر دورك وابدأ تجربتك الآن
+      </p>
+    </div>
+
+    <!-- الكروت -->
+    <div class="cards-grid">
+
+      <!-- كارت الحرفي -->
+      <div class="role-card craftsman-card"
+           #card
+           (mousemove)="handleMove($event, 0)"
+           (mouseleave)="handleLeave(0)"
+           (click)="navigateTo('craftsman')">
+
+        <div class="card-glow"></div>
+
+        <div class="card-inner">
+          <div class="card-top">
+            <div class="role-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="1.5" width="32" height="32">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008z"/>
+              </svg>
+            </div>
+            <div class="role-label">حرفي</div>
+          </div>
+
+          <div class="card-body">
+            <h2>انضم كحرفي</h2>
+            <p>
+              عندك حرفة؟ اعرض مهاراتك لآلاف العملاء،
+              ابن سمعتك، وابدأ تستقبل طلبات من قريبك.
+            </p>
+
+            <ul class="perks-list">
+              <li>
+                <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                </svg>
+                تسجيل مجاني بالكامل
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                </svg>
+                طلبات من عملاء قريبين منك
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                </svg>
+                بناء ملف مهني موثوق
+              </li>
+            </ul>
+          </div>
+
+          <button class="card-btn craftsman-btn">
+            ابدأ رحلتك
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2.5" width="16" height="16">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/>
+            </svg>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- الفاصل -->
+      <div class="or-divider">
+        <div class="or-line"></div>
+        <span>أو</span>
+        <div class="or-line"></div>
+      </div>
+
+      <!-- كارت العميل -->
+      <div class="role-card client-card"
+           #card
+           (mousemove)="handleMove($event, 1)"
+           (mouseleave)="handleLeave(1)"
+           (click)="navigateTo('client')">
+
+        <div class="card-glow"></div>
+
+        <div class="card-inner">
+          <div class="card-top">
+            <div class="role-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="1.5" width="32" height="32">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/>
+              </svg>
+            </div>
+            <div class="role-label client-label">عميل</div>
+          </div>
+
+          <div class="card-body">
+            <h2>انضم كعميل</h2>
+            <p>
+              محتاج حد تقدر تثق فيه؟ لاقي أفضل
+              الحرفيين في منطقتك واطلب خدمتك بسهولة.
+            </p>
+
+            <ul class="perks-list">
+              <li>
+                <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                </svg>
+                حرفيين موثوقين ومُعتمدين
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                </svg>
+                مقارنة التقييمات والأسعار
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                </svg>
+                طلب الخدمة في دقيقة واحدة
+              </li>
+            </ul>
+          </div>
+
+          <button class="card-btn client-btn">
+            اطلب الآن
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2.5" width="16" height="16">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/>
+            </svg>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- السفلي -->
+    <p class="already-member">
+      عندك حساب بالفعل؟
+      <a routerLink="/Auth/Login">سجل دخولك</a>
+    </p>
+
+  </div>
+</div>

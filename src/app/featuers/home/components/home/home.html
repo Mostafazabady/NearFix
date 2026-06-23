@@ -1,0 +1,237 @@
+<section class="hero-container" dir="rtl">
+  <div class="hero-content">
+    
+    <!-- الجانب الأيمن: النصوص -->
+    <div class="text-side">
+      <h1 class="hero-title">
+        أقرب حِرفي ليك في <br>
+        دقائق - <span class="highlight">نييرفيكس</span>
+      </h1>
+      <p class="hero-description">
+        نحن نجمع بين الخبرة التقنية والحرفية التقليدية لنوفر لك أفضل الخدمات المنزلية بضغطة زر واحدة. جودة مضمونة وسرعة لا تضاهى.
+      </p>
+
+      <div class="cta-group">
+<button type="button" class="btn-secondary" (click)="scrollToSection('how-it-works')">
+    شاهد كيف نعمل
+  </button>      </div>
+
+      <div class="social-proof">
+        <div class="avatar-group">
+          <img src="images/Container.webp" alt="User 1">
+        </div>
+        <div class="rating-info">
+          <span class="rating-stars">★ 4.9</span>
+          <p class="rating-text">أكثر من +10,000 مستخدم سعيد</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- الجانب الأيسر: الصورة والبطاقات العائمة -->
+    <div class="image-side">
+      <div class="image-wrapper">
+        <img src="images/heroImage.webp" class="main-image" alt="Artisan Professional">
+        
+        <!-- البطاقات العائمة (Floating Badges) -->
+        <div class="floating-badge top-badge">
+          <span class="check-icon">✓</span>
+          تم إرسال العامل
+        </div>
+        
+        <div class="floating-badge bottom-badge">
+          <span class="star-icon">★</span>
+          تقييم 4.9
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+
+
+
+
+
+
+
+
+
+  <section class="stats-section">
+  <div class="container-number">
+    <div class="stat">
+      <h2>20></h2>
+      <p>دقيقة للوصول</p>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="stat">
+      <h2>3000+</h2>
+      <p>طلب مكتمل</p>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="stat">
+      <h2>12+</h2>
+      <p>مهنة مختلفة</p>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="stat">
+      <h2>50+</h2>
+      <p>عامل محترف</p>
+    </div>
+  </div>
+</section>
+
+
+<section id="how-it-works" class="how-it-works">
+  <div class="container-how">
+
+    <h2 class="title">كيف تعمل المنصة؟</h2>
+    <p class="subtitle">
+      ثلاث خطوات بسيطة تفصلك عن حل مشكلتك المنزلية مع أمهر الحرفيين
+    </p>
+
+    <div class="steps">
+
+      <!-- Step 1 -->
+      <div class="step active">
+        <div class="icon">🚀</div>
+        <h3>وصول العامل</h3>
+        <p>سيصلك الحرفي في الموعد المحدد لتقديم الخدمة بأعلى جودة</p>
+      </div>
+
+      <!-- line -->
+      <div class="line"></div>
+
+      <!-- Step 2 -->
+      <div class="step">
+        <div class="icon">📍</div>
+        <h3>تحديد الموقع</h3>
+        <p>اختر موقعك بدقة لنرسل لك أقرب حرفي متاح</p>
+      </div>
+
+      <!-- line -->
+      <div class="line"></div>
+
+      <!-- Step 3 -->
+      <div class="step">
+        <div class="icon">🔍</div>
+        <h3>اختيار المهنة</h3>
+        <p>حدد نوع الخدمة التي تحتاجها من بين عشرات التخصصات</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+<section class="services">
+
+  <div class="header">
+    <div>
+      <h2>خدماتنا المتميزة</h2>
+      <p>نغطي كافة احتياجات منزلك من الصيانة والتركيب</p>
+    </div>
+
+    <a routerLink="/our-services" class="view-all">
+      عرض الكل ←
+    </a>
+  </div>
+
+  <div *ngIf="isLoadingServices" class="loading-state" style="text-align: center; padding: 2rem;">
+    <p>جاري تحميل الخدمات...</p>
+  </div>
+
+  <div class="grid" *ngIf="!isLoadingServices">
+
+    <div class="card" style="cursor: pointer;" *ngFor="let service of services" (click)="onServiceSelected(service)">
+      
+      <div class="icon">
+        <svg viewBox="0 0 24 24" fill="currentColor" style="width: 32px; height: 32px;">
+          <path [attr.d]="service.icon_svg" />
+        </svg>
+      </div>
+
+      <h3>{{ service.name_ar }}</h3>
+
+      <div class="footer">
+        <span>اطلب الآن</span>
+        <span class="arrow">←</span>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+
+
+<section class="testimonials-section" dir="rtl">
+  <div class="testimonials-container">
+    
+    <!-- عنوان القسم -->
+    <div class="section-header">
+      <h2 class="testimonials-title">ماذا يقول عملاؤنا؟</h2>
+      <div class="testimonials-underline"></div>
+    </div>
+
+    <!-- السلايدر -->
+    <div class="slider-wrapper" 
+         (mouseenter)="stopAutoPlay()" 
+         (mouseleave)="startAutoPlay()">
+         
+      <div class="slider-track" #sliderTrack aria-label="Customer Testimonials Slider">
+        
+        <!-- البطاقات -->
+        <div class="testimonials-card" *ngFor="let item of testimonials">
+          
+          <!-- الجزء العلوي: النجوم على اليمين والصورة على اليسار -->
+          <div class="testimonials-card-top">
+            <div class="stars" aria-label="تقييم 5 نجوم">★★★★★</div>
+            <img [src]="item.image" [alt]="item.name" class="avatar" loading="lazy">
+          </div>
+          
+          <!-- نص التقييم (محاذاة لليمين) -->
+          <div class="testimonials-card-body">
+            <p class="quote">"{{ item.quote }}"</p>
+          </div>
+          
+          <!-- معلومات المستخدم (محاذاة لليسار) -->
+          <div class="testimonials-card-bottom">
+            <h4 class="name">{{ item.name }}</h4>
+            <span class="location">{{ item.location }}</span>
+          </div>
+          
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+
+
+
+<section class="cta-container">
+  <div class="cta-card">
+    <h2 class="cta-title">مش هتلاقي عامل أسرع منّا</h2>
+    <p class="cta-subtitle">انضم إلى آلاف المستخدمين الذين يثقون في نييرفيكس يومياً للحصول على أفضل الخدمات الحرفية.</p>
+    <a routerLink="/our-services" class="cta-button">اطلب فني الآن</a>
+  </div>
+</section>

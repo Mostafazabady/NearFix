@@ -1,0 +1,20 @@
+<div class="container">
+  <!-- نفس كودك، بس غيرنا isLoading لـ isLoading() -->
+  <div class="icon-wrapper"><div class="icon"></div></div>
+  <h1>طلبك قيد المراجعة حالياً</h1>
+  <p class="subtitle">نحن نعمل على التحقق من بياناتك لضمان أعلى معايير الجودة في منصة خدمات أرتيزان.</p>
+  <div class="progress"><div class="step done"></div><div class="line active"></div><div class="step current"></div><div class="line"></div><div class="step"></div></div>
+  <div class="cards">
+    <div class="card"><h3>مدة المراجعة المتوقعة</h3><p>تستغرق عملية مراجعة الحسابات عادةً ما يصل إلى <b>24 ساعة</b>.</p></div>
+    <div class="card support">
+        <h3>هل تحتاج لمساعدة؟</h3>
+        <div class="support-box"><span>تواصل معنا عبر الواتساب</span><button class="whatsapp" (click)="openWhatsApp()">مراسلة</button></div>
+    </div>
+  </div>
+  <div class="actions">
+    <button class="primary" [class.loading]="isLoading()" (click)="goHome()">
+      <span *ngIf="!isLoading()">العودة للرئيسية</span>
+      <span *ngIf="isLoading()" class="loader"></span>
+    </button>
+  </div>
+</div>
