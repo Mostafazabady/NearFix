@@ -818,3 +818,75 @@ textarea.custom-input {
     font-size: 13px;
   }
 }
+
+
+
+.location-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  background: #eff6ff;
+  border-bottom: 1px solid #e5e7eb;
+
+  .locate-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    position: relative;
+    overflow: hidden;
+
+    // تأثير الموجة عند الضغط
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0);
+      transition: background 0.2s;
+    }
+
+    &:hover {
+      background: linear-gradient(135deg, #1d4ed8, #1e40af);
+      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.4);
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(0px) scale(0.98);
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+
+      &::after {
+        background: rgba(255, 255, 255, 0.1);
+      }
+    }
+
+    i {
+      font-size: 15px;
+      animation: pulse-icon 2s infinite;
+    }
+  }
+
+  .location-hint {
+    font-size: 12px;
+    color: #6b7280;
+    font-family: 'Cairo', sans-serif;
+  }
+}
+
+// أيقونة نابضة
+@keyframes pulse-icon {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.2); }
+}
