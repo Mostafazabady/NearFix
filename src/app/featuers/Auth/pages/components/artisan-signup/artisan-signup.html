@@ -106,6 +106,9 @@
     </div>
   </form>
 
+
+
+  
 <div class="map-modal-overlay" *ngIf="isMapOpen" (click)="closeMap()">
   <div class="map-modal-content" (click)="$event.stopPropagation()">
 
@@ -114,26 +117,23 @@
       <button class="close-btn" (click)="closeMap()">&times;</button>
     </div>
 
-    <!-- زر الموقع الحالي -->
-        <div class="location-bar">
-          <button type="button" class="locate-btn" (click)="getCurrentLocation()">
-            <i class="fas fa-crosshairs"></i>
-            موقعي الحالي
-          </button>
-          <span class="location-hint">أو اضغط على الخريطة لتحديد موقعك</span>
-        </div>
+    <div class="location-bar">
+      <button type="button" class="locate-btn" (click)="getCurrentLocation()">
+        <i class="fas fa-crosshairs"></i>
+        موقعي الحالي
+      </button>
+      <span class="divider">أو</span>
+      <span class="location-hint">اضغط على الخريطة لتحديد موقعك</span>
+    </div>
 
-    <!-- الـ iframe -->
-    <iframe
-      [src]="iframeSrc | safe"
-      width="100%"
-      height="400"
-      frameborder="0"
-      scrolling="no"
-      style="border: none;">
-    </iframe>
+    <!-- ✅ الخريطة التفاعلية -->
+    <div id="interactive-map" style="width: 100%; height: 400px;"></div>
 
     <div class="modal-footer">
+      <div class="selected-location-info" *ngIf="signupForm.get('experience.lat')?.value">
+        <i class="fas fa-map-marker-alt"></i>
+        <span>{{ signupForm.get('experience.locationDetails')?.value }}</span>
+      </div>
       <button class="confirm-btn" (click)="closeMap()">
         <i class="fas fa-check"></i>
         تأكيد الموقع

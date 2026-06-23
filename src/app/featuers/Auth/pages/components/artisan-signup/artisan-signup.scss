@@ -890,3 +890,28 @@ textarea.custom-input {
   0%, 100% { transform: scale(1); }
   50%       { transform: scale(1.2); }
 }
+
+
+
+
+
+.selected-location-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #16a34a;
+  font-family: 'Cairo', sans-serif;
+  flex: 1;
+
+  i { color: #16a34a; }
+}
+
+.modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 20px;
+  border-top: 1px solid #e5e7eb;
+}
