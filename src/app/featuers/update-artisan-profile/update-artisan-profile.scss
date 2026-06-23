@@ -742,3 +742,119 @@ $radius-sm:   8px;
     padding: 12px;
   }
 }
+
+
+
+
+
+.schedule-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.schedule-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 10px 12px;
+
+  .schedule-num {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: rgba(108, 99, 255, 0.1);
+    color: #6c63ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .schedule-input {
+    flex: 1;
+    min-width: 0; // ✅ ده اللي بيمنع الخروج برا الصفحة
+    padding: 8px 12px;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 8px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 13px;
+    background: white;
+    transition: border-color 0.2s;
+
+    &:focus {
+      outline: none;
+      border-color: #6c63ff;
+      box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.08);
+    }
+  }
+
+  .hours-input {
+    flex: 1.4;
+  }
+
+  .schedule-delete-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    border: 1px solid #fecaca;
+    background: #fff5f5;
+    color: #ef4444;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s;
+
+    // ✅ مفيش disabled خالص
+    &:hover {
+      background: #fee2e2;
+      border-color: #ef4444;
+    }
+
+    i { font-size: 12px; }
+  }
+}
+
+// ✅ الريسبونسيف للموبايل
+@media (max-width: 600px) {
+  .schedule-row {
+    flex-wrap: wrap;
+    gap: 8px;
+
+    .schedule-num {
+      order: 1;
+    }
+
+    .schedule-delete-btn {
+      order: 2;
+      margin-right: auto; // ✅ بيدفعه لأقصى اليمين في RTL
+    }
+
+    .schedule-input {
+      order: 3;
+      width: calc(50% - 4px);
+      flex: none; // ✅ في الموبايل بنكسر الـ flex
+    }
+
+    .hours-input {
+      order: 4;
+      width: calc(50% - 4px);
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .schedule-row {
+    .schedule-input,
+    .hours-input {
+      width: 100%; // ✅ في الشاشات الصغيرة جداً كل input في سطر لوحده
+    }
+  }
+}

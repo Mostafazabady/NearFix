@@ -118,11 +118,15 @@ export class UpdateArtisanProfile implements OnInit {
     }));
   }
 
-  removeScheduleRow(i: number) {
-    if (this.scheduleArray.length > 1) {
-      this.scheduleArray.removeAt(i);
-    }
+removeScheduleRow(i: number) {
+  // ✅ مش بنمنع الحذف خالص، بس لو صف واحد بيمسح ويضيف فاضي
+  if (this.scheduleArray.length === 1) {
+    this.scheduleArray.clear();
+    this.addScheduleRow();
+  } else {
+    this.scheduleArray.removeAt(i);
   }
+}
 
   // ━━━━━━━━━━━━━ المهارات ━━━━━━━━━━━━━
   addSkill(event: Event) {
