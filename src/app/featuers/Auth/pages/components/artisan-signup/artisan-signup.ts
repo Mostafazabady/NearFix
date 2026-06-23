@@ -158,6 +158,18 @@ async uploadFile(userId: string, type: string, file: File | null): Promise<strin
     });
   }
 
+
+  private fixLeafletIcons(L: any) {
+  delete L.Icon.Default.prototype._getIconUrl;
+  L.Icon.Default.mergeOptions({
+    iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png',
+    iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon.png',
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
+  });
+}
+
+
+
   // --- منطق الخريطة (Leaflet) ---
   async openMapModal() {
     if (isPlatformBrowser(this.platformId)) {
@@ -167,17 +179,43 @@ async uploadFile(userId: string, type: string, file: File | null): Promise<strin
     }
   }
 
-  private initMap(L: any) {
-    if (this.map) this.map.remove();
-    const defaultCoords: [number, number] = [30.0444, 31.2357];
-    this.map = L.map('map-container').setView(defaultCoords, 13);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(this.map);
-    
-    this.map.on('click', (e: any) => {
-      const { lat, lng } = e.latlng;
-      this.updateMarker(L, lat, lng);
-    });
+private initMap(L: any) {
+  if (this.map) {
+    this.map.remove();
+    this.map = null;
+    this.marker = null;
   }
+
+  // ✅ Fix icons أول حاجة
+  this.fixLeafletIcons(L);
+
+  const container = document.getElementById('map-container');
+  if (!container) return;
+
+  const defaultCoords: [number, number] = [30.0444, 31.2357];
+  
+  this.map = L.map('map-container', {
+    center: defaultCoords,
+    zoom: 13,
+    // ✅ مهم على Production
+    preferCanvas: true
+  });
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors',
+    maxZoom: 19
+  }).addTo(this.map);
+
+  this.map.on('click', (e: any) => {
+    const { lat, lng } = e.latlng;
+    this.updateMarker(L, lat, lng);
+  });
+
+  // ✅ مهم جداً - بيخلي الخريطة تتحسب حجمها صح
+  setTimeout(() => {
+    this.map.invalidateSize();
+  }, 200);
+}
 
   updateMarker(L: any, lat: number, lng: number) {
     if (this.marker) this.marker.setLatLng([lat, lng]);
