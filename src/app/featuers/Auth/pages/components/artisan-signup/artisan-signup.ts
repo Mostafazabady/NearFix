@@ -4,11 +4,12 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Supabase } from '../../../../../core/services/supabase/supabase';
+import { SafePipe } from "./artisan-signup-pipe/safe-pipe";
 
 @Component({
   selector: 'app-artisan-signup',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, SafePipe],
   templateUrl: './artisan-signup.html',
   styleUrl: './artisan-signup.scss',
 })
@@ -16,8 +17,13 @@ export class ArtisanSignup implements OnInit {
   signupForm!: FormGroup;
   isLoading = signal(false); 
   
-  private map: any; 
-  private marker: any;
+  // private map: any; 
+  // private marker: any;
+
+  selectedLat: number = 30.0444;
+selectedLng: number = 31.2357;
+
+
   isMapOpen: boolean = false;
 
   selectedFiles: { [key: string]: File | null } = {
@@ -159,74 +165,35 @@ async uploadFile(userId: string, type: string, file: File | null): Promise<strin
   }
 
 
-  private fixLeafletIcons(L: any) {
-  delete L.Icon.Default.prototype._getIconUrl;
-  L.Icon.Default.mergeOptions({
-    iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png',
-    iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon.png',
-    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
-  });
+  get iframeSrc(): string {
+  return `https://www.openstreetmap.org/export/embed.html?bbox=${this.selectedLng - 0.01},${this.selectedLat - 0.01},${this.selectedLng + 0.01},${this.selectedLat + 0.01}&layer=mapnik&marker=${this.selectedLat},${this.selectedLng}`;
 }
 
-
-
-  // --- منطق الخريطة (Leaflet) ---
-  async openMapModal() {
-    if (isPlatformBrowser(this.platformId)) {
-      this.isMapOpen = true;
-      const L = await import('leaflet');
-      setTimeout(() => { this.initMap(L); }, 100);
-    }
+openMapModal() {
+  if (isPlatformBrowser(this.platformId)) {
+    this.isMapOpen = true;
   }
-
-private initMap(L: any) {
-  if (this.map) {
-    this.map.remove();
-    this.map = null;
-    this.marker = null;
-  }
-
-  // ✅ Fix icons أول حاجة
-  this.fixLeafletIcons(L);
-
-  const container = document.getElementById('map-container');
-  if (!container) return;
-
-  const defaultCoords: [number, number] = [30.0444, 31.2357];
-  
-  this.map = L.map('map-container', {
-    center: defaultCoords,
-    zoom: 13,
-    // ✅ مهم على Production
-    preferCanvas: true
-  });
-
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© OpenStreetMap contributors',
-    maxZoom: 19
-  }).addTo(this.map);
-
-  this.map.on('click', (e: any) => {
-    const { lat, lng } = e.latlng;
-    this.updateMarker(L, lat, lng);
-  });
-
-  // ✅ مهم جداً - بيخلي الخريطة تتحسب حجمها صح
-  setTimeout(() => {
-    this.map.invalidateSize();
-  }, 200);
 }
 
-  updateMarker(L: any, lat: number, lng: number) {
-    if (this.marker) this.marker.setLatLng([lat, lng]);
-    else this.marker = L.marker([lat, lng], { draggable: true }).addTo(this.map);
+getCurrentLocation() {
+  if (isPlatformBrowser(this.platformId) && navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        this.selectedLat = position.coords.latitude;
+        this.selectedLng = position.coords.longitude;
 
-    this.signupForm.get('experience')?.patchValue({
-      lat: lat,
-      lng: lng,
-      locationDetails: `إحداثيات: ${lat.toFixed(4)}, ${lng.toFixed(4)}`
-    });
+        this.signupForm.get('experience')?.patchValue({
+          lat: this.selectedLat,
+          lng: this.selectedLng,
+          locationDetails: `إحداثيات: ${this.selectedLat.toFixed(4)}, ${this.selectedLng.toFixed(4)}`
+        });
+      },
+      () => {
+        Swal.fire('تنبيه', 'مش قادر يوصل لموقعك', 'warning');
+      }
+    );
   }
+}
 
   closeMap() { this.isMapOpen = false; }
 }
